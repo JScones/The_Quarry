@@ -5,20 +5,28 @@ import java.util.ArrayList;
 public class Main {
 
 	public static void main(String[] args) {
+		
+		ArrayList<Player> players = new ArrayList<>();
 		Scanner in = new Scanner(System.in);
 		
-		System.out.println("Name:");
-	    String name = in.next();
-	    
-	    Lion bob = new Lion("Bob");
-	    Lion jim = new Lion("Jim");
-	    ArrayList<Pet> pets = new ArrayList<>();
-	    pets.add(bob);
-	    pets.add(jim);
-	    
-	    Player p1 = new Player(name, pets);
-	    
-	    System.out.println(p1);
+		System.out.println("How many people would like to play?");
+		int numPlayers = in.nextInt();
+		
+		CreatePlayers playerCreator = new CreatePlayers();
+		
+		for(int i = 0; i < numPlayers; i++)
+		{
+			System.out.println(String.format("Player %d, what is your name?", i+1));
+			Player p = playerCreator.makePlayer();
+			players.add(p);
+		}
+		in.close();
+		
+		for(int j = 0; j < players.size(); j++)
+		{
+			System.out.println();
+			System.out.println(players.get(j));
+		}
 
 	}
 
