@@ -23,7 +23,7 @@ public class Main {
 			players.add(p);
 		}
 		in.close();
-		
+		System.out.println();
 		for(int j = 0; j < players.size(); j++)
 		{
 			System.out.println();
