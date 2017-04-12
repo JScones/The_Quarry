@@ -8,6 +8,7 @@ public class CreatePlayers {
 	private ArrayList<String> petNames = new ArrayList<>();
 	private int numPlayers;
 	private int maxPets = 5;
+	private String curPlayerName;
 	
 	public CreatePlayers()
 	{
@@ -16,15 +17,31 @@ public class CreatePlayers {
 	
 	public Player makePlayer()
 	{
+		curPlayerName = getName();
+	    
+	    ArrayList<Pet> pets = createPets();
+	    
+	    Player p = new Player(curPlayerName, pets);
+	    return p;
+	}
+	
+	private String getName()
+	{
 		System.out.println(String.format("Player %d, what is your name?", numPlayers++));
-	    String name = in.next();
-		while(playerNames.contains(name))
+		String tempName = in.next();
+		while(playerNames.contains(tempName))
 		{
 			System.out.println("Sorry, that name is taken. Please enter another:");
-			name = in.next();
+			tempName = in.next();
 		}
-	    playerNames.add(name);
-	    System.out.println(String.format("Ok %s, how many pets do you want?", name));
+	    playerNames.add(tempName);
+	    
+	    return tempName;
+	}
+	
+	private ArrayList<Pet> createPets()
+	{
+		System.out.println(String.format("Ok %s, how many pets do you want?", curPlayerName));
 	    boolean isValid = false;
 	    int numPets = 0;
 	    while(!(isValid))
@@ -78,8 +95,8 @@ public class CreatePlayers {
 		    Lion p = new Lion(thisPetName);
 		    pets.add(p);
 	    }
-	    Player p = new Player(name, pets);
-	    return p;
+	    
+	    return pets;
 	}
 	
 }

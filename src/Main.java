@@ -3,10 +3,11 @@ import java.util.ArrayList;
 
 
 public class Main {
-
-	public static void main(String[] args) {
-		
-		ArrayList<Player> players = new ArrayList<>();
+	
+	private static ArrayList<Player> players = new ArrayList<>();
+	
+	private static void setUp()
+	{
 		Scanner in = new Scanner(System.in);
 		
 		System.out.println("How many people would like to play?");
@@ -20,6 +21,12 @@ public class Main {
 			players.add(p);
 		}
 		in.close();
+	}
+
+	public static void main(String[] args) {
+	
+		setUp();
+		
 		System.out.println();
 		for(int j = 0; j < players.size(); j++)
 		{
