@@ -7,6 +7,7 @@ public class CreatePlayers {
 	private ArrayList<String> playerNames = new ArrayList<>();
 	private ArrayList<String> petNames = new ArrayList<>();
 	private int numPlayers;
+	private int maxPets = 5;
 	
 	public CreatePlayers()
 	{
@@ -36,6 +37,11 @@ public class CreatePlayers {
 			    {
 			    	isValid = false;
 			    	System.out.println("You need atleast one pet, please enter a positive number.");
+			    }
+			    if(numPets > maxPets)
+			    {
+			    	isValid = false;
+			    	System.out.println("Sorry, thats too many pets! be realistic (less than 5)");
 			    }
 		    }
 		    catch(InputMismatchException ime)
