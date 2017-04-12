@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 import java.util.Scanner;
 
 public class CreatePlayers {
@@ -24,7 +24,29 @@ public class CreatePlayers {
 		}
 	    playerNames.add(name);
 	    System.out.println(String.format("Ok %s, how many pets do you want?", name));
-	    int numPets = in.nextInt();
+	    boolean isValid = false;
+	    int numPets = 0;
+	    while(!(isValid))
+	    {
+		    try
+		    {
+		    	numPets = in.nextInt();
+		    	isValid = true;
+			    if(numPets <= 0)
+			    {
+			    	isValid = false;
+			    	System.out.println("You need atleast one pet, please enter a positive number.");
+			    }
+		    }
+		    catch(InputMismatchException ime)
+		    {
+		    	System.out.println("Invalid input. Please enter a valid number.");
+		    	in.nextLine();
+		    }
+		    
+
+		    
+	    }
 	    
 	    ArrayList<Pet> pets = new ArrayList<>();
 	    String[] species = {"Lion"};
