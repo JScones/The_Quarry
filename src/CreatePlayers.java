@@ -7,7 +7,7 @@ public class CreatePlayers {
 	private ArrayList<String> playerNames = new ArrayList<>();
 	private ArrayList<String> petNames = new ArrayList<>();
 	private int numPlayers;
-	private int maxPets = 5;
+	private int maxPets = 3;
 	private String curPlayerName;
 	
 	public CreatePlayers()
@@ -41,6 +41,7 @@ public class CreatePlayers {
 	
 	private ArrayList<Pet> createPets()
 	{
+		
 		System.out.println(String.format("Ok %s, how many pets do you want?", curPlayerName));
 	    boolean isValid = false;
 	    int numPets = 0;
@@ -55,10 +56,10 @@ public class CreatePlayers {
 			    	isValid = false;
 			    	System.out.println("You need atleast one pet, please enter a positive number.");
 			    }
-			    if(numPets > maxPets)
+			    if(numPets >= maxPets)
 			    {
 			    	isValid = false;
-			    	System.out.println("Sorry, thats too many pets! be realistic (less than 5)");
+			    	System.out.println("Sorry, thats too many pets! be realistic (3 or less)");
 			    }
 		    }
 		    catch(InputMismatchException ime)
@@ -72,7 +73,21 @@ public class CreatePlayers {
 	    }
 	    
 	    ArrayList<Pet> pets = new ArrayList<>();
-	    String[] species = {"Lion"};
+	    String[] species = {"Lion", "Gorilla"};
+	    
+	    //Creating default pets, could add a random gen for favToys, other traits here
+    	Lion l = new Lion("");
+    	Gorilla g = new Gorilla("");
+	    
+	    System.out.println("Do you want to view the stats of each pet before choosing? (y/n)");
+	    char viewStats = in.next().charAt(0);
+	    if(viewStats == 'y')
+	    {
+	    	l.displayPetStats();
+	    	g.displayPetStats();
+	    }
+	    	
+	    
 	    for(int j = 1; j <= numPets; j++)
 	    {
 	    	System.out.println("Which species for pet " + j + ":");
@@ -92,8 +107,21 @@ public class CreatePlayers {
 			}
 		    petNames.add(thisPetName);
 		    
-		    Lion p = new Lion(thisPetName);
-		    pets.add(p);
+		    switch(thisPet) {
+		    
+		    case 0:
+		    	l.setName(thisPetName);
+		    	pets.add(l);
+			    break;
+			    
+		    case 1:
+		    	g.setName(thisPetName);
+		    	pets.add(g);
+		    	break;
+		    }
+		    
+		    
+		    
 	    }
 	    
 	    return pets;

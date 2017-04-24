@@ -12,6 +12,8 @@ public class Main {
 		
 		System.out.println("How many people would like to play?");
 		int numPlayers = in.nextInt();
+		System.out.println("How many days do you want to play?");
+		int numDays = in.nextInt();
 		
 		CreatePlayers playerCreator = new CreatePlayers();
 		
@@ -32,7 +34,9 @@ public class Main {
 		{
 			System.out.println();
 			System.out.println(players.get(j));
+			players.get(j).printPets();
 		}
+		
 
 	}
 

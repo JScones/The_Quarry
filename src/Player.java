@@ -28,5 +28,12 @@ public class Player {
 		}
 		return String.format(out, name, printPets);
 	}
+	
+	public void printPets()
+	{
+		for(int i = 0; i < pets.size(); i++){
+			pets.get(i).displayPetStats();
+		}
+	}
 
 }
