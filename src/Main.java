@@ -1,19 +1,37 @@
 import java.util.Scanner;
 import java.util.ArrayList;
 
-
+/**
+ * Main class that runs the Tamagotchi style game.
+ * 
+ * First sets up the game environment, asking for the number of players and days.
+ * Then gathers each players information (player name, pets, pet's names).
+ * Then begins the main game loop.
+ * 
+ * @author Josh & Jack
+ *
+ */
 public class Main {
 	
 	private static ArrayList<Player> players = new ArrayList<>();
+	private static int numDays;
+	private static int numPlayers;
 	
+	/**
+	 * Initial set up stage.
+	 * 
+	 * Asks for the number of players (NEEDS ERROR HANDLING)
+	 * Asks for the number of days (NEEDS ERROR HANDLING)
+	 * Creates the players
+	 */
 	private static void setUp()
 	{
 		Scanner in = new Scanner(System.in);
 		
 		System.out.println("How many people would like to play?");
-		int numPlayers = in.nextInt();
+		numPlayers = in.nextInt();
 		System.out.println("How many days do you want to play?");
-		int numDays = in.nextInt();
+		numDays = in.nextInt();
 		
 		CreatePlayers playerCreator = new CreatePlayers();
 		
@@ -25,6 +43,11 @@ public class Main {
 		in.close();
 	}
 
+	/**
+	 * Main method, calls set up (That's all it does so far :(  ).
+	 * 
+	 * @param args Catches command line arguments.
+	 */
 	public static void main(String[] args) {
 	
 		setUp();

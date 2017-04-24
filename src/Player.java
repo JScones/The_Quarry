@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 
+
 public class Player {
 
 	private String name;
@@ -16,7 +17,7 @@ public class Player {
 	
 	public String toString()
 	{
-		String out = "player: %s has pets %s";
+		String out = "player: %s has pet(s) %s";
 		String printPets = "";
 		for(int i = 0; i < pets.size(); i++)
 		{
