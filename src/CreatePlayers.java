@@ -125,11 +125,17 @@ public class CreatePlayers {
 	{
 		
 	    ArrayList<Pet> pets = new ArrayList<>();
-	    String[] species = {"Lion", "Gorilla"};
+	    String[] species = {"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"};
 	    
 	    //Creating default pets, could add a random gen for favToys, other traits here
-    	Lion l = new Lion("");
-    	Gorilla g = new Gorilla("");
+//    	Lion l = new Lion("");
+//    	Gorilla g = new Gorilla("");
+	    Pet l = new Pet(0);
+	    Pet g = new Pet(1);
+	    Pet e = new Pet(2);
+	    Pet t = new Pet(3);
+	    Pet p = new Pet(4);
+	    Pet s = new Pet(5);
 	    
 	    System.out.println("Do you want to view the stats of each pet before choosing? (y/n)");
 	    char viewStats = in.next().charAt(0);
@@ -137,6 +143,10 @@ public class CreatePlayers {
 	    {
 	    	l.displayPetStats();
 	    	g.displayPetStats();
+	    	e.displayPetStats();
+	    	t.displayPetStats();
+	    	p.displayPetStats();
+	    	s.displayPetStats();
 	    }
 	    	
 	    // This loop gets each pet's species and name (checking for duplicates) and adds them to an Array list
@@ -148,14 +158,14 @@ public class CreatePlayers {
 		    	System.out.println(k + " " + species[k-1]);
 		    }
 		    System.out.println("Please enter a number (1-6)");
-		    int thisPet = in.nextInt() - 1;
+		    int thisPet = in.nextInt() - 1; //error handling?
 		    	
 		    System.out.println("What do you want to name your " + species[thisPet]);
-		    String thisPetName = in.next();
+		    String thisPetName = in.next();  //error handling?
 			while(petNames.contains(thisPetName))
 			{
 				System.out.println("Sorry, that name is taken. Please enter another:");
-				thisPetName = in.next();
+				thisPetName = in.next(); //error handling?
 			}
 		    petNames.add(thisPetName);
 		    
@@ -170,6 +180,26 @@ public class CreatePlayers {
 		    case 1: // Gorilla
 		    	g.setName(thisPetName);
 		    	pets.add(g);
+		    	break;
+		    	
+		    case 2: //Eagle
+		    	e.setName(thisPetName);
+		    	pets.add(e);
+		    	break;
+		    	
+		    case 3: // Tiger
+		    	t.setName(thisPetName);
+		    	pets.add(t);
+		    	break;
+		    	
+		    case 4: // Elephant
+		    	p.setName(thisPetName);
+		    	pets.add(p);
+		    	break;
+		    	
+		    case 5: // Snake
+		    	s.setName(thisPetName);
+		    	pets.add(s);
 		    	break;
 		    	
 		    // MORE NEEDED HERE

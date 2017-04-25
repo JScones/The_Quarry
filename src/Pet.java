@@ -1,7 +1,8 @@
 
 public class Pet {
 
-	private String species;
+	private int speciesInt;
+	private String[] species = {"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"};
 	private String name;
 	private int hunger;
 	protected int maxHunger;
@@ -14,22 +15,36 @@ public class Pet {
 	private int mood = 10;
 	private int dayActions = 2;
 	
+	// {lion: appetite, energy, weight; gorilla: appetite, energy, weight} 
+	private int[][] stats = new int[][]{
+							{8, 15, 10}, 
+							{5, 4, 250}, 
+							{7, 8, 9}, 
+							{10, 11, 12}, 
+							{13, 14, 15}, 
+							{16, 17, 18}
+	};
+	
+	
 	protected String favToy;
 	
-	public Pet(String aSpecies, int aWeight)
+	public Pet(int aSpecies)
 	{
-		species = aSpecies;
-		weight = aWeight;
+		speciesInt = aSpecies;
+		weight = stats[speciesInt][2];
 		favToy = "Ball";
+		maxHunger = stats[speciesInt][0];
+		maxEnergy = stats[speciesInt][1];
 	}
 	
 	public String toString()
 	{
-		return name + " (" + species + ")";
+		return name + " (" + species[speciesInt] + ")";
 	}
 	
 	protected void setStats(String aName, String aFavToy)
 	{
+
 		hunger = maxHunger;
 		energy = maxEnergy;
 		
@@ -46,7 +61,7 @@ public class Pet {
 	protected void displayPetStats()
 	{
 		System.out.println();
-		System.out.println(species + ":");
+		System.out.println(species[speciesInt] + ":");
 		System.out.println("Appetite: " + maxHunger + "/10");
 		System.out.println("Energy: " + maxEnergy + "/10");
 		System.out.println("Weight: " + weight + "Kg");
