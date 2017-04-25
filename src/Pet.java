@@ -17,12 +17,12 @@ public class Pet {
 	
 	// {lion: appetite, energy, weight; gorilla: appetite, energy, weight} 
 	private int[][] stats = new int[][]{
-							{8, 15, 10}, 
-							{5, 4, 250}, 
-							{7, 8, 9}, 
-							{10, 11, 12}, 
-							{13, 14, 15}, 
-							{16, 17, 18}
+							{8, 15, 100}, //Lion
+							{5, 4, 250}, //Gorilla
+							{7, 8, 15}, //eagle
+							{10, 11, 85}, //tiger
+							{13, 14, 1206}, //elephant
+							{16, 17, 4}  //snake
 	};
 	
 	

@@ -130,23 +130,24 @@ public class CreatePlayers {
 	    //Creating default pets, could add a random gen for favToys, other traits here
 //    	Lion l = new Lion("");
 //    	Gorilla g = new Gorilla("");
-	    Pet l = new Pet(0);
-	    Pet g = new Pet(1);
-	    Pet e = new Pet(2);
-	    Pet t = new Pet(3);
-	    Pet p = new Pet(4);
-	    Pet s = new Pet(5);
+
+	    Pet lion = new Pet(0);
+	    Pet gorilla = new Pet(1);
+	    Pet eagle = new Pet(2);
+	    Pet tiger = new Pet(3);
+	    Pet elephant = new Pet(4);
+	    Pet snake = new Pet(5);
 	    
 	    System.out.println("Do you want to view the stats of each pet before choosing? (y/n)");
 	    char viewStats = in.next().charAt(0);
 	    if(viewStats == 'y')
 	    {
-	    	l.displayPetStats();
-	    	g.displayPetStats();
-	    	e.displayPetStats();
-	    	t.displayPetStats();
-	    	p.displayPetStats();
-	    	s.displayPetStats();
+	    	lion.displayPetStats();
+	    	gorilla.displayPetStats();
+	    	eagle.displayPetStats();
+	    	tiger.displayPetStats();
+	    	elephant.displayPetStats();
+	    	snake.displayPetStats();
 	    }
 	    	
 	    // This loop gets each pet's species and name (checking for duplicates) and adds them to an Array list
@@ -173,33 +174,33 @@ public class CreatePlayers {
 		    switch(thisPet) {
 		    
 		    case 0: // Lion
-		    	l.setName(thisPetName);
-		    	pets.add(l);
+		    	lion.setName(thisPetName);
+		    	pets.add(lion);
 			    break;
 			    
 		    case 1: // Gorilla
-		    	g.setName(thisPetName);
-		    	pets.add(g);
+		    	gorilla.setName(thisPetName);
+		    	pets.add(gorilla);
 		    	break;
 		    	
 		    case 2: //Eagle
-		    	e.setName(thisPetName);
-		    	pets.add(e);
+		    	eagle.setName(thisPetName);
+		    	pets.add(eagle);
 		    	break;
 		    	
 		    case 3: // Tiger
-		    	t.setName(thisPetName);
-		    	pets.add(t);
+		    	tiger.setName(thisPetName);
+		    	pets.add(tiger);
 		    	break;
 		    	
 		    case 4: // Elephant
-		    	p.setName(thisPetName);
-		    	pets.add(p);
+		    	elephant.setName(thisPetName);
+		    	pets.add(elephant);
 		    	break;
 		    	
 		    case 5: // Snake
-		    	s.setName(thisPetName);
-		    	pets.add(s);
+		    	snake.setName(thisPetName);
+		    	pets.add(snake);
 		    	break;
 		    	
 		    // MORE NEEDED HERE
