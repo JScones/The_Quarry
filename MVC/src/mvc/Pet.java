@@ -1,8 +1,7 @@
+import java.util.*;
 
 public class Pet {
 
-	private int speciesInt;
-	//String[] species = {"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"};
 	private String species;
 	private String name;
 	private int hunger;
@@ -16,63 +15,61 @@ public class Pet {
 	private int mood = 10;
 	private int dayActions = 2;
 	
-	// {lion: appetite, energy, weight; gorilla: appetite, energy, weight} 
-	private int[][] stats = new int[][]{
-							{8, 15, 100}, //Lion
-							{5, 4, 250}, //Gorilla
-							{7, 8, 15}, //eagle
-							{10, 11, 85}, //tiger
-							{13, 14, 1206}, //elephant
-							{16, 17, 4}  //snake
-	};
+	private Toy favToy;
 	
+	//{"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"}
+	private static final Map<String, int[]> speciesMap = createSpeciesMap();
 	
-	protected String favToy;
-	
-	public Pet(int aSpecies)
+	private static Map<String, int[]> createSpeciesMap()
 	{
+		Map<String, int[]> speciesMap = new Hashtable()
+		speciesMap.put("Lion", new int[]{8, 15, 100});
+		speciesMap.put("Gorilla", new int[]{5, 4, 250});
+		speciesMap.put("Eagle", new int[]{7, 8, 15});
+		speciesMap.put("Tiger", new int[]{10, 11, 85});
+		speciesMap.put("Elephant", new int[]{13, 14, 1206});
+		speciesMap.put("Snake", new int[]{16, 17, 4});
 		
-		speciesInt = aSpecies;
-		weight = stats[speciesInt][2];
-		favToy = "Ball";
-		maxHunger = stats[speciesInt][0];
-		maxEnergy = stats[speciesInt][1];
-		
+		return speciesMap;
 	}
 	
-	public Pet(String aSpecies, int[] stats, )
+	public Pet(String aSpecies, Toy aFavToy)
 	{
 		species = aSpecies;
-		maxHunger = stats[0];
-		maxEnergy = stats[1];
-		weight = stats[2];
+		int[] petStats = speciesMap.get(species);
+		maxHunger = petStats[0];
+		maxEnergy = petStats[1];
+		weight = petStats[2];
+		hunger = maxHunger;
+		energy = maxEnergy;
+		favToy = aFavToy;
 	}
 	
 	public String toString()
 	{
-		return name + " (" + species[speciesInt] + ")";
+		return name + " (" + species + ")";
 	}
 	
-	protected void setStats(String aName, String aFavToy)
-	{
-
-		hunger = maxHunger;
-		energy = maxEnergy;
-		
-		name = aName;
-		favToy = aFavToy;
-	}
 	
-	protected void setName(String aName)
+	public void setName(String aName)
 	{
 		name = aName;
 	}
 	
+	public int[] getStats()
+	{
+		return new int[]{hunger, energy, weight, toilet, health, mood};
+	}
 	
-	protected void displayPetStats()
+	public Toy getFavToy()
+	{
+		return favToy;
+	}
+	
+	public void displayPetStats()
 	{
 		System.out.println();
-		System.out.println(species[speciesInt] + ":");
+		System.out.println(species + ":");
 		System.out.println("Appetite: " + maxHunger + "/10");
 		System.out.println("Energy: " + maxEnergy + "/10");
 		System.out.println("Weight: " + weight + "Kg");
@@ -80,7 +77,7 @@ public class Pet {
 		System.out.println();
 	}
 	
-	protected void dayEnd()
+	public void dayEnd()
 	{
 		hunger -= 4;
 		energy -= 3;
@@ -92,7 +89,7 @@ public class Pet {
 		
 	}
 	
-	protected void play(Toy toy)
+	public void play(Toy toy)
 	{
 		if( toy.getName() == favToy)
 		{
@@ -106,14 +103,15 @@ public class Pet {
 		}
 	}
 	
-	protected void feed(Food food)
+	public void feed(Food food)
 	{
 		hunger += food.getValue();
 		// when calling this in main, food must be removed from inventory
 	}
 	
-	protected void sleep()
+	public void sleep()
 	{
 		energy += 5;
 	}
+	
 }

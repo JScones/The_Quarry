@@ -3,7 +3,8 @@ package mvc;
 public class TamaModel {
 	
 	private int clickCount;
-	String[] species = {"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"};
+	private String[] species = {"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"};
+
 
 	public TamaModel()
 	{

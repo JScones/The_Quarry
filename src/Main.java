@@ -1,5 +1,4 @@
-import java.util.Scanner;
-import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Main class that runs the Tamagotchi style game.
@@ -16,6 +15,8 @@ public class Main {
 	private static ArrayList<Player> players = new ArrayList<>();
 	private static int numDays;
 	private static int numPlayers;
+
+
 	
 	/**
 	 * Initial set up stage.
@@ -49,7 +50,9 @@ public class Main {
 	 * @param args Catches command line arguments.
 	 */
 	public static void main(String[] args) {
-	
+
+		Pet lion = new Pet("Lion", new Toy());
+		System.out.println(lion);
 		setUp();
 		
 		System.out.println();
@@ -59,6 +62,8 @@ public class Main {
 			System.out.println(players.get(j));
 			players.get(j).printPets();
 		}
+	
+		
 		
 
 	}

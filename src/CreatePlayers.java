@@ -131,12 +131,12 @@ public class CreatePlayers {
 //    	Lion l = new Lion("");
 //    	Gorilla g = new Gorilla("");
 
-	    Pet lion = new Pet(0);
-	    Pet gorilla = new Pet(1);
-	    Pet eagle = new Pet(2);
-	    Pet tiger = new Pet(3);
-	    Pet elephant = new Pet(4);
-	    Pet snake = new Pet(5);
+	    Pet lion = new Pet("Lion", new Toy());
+	    Pet gorilla = new Pet("Gorilla", new Toy());
+	    Pet eagle = new Pet("Eagle", new Toy());
+	    Pet tiger = new Pet("Tiger", new Toy());
+	    Pet elephant = new Pet("Elephant", new Toy());
+	    Pet snake = new Pet("Snake", new Toy());
 	    
 	    System.out.println("Do you want to view the stats of each pet before choosing? (y/n)");
 	    char viewStats = in.next().charAt(0);

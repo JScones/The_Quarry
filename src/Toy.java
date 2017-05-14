@@ -13,6 +13,11 @@ public class Toy {
 		
 	}
 	
+	public Toy()
+	{
+		
+	}
+	
 	public String getName()
 	{
 		return name;
