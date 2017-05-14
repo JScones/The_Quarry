@@ -1,7 +1,6 @@
 package mvc;
 
 import java.awt.*;
-
 import javax.swing.*;
 import javax.swing.text.*;
 
@@ -19,6 +18,8 @@ public class GUI_Test_DONTUSE {
 	private JButton help = new JButton("Help");
 	private JButton back = new JButton("Back");
 	private Dimension buttonSize = new Dimension(225, 50);
+	private JTabbedPane creatureTabs = new JTabbedPane();
+	private JPanel statHolder = new JPanel();
 	
 	private String helpText = "This is where the help text goes\n";
 
@@ -91,9 +92,20 @@ public class GUI_Test_DONTUSE {
 		helpCard.add(back, "grow");
 		
 		
+		statHolder.setPreferredSize(new Dimension(500,500));
+		statHolder.add(new JTextField("Hello"));
+		ImageIcon lionIcon = new ImageIcon("resources/lion_small.png");
+		creatureTabs.addTab("Lion", lionIcon, statHolder);
+		
+		JPanel tab2 = new JPanel();
+		tab2.add(new JTextField("Number 2"));
+		
+		creatureTabs.addTab("Gorilla", tab2);
+		
 		cards = new JPanel(new CardLayout());
 		//cards.add(menuCard, "Menu");
-		cards.add(helpCard, "Help");
+		//cards.add(helpCard, "Help");
+		cards.add(creatureTabs, "Creature");
 		
 		//frame.add(mainPane, BorderLayout.PAGE_START);
 		frame.getContentPane().add(cards, BorderLayout.CENTER);

@@ -2,7 +2,8 @@
 public class Pet {
 
 	private int speciesInt;
-	String[] species = {"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"};
+	//String[] species = {"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"};
+	private String species;
 	private String name;
 	private int hunger;
 	protected int maxHunger;
@@ -30,11 +31,21 @@ public class Pet {
 	
 	public Pet(int aSpecies)
 	{
+		
 		speciesInt = aSpecies;
 		weight = stats[speciesInt][2];
 		favToy = "Ball";
 		maxHunger = stats[speciesInt][0];
 		maxEnergy = stats[speciesInt][1];
+		
+	}
+	
+	public Pet(String aSpecies, int[] stats, )
+	{
+		species = aSpecies;
+		maxHunger = stats[0];
+		maxEnergy = stats[1];
+		weight = stats[2];
 	}
 	
 	public String toString()
