@@ -22,7 +22,7 @@ public class Pet {
 	
 	private static Map<String, int[]> createSpeciesMap()
 	{
-		Map<String, int[]> speciesMap = new Hashtable()
+		Map<String, int[]> speciesMap = new Hashtable<String, int[]>();
 		speciesMap.put("Lion", new int[]{8, 15, 100});
 		speciesMap.put("Gorilla", new int[]{5, 4, 250});
 		speciesMap.put("Eagle", new int[]{7, 8, 15});

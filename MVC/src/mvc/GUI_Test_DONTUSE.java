@@ -99,12 +99,13 @@ public class GUI_Test_DONTUSE {
 		
 		JPanel tab2 = new JPanel();
 		tab2.add(new JTextField("Number 2"));
+		tab2.add(new JButton("CLick me"));
 		
 		creatureTabs.addTab("Gorilla", tab2);
 		
 		cards = new JPanel(new CardLayout());
-		//cards.add(menuCard, "Menu");
-		//cards.add(helpCard, "Help");
+		cards.add(menuCard, "Menu");
+		cards.add(helpCard, "Help");
 		cards.add(creatureTabs, "Creature");
 		
 		//frame.add(mainPane, BorderLayout.PAGE_START);
