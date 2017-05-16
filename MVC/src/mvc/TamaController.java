@@ -22,16 +22,22 @@ public class TamaController {
 			String command = e.getActionCommand();
 			if(command == "Start")
 			{
-				m_model.clicked();
-				System.out.println(m_model.getClickCount());
+				m_view.changeView("Setup");
 			}
 			else if(command == "Help")
 			{
-				m_view.updateText();
+				//m_view.updateText();
 				m_view.changeView("Help");
 			}
 			else if(command == "Back")
+			{
 				m_view.changeView("Menu");
+			}
+			else if(command == "Next")
+			{
+				System.out.println(m_view.getNumPlayers() + " players");
+				System.out.println(m_view.getNumDays() + " days");
+			}
 		}
 	}
 }

@@ -20,6 +20,18 @@ public class TamaModel{
 	{
 		return clickCount;
 	}
+	
+	public String getMainMenuText()
+	{
+		String main = "Welcome to our tamagotchi game";
+		return main;
+	}
+	
+	public String getHelpText()
+	{
+		String help = "<html>This is where the help text goes<BR></html>";
+		return help;
+	}
 		
 		
 }

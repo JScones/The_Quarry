@@ -18,49 +18,60 @@ public class TamaView {
 	JPanel cards;
 	
 	// First menu components
-	private JTextPane menuTextPane = new JTextPane();
-	private JTextPane helpTextPane = new JTextPane();
+	private JLabel helpTextLabel = new JLabel();
+	private JLabel menuTextLabel = new JLabel();
+	private JLabel numPlayersLabel = new JLabel("How many players?");
+	private JLabel numDaysLabel = new JLabel("How many days would you like to play for?");
 	private JButton start = new JButton("Start");
 	private JButton help = new JButton("Help");
 	private JButton back = new JButton("Back");
+	private JButton next = new JButton("Next");
+	private JRadioButton players1 = new JRadioButton("1 player  ");
+	private JRadioButton players2 = new JRadioButton("2 players  ");
+	private JRadioButton players3 = new JRadioButton("3 players  ");
+	private JRadioButton days1 = new JRadioButton("1 day  ");
+	private JRadioButton days2 = new JRadioButton("2 days  ");
+	private JRadioButton days3 = new JRadioButton("3 days  ");
+	private JRadioButton days4 = new JRadioButton("4 days  ");
+	private JRadioButton days5 = new JRadioButton("5 days  ");
+	
+	private ButtonGroup numPlayersGroup = new ButtonGroup();
+	private ButtonGroup numDaysGroup = new ButtonGroup();
 	private Dimension buttonSize = new Dimension(225, 50);
 	
 	
-	private String[] animals = new String[] {"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"};
-	private String helpText = "This is where the help text goes\n";
-	private final JPanel panel = new JPanel();
-	private final JComboBox comboBox = new JComboBox(new Object[]{});
-	private final JComboBox comboBox_1 = new JComboBox(new Object[]{});
-	private final JComboBox comboBox_2 = new JComboBox(new Object[]{});
+	
 
 	
 	public TamaView(TamaModel model)
 	{
 		m_model = model;
+		initialise();
 		
-		//Trying miglayout
-		MigLayout menuLayout = new MigLayout("fill, insets 20", "[grow][grow][grow][]", "[][][][]");
+	}
+	
+	private void initialise()
+	{
+		//Make Menu card
+		MigLayout menuLayout = new MigLayout(
+				"fill, insets 20", 
+				"[][]",
+				"[][]");
 		
-		//Create cards
 		JPanel menuCard = new JPanel();
 		menuCard.setLayout(menuLayout);
-		menuTextPane.setEditable(false);
-		menuTextPane.setText("Let's test this out");
-		
-		//Centering the text http://stackoverflow.com/questions/3213045/centering-text-in-a-jtextarea-or-jtextpane-horizontal-text-alignment
-		StyledDocument doc = menuTextPane.getStyledDocument();
-		SimpleAttributeSet center = new SimpleAttributeSet();
-		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-		doc.setParagraphAttributes(0, doc.getLength(), center, false);
-		
+		//centerText(menuTextPane);
+		menuTextLabel.setText(m_model.getMainMenuText());
+		menuTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		//
 		//info1.setPreferredSize(new Dimension(450, 300));
-		menuCard.add(menuTextPane, "cell 0 0 4 1,push ,alignx center,grow");
+		menuCard.add(menuTextLabel, "span,grow,center,wrap, push");
 		start.setPreferredSize(buttonSize);
-		menuCard.add(start, "cell 0 2 4 1,alignx center,hmax 50,grow");
+		menuCard.add(start, "grow, hmax 50,center, span, split 2");
 		help.setPreferredSize(buttonSize);
-		menuCard.add(help, "cell 0 2 4 1,alignx center,hmax 50,grow");
+		menuCard.add(help, "grow, hmax 50,center");
 		
+		//Make Help menu card
 		MigLayout helpLayout = new MigLayout(
 				"fill, insets 20", 
 				"[]",
@@ -68,28 +79,70 @@ public class TamaView {
 		
 		JPanel helpCard = new JPanel();
 		helpCard.setLayout(helpLayout);
-		helpTextPane.setText(helpText);
-		helpTextPane.setEditable(false);
+		helpTextLabel.setText(m_model.getHelpText());
+		helpTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		helpCard.add(helpTextPane, "span,grow,center,wrap, push");
+		helpCard.add(helpTextLabel, "span,grow,center,wrap, push");
 		back.setPreferredSize(buttonSize);
 		helpCard.add(back, "grow");
 		
+		//Make the Setup card
+		MigLayout setupLayout = new MigLayout(
+				"fill, insets 20, wrap 2", 
+				"[][]",
+				"[][][]");
 		
+		JPanel setupCard = new JPanel();
+		setupCard.setLayout(setupLayout);
+		numPlayersLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		//numPlayersLabel.setText("How many players?");
+		setupCard.add(numPlayersLabel, "grow");
+		
+		numPlayersGroup.add(players1);
+		numPlayersGroup.add(players2);
+		numPlayersGroup.add(players3);
+		players1.setActionCommand("1");
+		players2.setActionCommand("2");
+		players3.setActionCommand("3");
+		
+		players1.setSelected(true);
+		setupCard.add(players1, "split 3");
+		setupCard.add(players2);
+		setupCard.add(players3);
+		
+		numDaysGroup.add(days1);
+		numDaysGroup.add(days2);
+		numDaysGroup.add(days3);
+		numDaysGroup.add(days4);
+		numDaysGroup.add(days5);
+		days1.setActionCommand("1");
+		days2.setActionCommand("2");
+		days3.setActionCommand("3");
+		days4.setActionCommand("4");
+		days5.setActionCommand("5");
+
+		days1.setSelected(true);
+		numDaysLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		setupCard.add(numDaysLabel, "grow");
+		setupCard.add(days1, "split 5");
+		setupCard.add(days2);
+		setupCard.add(days3);
+		setupCard.add(days4);
+		setupCard.add(days5);
+		
+		next.setPreferredSize(buttonSize);
+		setupCard.add(next, "skip, grow, hmax 30");
+
+		
+		
+		// Add cards to the main panel in order to display and switch between them.
 		cards = new JPanel(new CardLayout());
-		cards.add(menuCard, "Menu");
+		cards.add(menuCard, "Menu"); // The string here is an ID used to choose which card shows through changeView(ID) below.
 		cards.add(helpCard, "Help");
+		cards.add(setupCard, "Setup");
 		
 		//frame.add(mainPane, BorderLayout.PAGE_START);
 		frame.getContentPane().add(cards, BorderLayout.CENTER);
-		
-		cards.add(panel, "name_401964832595291");
-		
-		panel.add(comboBox);
-		
-		panel.add(comboBox_1);
-		
-		panel.add(comboBox_2);
 		//frame.setResizable(false);
 		//frame.setMinimumSize(new Dimension(900, 600));
 		frame.setPreferredSize(new Dimension(900, 600));
@@ -98,11 +151,24 @@ public class TamaView {
 		frame.pack();
 	}
 	
+	
+	
 	public void addButtonListener(ActionListener bal)
 	{
 		start.addActionListener(bal);
 		help.addActionListener(bal);
 		back.addActionListener(bal);
+		next.addActionListener(bal);
+	}
+	
+	public String getNumPlayers()
+	{
+		return numPlayersGroup.getSelection().getActionCommand();
+	}
+	
+	public String getNumDays()
+	{
+		return numDaysGroup.getSelection().getActionCommand();
 	}
 	
 	public void changeView(String view)
@@ -113,7 +179,7 @@ public class TamaView {
 	
 	public void updateText()
 	{
-		helpTextPane.setText(helpText + Integer.toString(m_model.getClickCount()));
+		helpTextLabel.setText(Integer.toString(m_model.getClickCount()));
 	}
 
 }

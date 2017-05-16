@@ -10,18 +10,20 @@ public class GUI_Test_DONTUSE {
 
 	JFrame frame = new JFrame("Gui Test");
 	JPanel cards;
-	
+
 	// First menu components
 	private JTextPane menuTextPane = new JTextPane();
 	private JTextPane helpTextPane = new JTextPane();
+	private JLabel numPlayersLabel = new JLabel();
 	private JButton start = new JButton("Start");
 	private JButton help = new JButton("Help");
 	private JButton back = new JButton("Back");
 	private Dimension buttonSize = new Dimension(225, 50);
-	private JTabbedPane creatureTabs = new JTabbedPane();
-	private JPanel statHolder = new JPanel();
 	
 	private String helpText = "This is where the help text goes\n";
+	private JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
+	private JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("New radio button");
+	private JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("New radio button");
 
 	/**
 	 * Launch the application.
@@ -51,17 +53,16 @@ public class GUI_Test_DONTUSE {
 	 */
 	private void initialize() {
 		
-		//Trying miglayout
+		//Make Menu card
 		MigLayout menuLayout = new MigLayout(
 				"fill, insets 20", 
 				"[][]",
 				"[][]");
 		
-		//Create cards
 		JPanel menuCard = new JPanel();
 		menuCard.setLayout(menuLayout);
 		menuTextPane.setEditable(false);
-		menuTextPane.setText("Let's test this out");
+		menuTextPane.setText("poop");
 		
 		//Centering the text http://stackoverflow.com/questions/3213045/centering-text-in-a-jtextarea-or-jtextpane-horizontal-text-alignment
 		StyledDocument doc = menuTextPane.getStyledDocument();
@@ -77,6 +78,7 @@ public class GUI_Test_DONTUSE {
 		help.setPreferredSize(buttonSize);
 		menuCard.add(help, "grow, hmax 50,center");
 		
+		//Make Help menu card
 		MigLayout helpLayout = new MigLayout(
 				"fill, insets 20", 
 				"[]",
@@ -91,21 +93,34 @@ public class GUI_Test_DONTUSE {
 		back.setPreferredSize(buttonSize);
 		helpCard.add(back, "grow");
 		
+		//Make the Setup card
+		MigLayout setupLayout = new MigLayout(
+				"fill, insets 20", 
+				"[][]",
+				"[][][]");
 		
-		statHolder.setPreferredSize(new Dimension(500,500));
-		statHolder.add(new JTextField("Hello"));
-		ImageIcon lionIcon = new ImageIcon("resources/lion_small.png");
-		creatureTabs.addTab("Lion", lionIcon, statHolder);
+		JPanel setupCard = new JPanel();
+		setupCard.setLayout(setupLayout);
+		numPlayersLabel.setText("How many players? ");
+		numPlayersLabel.setPreferredSize(buttonSize);
+		setupCard.add(numPlayersLabel, "cell 0 0");
 		
-		JPanel tab2 = new JPanel();
-		tab2.add(new JTextField("Number 2"));
 		
-		creatureTabs.addTab("Gorilla", tab2);
-		
+		// Add cards to the main panel in order to display and switch between them.
 		cards = new JPanel(new CardLayout());
-		cards.add(menuCard, "Menu");
+		//cards.add(menuCard, "Menu"); // The string here is an ID used to choose which card shows through changeView(ID) below.
 		//cards.add(helpCard, "Help");
-		cards.add(creatureTabs, "Creature");
+		cards.add(setupCard, "Setup");
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnNewRadioButton);
+		group.add(rdbtnNewRadioButton_1);
+		group.add(rdbtnNewRadioButton_2);
+		
+		setupCard.add(rdbtnNewRadioButton, "flowx,cell 1 0");
+		
+		setupCard.add(rdbtnNewRadioButton_1, "cell 1 0");
+		
+		setupCard.add(rdbtnNewRadioButton_2, "cell 1 0");
 		
 		//frame.add(mainPane, BorderLayout.PAGE_START);
 		frame.getContentPane().add(cards, BorderLayout.CENTER);
