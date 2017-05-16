@@ -1,3 +1,5 @@
+package mvc;
+
 import java.util.*;
 
 public class Pet {
@@ -22,7 +24,7 @@ public class Pet {
 	
 	private static Map<String, int[]> createSpeciesMap()
 	{
-		Map<String, int[]> speciesMap = new Hashtable()
+		Map<String, int[]> speciesMap = new Hashtable();
 		speciesMap.put("Lion", new int[]{8, 15, 100});
 		speciesMap.put("Gorilla", new int[]{5, 4, 250});
 		speciesMap.put("Eagle", new int[]{7, 8, 15});
@@ -91,7 +93,7 @@ public class Pet {
 	
 	public void play(Toy toy)
 	{
-		if( toy.getName() == favToy)
+		if( toy.getName() == favToy.getName())
 		{
 			toy.play(1);
 			mood += 5;

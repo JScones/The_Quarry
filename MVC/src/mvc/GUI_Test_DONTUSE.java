@@ -103,7 +103,7 @@ public class GUI_Test_DONTUSE {
 		creatureTabs.addTab("Gorilla", tab2);
 		
 		cards = new JPanel(new CardLayout());
-		//cards.add(menuCard, "Menu");
+		cards.add(menuCard, "Menu");
 		//cards.add(helpCard, "Help");
 		cards.add(creatureTabs, "Creature");
 		

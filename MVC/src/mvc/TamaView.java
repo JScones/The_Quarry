@@ -25,8 +25,13 @@ public class TamaView {
 	private JButton back = new JButton("Back");
 	private Dimension buttonSize = new Dimension(225, 50);
 	
-	private String helpText = "This is where the help text goes\n";
 	
+	private String[] animals = new String[] {"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"};
+	private String helpText = "This is where the help text goes\n";
+	private final JPanel panel = new JPanel();
+	private final JComboBox comboBox = new JComboBox(new Object[]{});
+	private final JComboBox comboBox_1 = new JComboBox(new Object[]{});
+	private final JComboBox comboBox_2 = new JComboBox(new Object[]{});
 
 	
 	public TamaView(TamaModel model)
@@ -34,10 +39,7 @@ public class TamaView {
 		m_model = model;
 		
 		//Trying miglayout
-		MigLayout menuLayout = new MigLayout(
-				"fill, insets 20", 
-				"[][]",
-				"[][]");
+		MigLayout menuLayout = new MigLayout("fill, insets 20", "[grow][grow][grow][]", "[][][][]");
 		
 		//Create cards
 		JPanel menuCard = new JPanel();
@@ -53,11 +55,11 @@ public class TamaView {
 		
 		//
 		//info1.setPreferredSize(new Dimension(450, 300));
-		menuCard.add(menuTextPane, "span,grow,center,wrap, push");
+		menuCard.add(menuTextPane, "cell 0 0 4 1,push ,alignx center,grow");
 		start.setPreferredSize(buttonSize);
-		menuCard.add(start, "grow, hmax 50,center, span, split 2");
+		menuCard.add(start, "cell 0 2 4 1,alignx center,hmax 50,grow");
 		help.setPreferredSize(buttonSize);
-		menuCard.add(help, "grow, hmax 50,center");
+		menuCard.add(help, "cell 0 2 4 1,alignx center,hmax 50,grow");
 		
 		MigLayout helpLayout = new MigLayout(
 				"fill, insets 20", 
@@ -80,6 +82,14 @@ public class TamaView {
 		
 		//frame.add(mainPane, BorderLayout.PAGE_START);
 		frame.getContentPane().add(cards, BorderLayout.CENTER);
+		
+		cards.add(panel, "name_401964832595291");
+		
+		panel.add(comboBox);
+		
+		panel.add(comboBox_1);
+		
+		panel.add(comboBox_2);
 		//frame.setResizable(false);
 		//frame.setMinimumSize(new Dimension(900, 600));
 		frame.setPreferredSize(new Dimension(900, 600));
