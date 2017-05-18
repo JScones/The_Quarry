@@ -1,6 +1,6 @@
 package mvc;
 
-import java.util.ArrayList;
+import java.util.*;
 
 public class TamaModel{
 	
@@ -9,7 +9,7 @@ public class TamaModel{
 	private static ArrayList<Player> players = new ArrayList<>();
 	private static int numDays;
 	private static int numPlayers;
-
+	public Map<String, Pet> defaultPets = makeDefaultPetsMap();
 
 	public TamaModel()
 	{
@@ -54,6 +54,26 @@ public class TamaModel{
 	{
 		return species;
 	}
+	
+	private static Map<String, Pet> makeDefaultPetsMap()
+	{
+		Map<String, Pet> speciesMap = new Hashtable<String, Pet>();
+		speciesMap.put("Lion", new PetLion());
+		speciesMap.put("Gorilla", new PetGorilla());
+		speciesMap.put("Eagle", new PetEagle());
+		speciesMap.put("Tiger", new PetTiger());
+		speciesMap.put("Elephant", new PetElephant());
+		speciesMap.put("Snake", new PetSnake());
+		return speciesMap;
+	}
 		
+	private static ArrayList<Pet> makeDefaultPets()
+	{
+		ArrayList<Pet> defaultPets = new ArrayList<Pet>();
+		PetEagle eagle = new PetEagle();
+		defaultPets.add(eagle);
 		
+		return defaultPets;
+	}
+	
 }

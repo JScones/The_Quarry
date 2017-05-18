@@ -1,6 +1,10 @@
 package mvc;
 
+import javax.swing.ImageIcon;
+
 public class Pet {
+	
+	public ImageIcon icon;
 
 	private String species;
 	private String name;
@@ -18,7 +22,7 @@ public class Pet {
 	private String favToy;
 
 	
-	public Pet(String aSpecies, String aFavToy, int[] petStats)
+	public Pet(String aSpecies, String aFavToy, int[] petStats, ImageIcon aIcon)
 	{
 		species = aSpecies;
 		maxHunger = petStats[0];
@@ -27,6 +31,7 @@ public class Pet {
 		hunger = maxHunger;
 		energy = maxEnergy;
 		favToy = aFavToy;
+		icon = aIcon;
 	}
 	
 	public Pet()
