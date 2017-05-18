@@ -56,6 +56,16 @@ public class Pet {
 		return new int[]{hunger, energy, weight, toilet, health, mood};
 	}
 	
+	public String getStatsString()
+	{
+		String out = ("<html><p>Species: " + species + "<br />"
+				+ "Appetite: " + maxHunger + "<br />"
+				+ "Energy: " + maxEnergy + "<br />"
+				+ "Weight: " + weight + "Kg<br />"
+				+ "Favourite toy: " + favToy + "</p></html>");
+		return out;
+	}
+	
 	public String getFavToy()
 	{
 		return favToy;

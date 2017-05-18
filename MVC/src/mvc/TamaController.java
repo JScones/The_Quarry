@@ -7,7 +7,7 @@ public class TamaController {
 
 	private TamaModel m_model;
 	private TamaView m_view;
-	private String lastPetSelected;
+	private String lastPetSelected = " ";
 	
 	public TamaController(TamaModel model, TamaView view)
 	{
@@ -48,7 +48,7 @@ public class TamaController {
 				}
 				else if(curView == "Make Player")
 				{
-					//System.out.println(m_view.getPetSelection());
+					System.out.println(m_view.getPetSelections());
 				}
 			}	
 			else if(command == "combo-1")
@@ -57,6 +57,10 @@ public class TamaController {
 				m_view.updatePetPanel(lastPetSelected, 2);
 			else if(command == "combo-3")
 				m_view.updatePetPanel(lastPetSelected, 3);
+			else if(command == "Clear")
+			{
+				m_view.resetPetView();
+			}
 		}
 	}
 	
@@ -65,8 +69,8 @@ public class TamaController {
 		@Override
 		public void itemStateChanged(ItemEvent event) {
 		       if (event.getStateChange() == ItemEvent.SELECTED) {
-		          String item = (String)event.getItem();
-		          lastPetSelected = item;
+		    	   String item = (String)event.getItem();
+		    	   lastPetSelected = item;
 		       }
 		    }  
 	}

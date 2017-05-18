@@ -9,6 +9,8 @@ import javax.swing.text.StyledDocument;
 import net.miginfocom.swing.MigLayout;
 
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class TamaView {
 	
@@ -28,14 +30,15 @@ public class TamaView {
 	private JLabel petPicLabel1 = new JLabel();
 	private JLabel petPicLabel2 = new JLabel();
 	private JLabel petPicLabel3 = new JLabel();
-	private JLabel petStatLabel1 = new JLabel("Stats 1");
-	private JLabel petStatLabel2 = new JLabel("Stats 2");
-	private JLabel petStatLabel3 = new JLabel("Stats 3");
+	private JLabel petStatLabel1 = new JLabel();
+	private JLabel petStatLabel2 = new JLabel();
+	private JLabel petStatLabel3 = new JLabel();
 	private JButton start = new JButton("Start");
 	private JButton help = new JButton("Help");
 	private JButton back = new JButton("Back");
 	private JButton next = new JButton("Next");
 	private JButton next_player = new JButton("Next");
+	private JButton clearSelections = new JButton("Clear");
 	private JRadioButton players1 = new JRadioButton("1 player  ");
 	private JRadioButton players2 = new JRadioButton("2 players  ");
 	private JRadioButton players3 = new JRadioButton("3 players  ");
@@ -47,6 +50,9 @@ public class TamaView {
 	private JComboBox<String> petsCombo1 = new JComboBox<String>();
 	private JComboBox<String> petsCombo2 = new JComboBox<String>();
 	private JComboBox<String> petsCombo3 = new JComboBox<String>();
+	private JTextField petName1 = new JTextField();
+	private JTextField petName2 = new JTextField();
+	private JTextField petName3 = new JTextField();
 	
 	private ButtonGroup numPlayersGroup = new ButtonGroup();
 	private ButtonGroup numDaysGroup = new ButtonGroup();
@@ -191,7 +197,7 @@ public class TamaView {
 	private JPanel buildPlayerCreatorPanel()
 	{
 		MigLayout Layout = new MigLayout(
-				"fill, insets 20, wrap 3, debug", 
+				"fill, insets 20, wrap 3", 
 				"[][][]",
 				"[][][]");
 		
@@ -199,7 +205,9 @@ public class TamaView {
 		PCCard.setLayout(Layout);
 		playerNum.setFont(new Font(null, Font.BOLD, 20));
 		playerNum.setHorizontalAlignment(SwingConstants.CENTER);
-		PCCard.add(playerNum, "grow, wrap, span");
+		PCCard.add(playerNum, "grow, span 2");
+		clearSelections.setPreferredSize(buttonSize);
+		PCCard.add(clearSelections, "wrap");
 
 		setPetComboBoxOptions(petsCombo1);
 		petsCombo1.setActionCommand("combo-1");
@@ -214,36 +222,46 @@ public class TamaView {
 		PCCard.add(petPanel(1));
 		PCCard.add(petPanel(2));
 		PCCard.add(petPanel(3), "wrap");
+		resetPetView();
 		next_player.setPreferredSize(buttonSize);
-		PCCard.add(next_player, "skip 2");
+		PCCard.add(next_player, "skip 1");
 		return PCCard;
 	}
 	
 	private JPanel petPanel(int count)
 	{
 		MigLayout Layout = new MigLayout(
-				"fill, flowy, insets 20, wrap 2, debug", 
+				"fill, flowy, insets 20", 
 				"[][]",
 				"[][]");
 		
 		JPanel petPanel = new JPanel();
-		//petPanel.setLayout(Layout);
-		petPanel.setLayout(new BoxLayout(petPanel, BoxLayout.Y_AXIS));
+		petPanel.setLayout(Layout);
+		//petPanel.setLayout(new BoxLayout(petPanel, BoxLayout.Y_AXIS));
 		petPanel.setPreferredSize(new Dimension(185,200));
 		if(count == 1)
 		{
 			petPanel.add(petPicLabel1);
 			petPanel.add(petStatLabel1);
+			petPanel.add(petName1, "gaptop 10");
+			petName1.setPreferredSize(buttonSize);
+			petName1.setVisible(false);
 		}
 		else if(count == 2)
 		{
 			petPanel.add(petPicLabel2);
 			petPanel.add(petStatLabel2);
+			petPanel.add(petName2, "gaptop 10");
+			petName2.setPreferredSize(buttonSize);
+			petName2.setVisible(false);
 		}
 		else if(count == 3)
 		{
 			petPanel.add(petPicLabel3);
 			petPanel.add(petStatLabel3);
+			petPanel.add(petName3, "gaptop 10");
+			petName3.setPreferredSize(buttonSize);
+			petName3.setVisible(false);
 		}
 		return petPanel;
 	}
@@ -251,23 +269,62 @@ public class TamaView {
 	private void setPetComboBoxOptions(JComboBox<String> curBox)
 	{
 		String[] species = m_model.getSpecies();
+		curBox.addItem(" ");
 		for(int i = 0; i < species.length; i++)
 		{
 			curBox.addItem(species[i]);
 		}
 		curBox.setPreferredSize(buttonSize);
-		curBox.setSelectedIndex(-1);
 	}
 	
 	
 	protected void updatePetPanel(String newPet, int labelNum)
 	{
 		if(labelNum == 1)
-			petPicLabel1.setIcon(m_model.defaultPets.get(newPet).icon);
+		{
+			if(newPet == " ")
+			{
+				petPicLabel1.setIcon(null);
+				petStatLabel1.setText(null);
+				petName1.setVisible(false);
+			}
+			else
+			{
+				petPicLabel1.setIcon(m_model.defaultPets.get(newPet).icon);
+				petStatLabel1.setText(m_model.defaultPets.get(newPet).getStatsString());
+				petName1.setVisible(true);
+			}
+		}
 		else if(labelNum == 2)
-			petPicLabel2.setIcon(m_model.defaultPets.get(newPet).icon);
+		{
+			if(newPet == " ")
+			{
+				petPicLabel2.setIcon(null);
+				petStatLabel2.setText(null);
+				petName2.setVisible(false);
+			}
+			else
+			{
+				petPicLabel2.setIcon(m_model.defaultPets.get(newPet).icon);
+				petStatLabel2.setText(m_model.defaultPets.get(newPet).getStatsString());
+				petName2.setVisible(true);
+			}
+		}
 		else if(labelNum == 3)
-			petPicLabel3.setIcon(m_model.defaultPets.get(newPet).icon);
+		{
+			if(newPet == " ")
+			{
+				petPicLabel3.setIcon(null);
+				petStatLabel3.setText(null);
+				petName3.setVisible(false);
+			}
+			else
+			{
+				petPicLabel3.setIcon(m_model.defaultPets.get(newPet).icon);
+				petStatLabel3.setText(m_model.defaultPets.get(newPet).getStatsString());
+				petName3.setVisible(true);
+			}
+		}
 	}
 	
 	protected void addButtonListener(ActionListener bal)
@@ -280,26 +337,53 @@ public class TamaView {
 		petsCombo1.addActionListener(bal);
 		petsCombo2.addActionListener(bal);
 		petsCombo3.addActionListener(bal);
+		clearSelections.addActionListener(bal);
 	}
 	
-	public void addComboBoxListener(ItemListener cal)
+	protected void addComboBoxListener(ItemListener cal)
 	{
 		petsCombo1.addItemListener(cal);
 		petsCombo2.addItemListener(cal);
 		petsCombo3.addItemListener(cal);
 	}
 	
-	public int getNumPlayers()
+	protected int getNumPlayers()
 	{
 		return Integer.parseInt(numPlayersGroup.getSelection().getActionCommand());
 	}
 	
-	public int getNumDays()
+	protected int getNumDays()
 	{
 		return Integer.parseInt(numDaysGroup.getSelection().getActionCommand());
 	}
 	
-	public void changeView(String view)
+	protected ArrayList<String> getPetSelections()
+	{
+		ArrayList<String> pets = new ArrayList<String>();
+		pets.add((String)petsCombo1.getSelectedItem());
+		pets.add((String)petsCombo2.getSelectedItem());
+		pets.add((String)petsCombo3.getSelectedItem());
+		
+		return pets;
+	}
+	
+	protected void resetPetView()
+	{
+		petsCombo1.setSelectedItem(" ");
+		petsCombo2.setSelectedItem(" ");
+		petsCombo3.setSelectedItem(" ");
+		petStatLabel1.setText(null);
+		petPicLabel1.setIcon(null);
+		petName1.setVisible(false);
+		petStatLabel2.setText(null);
+		petPicLabel2.setIcon(null);
+		petName2.setVisible(false);
+		petStatLabel3.setText(null);
+		petPicLabel3.setIcon(null);
+		petName3.setVisible(false);
+	}
+	
+	protected void changeView(String view)
 	{
 		CardLayout cl = (CardLayout)(cards.getLayout());
 		cl.show(cards, view);
@@ -307,19 +391,14 @@ public class TamaView {
 		
 	}
 	
-	public void updateText()
+	protected void updateText()
 	{
 		helpTextLabel.setText(Integer.toString(m_model.getClickCount()));
 	}
 	
-	public String getCurrentView()
+	protected String getCurrentView()
 	{
 		return curView;
-	}
-	
-	public String getPetSelection()
-	{
-		return (String)petsCombo1.getSelectedItem();
 	}
 
 }
