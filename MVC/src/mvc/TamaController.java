@@ -35,8 +35,8 @@ public class TamaController {
 			}
 			else if(command == "Next")
 			{
-				System.out.println(m_view.getNumPlayers() + " players");
-				System.out.println(m_view.getNumDays() + " days");
+				m_model.setUp(m_view.getNumPlayers(), m_view.getNumDays());
+				m_view.changeView("Make Player");
 			}
 		}
 	}

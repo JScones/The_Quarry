@@ -1,21 +1,16 @@
 package mvc;
 
-public class Toy {
+public abstract class Toy {
 	
 	private String name;
 	private Double price;
-	private int durability;
+	protected int durability;
 	
-	public Toy(String aName, Double aPrice, int aDurability)
+	public void setVars(String aName, Double aPrice, int aDurability)
 	{
 		name = aName;
 		price = aPrice;
 		durability = aDurability;
-		
-	}
-	
-	public Toy()
-	{
 		
 	}
 	
@@ -28,14 +23,11 @@ public class Toy {
 	{
 		return price;
 	}
-
-	protected void play(int damage)
+	
+	public int getDurability()
 	{
-		durability -= damage;
-		if( durability > 1)
-		{
-			System.out.println("Oops, it broke :( ");
-			//remove from player's inventory here
-		}
+		return durability;
 	}
+
+	public abstract void play(int damage);
 }

@@ -22,6 +22,7 @@ public class TamaView {
 	private JLabel menuTextLabel = new JLabel();
 	private JLabel numPlayersLabel = new JLabel("How many players?");
 	private JLabel numDaysLabel = new JLabel("How many days would you like to play for?");
+	private JLabel playerNum = new JLabel("Player 1");
 	private JButton start = new JButton("Start");
 	private JButton help = new JButton("Help");
 	private JButton back = new JButton("Back");
@@ -34,11 +35,11 @@ public class TamaView {
 	private JRadioButton days3 = new JRadioButton("3 days  ");
 	private JRadioButton days4 = new JRadioButton("4 days  ");
 	private JRadioButton days5 = new JRadioButton("5 days  ");
+	private JComboBox petsList = new JComboBox();
 	
 	private ButtonGroup numPlayersGroup = new ButtonGroup();
 	private ButtonGroup numDaysGroup = new ButtonGroup();
 	private Dimension buttonSize = new Dimension(225, 50);
-	
 	
 	
 
@@ -53,6 +54,36 @@ public class TamaView {
 	private void initialise()
 	{
 		//Make Menu card
+		JPanel menuCard = buildMainMenuPanel();
+		
+		//Make Help menu card
+		JPanel helpCard = buildHelpPanel();
+		
+		//Make the number of players and days card
+		JPanel setupCard = buildSetupPanel();
+		
+		//Make the player creator card
+		JPanel playerCreatorCard = buildPlayerCreatorPanel();
+		
+		// Add cards to the main panel in order to display and switch between them.
+		cards = new JPanel(new CardLayout());
+		cards.add(menuCard, "Menu"); // The string here is an ID used to choose which card shows through changeView(ID) below.
+		cards.add(helpCard, "Help");
+		cards.add(setupCard, "Setup");
+		cards.add(playerCreatorCard, "Make Player");
+		
+		//frame.add(mainPane, BorderLayout.PAGE_START);
+		frame.getContentPane().add(cards, BorderLayout.CENTER);
+		//frame.setResizable(false);
+		//frame.setMinimumSize(new Dimension(900, 600));
+		frame.setPreferredSize(new Dimension(900, 600));
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		frame.pack();
+	}
+	
+	private JPanel buildMainMenuPanel()
+	{
 		MigLayout menuLayout = new MigLayout(
 				"fill, insets 20", 
 				"[][]",
@@ -71,7 +102,11 @@ public class TamaView {
 		help.setPreferredSize(buttonSize);
 		menuCard.add(help, "grow, hmax 50,center");
 		
-		//Make Help menu card
+		return menuCard;
+	}
+	
+	private JPanel buildHelpPanel()
+	{
 		MigLayout helpLayout = new MigLayout(
 				"fill, insets 20", 
 				"[]",
@@ -86,6 +121,11 @@ public class TamaView {
 		back.setPreferredSize(buttonSize);
 		helpCard.add(back, "grow");
 		
+		return helpCard;
+	}
+	
+	private JPanel buildSetupPanel()
+	{
 		//Make the Setup card
 		MigLayout setupLayout = new MigLayout(
 				"fill, insets 20, wrap 2", 
@@ -132,26 +172,31 @@ public class TamaView {
 		
 		next.setPreferredSize(buttonSize);
 		setupCard.add(next, "skip, grow, hmax 30");
-
 		
-		
-		// Add cards to the main panel in order to display and switch between them.
-		cards = new JPanel(new CardLayout());
-		cards.add(menuCard, "Menu"); // The string here is an ID used to choose which card shows through changeView(ID) below.
-		cards.add(helpCard, "Help");
-		cards.add(setupCard, "Setup");
-		
-		//frame.add(mainPane, BorderLayout.PAGE_START);
-		frame.getContentPane().add(cards, BorderLayout.CENTER);
-		//frame.setResizable(false);
-		//frame.setMinimumSize(new Dimension(900, 600));
-		frame.setPreferredSize(new Dimension(900, 600));
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		frame.pack();
+		return setupCard;
 	}
 	
-	
+	private JPanel buildPlayerCreatorPanel()
+	{
+		MigLayout Layout = new MigLayout(
+				"fill, insets 20, wrap 2", 
+				"[][]",
+				"[][][]");
+		
+		JPanel PCCard = new JPanel();
+		PCCard.setLayout(Layout);
+		System.out.println(playerNum.getFont());
+		playerNum.setFont(new Font(null, Font.BOLD, 20));
+		PCCard.add(playerNum, "wrap");
+		String[] species = m_model.getSpecies();
+		for(int i = 0; i < species.length; i++)
+		{
+			petsList.addItem(species[i]);
+		}
+		PCCard.add(petsList);
+		
+		return PCCard;
+	}
 	
 	public void addButtonListener(ActionListener bal)
 	{
@@ -161,14 +206,14 @@ public class TamaView {
 		next.addActionListener(bal);
 	}
 	
-	public String getNumPlayers()
+	public int getNumPlayers()
 	{
-		return numPlayersGroup.getSelection().getActionCommand();
+		return Integer.parseInt(numPlayersGroup.getSelection().getActionCommand());
 	}
 	
-	public String getNumDays()
+	public int getNumDays()
 	{
-		return numDaysGroup.getSelection().getActionCommand();
+		return Integer.parseInt(numDaysGroup.getSelection().getActionCommand());
 	}
 	
 	public void changeView(String view)

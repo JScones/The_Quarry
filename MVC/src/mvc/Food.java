@@ -6,10 +6,18 @@ public class Food {
 	private Double price;
 	private int value;
 	
+	public Food(String foodName, Double foodPrice, int foodValue)
+	{
+		name = foodName;
+		price = foodPrice;
+		value = foodValue;
+	}
+	
 	public int getValue()
 	{
 		return value;
 	}
+	
 
 	public String getName() {
 		return name;

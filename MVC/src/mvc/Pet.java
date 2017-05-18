@@ -1,7 +1,5 @@
 package mvc;
 
-import java.util.*;
-
 public class Pet {
 
 	private String species;
@@ -16,29 +14,13 @@ public class Pet {
 	private int health = 10;
 	private int mood = 10;
 	private int dayActions = 2;
+	private Boolean dayActionsUsed = false;
+	private String favToy;
+
 	
-	private Toy favToy;
-	
-	//{"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"}
-	private static final Map<String, int[]> speciesMap = createSpeciesMap();
-	
-	private static Map<String, int[]> createSpeciesMap()
-	{
-		Map<String, int[]> speciesMap = new Hashtable();
-		speciesMap.put("Lion", new int[]{8, 15, 100});
-		speciesMap.put("Gorilla", new int[]{5, 4, 250});
-		speciesMap.put("Eagle", new int[]{7, 8, 15});
-		speciesMap.put("Tiger", new int[]{10, 11, 85});
-		speciesMap.put("Elephant", new int[]{13, 14, 1206});
-		speciesMap.put("Snake", new int[]{16, 17, 4});
-		
-		return speciesMap;
-	}
-	
-	public Pet(String aSpecies, Toy aFavToy)
+	public Pet(String aSpecies, String aFavToy, int[] petStats)
 	{
 		species = aSpecies;
-		int[] petStats = speciesMap.get(species);
 		maxHunger = petStats[0];
 		maxEnergy = petStats[1];
 		weight = petStats[2];
@@ -46,6 +28,12 @@ public class Pet {
 		energy = maxEnergy;
 		favToy = aFavToy;
 	}
+	
+	public Pet()
+	{
+		
+	}
+	
 	
 	public String toString()
 	{
@@ -63,7 +51,7 @@ public class Pet {
 		return new int[]{hunger, energy, weight, toilet, health, mood};
 	}
 	
-	public Toy getFavToy()
+	public String getFavToy()
 	{
 		return favToy;
 	}
@@ -93,7 +81,8 @@ public class Pet {
 	
 	public void play(Toy toy)
 	{
-		if( toy.getName() == favToy.getName())
+		dayActions -= 1;
+		if( toy.getName() == favToy)
 		{
 			toy.play(1);
 			mood += 5;
@@ -107,12 +96,14 @@ public class Pet {
 	
 	public void feed(Food food)
 	{
+		dayActions -= 1;
 		hunger += food.getValue();
 		// when calling this in main, food must be removed from inventory
 	}
 	
 	public void sleep()
 	{
+		dayActions -= 1;
 		energy += 5;
 	}
 	
