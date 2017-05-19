@@ -357,14 +357,23 @@ public class TamaView {
 		return Integer.parseInt(numDaysGroup.getSelection().getActionCommand());
 	}
 	
-	protected ArrayList<String> getPetSelections()
+	protected ArrayList<String> getPetSpeciesSelections()
 	{
-		ArrayList<String> pets = new ArrayList<String>();
-		pets.add((String)petsCombo1.getSelectedItem());
-		pets.add((String)petsCombo2.getSelectedItem());
-		pets.add((String)petsCombo3.getSelectedItem());
+		ArrayList<String> petSpecies = new ArrayList<String>();
+		petSpecies.add((String)petsCombo1.getSelectedItem());
+		petSpecies.add((String)petsCombo2.getSelectedItem());
+		petSpecies.add((String)petsCombo3.getSelectedItem());
 		
-		return pets;
+		return petSpecies;
+	}
+	
+	protected ArrayList<String> getPetNames()
+	{
+		ArrayList<String> petNames = new ArrayList<String>();
+		petNames.add("Bob");
+		petNames.add("Foo");
+		petNames.add("Bar");
+		return petNames;
 	}
 	
 	protected void resetPetView()
@@ -381,6 +390,12 @@ public class TamaView {
 		petStatLabel3.setText(null);
 		petPicLabel3.setIcon(null);
 		petName3.setVisible(false);
+	}
+	
+	protected void nextPlayer(int num)
+	{
+		resetPetView();
+		playerNum.setText("Player " + num + ", please choose your pets:");
 	}
 	
 	protected void changeView(String view)

@@ -8,6 +8,7 @@ public class TamaController {
 	private TamaModel m_model;
 	private TamaView m_view;
 	private String lastPetSelected = " ";
+	private CreatePlayersNew playerCreator = new CreatePlayersNew();
 	
 	public TamaController(TamaModel model, TamaView view)
 	{
@@ -48,7 +49,11 @@ public class TamaController {
 				}
 				else if(curView == "Make Player")
 				{
-					System.out.println(m_view.getPetSelections());
+					System.out.println(m_view.getPetSpeciesSelections());
+					Player p = playerCreator.makePlayer("Josh", m_view.getPetSpeciesSelections(), m_view.getPetNames());
+					
+					if(!(m_model.enoughPlayers()))
+						m_view.nextPlayer(m_model.curNumPlayers() + 1);
 				}
 			}	
 			else if(command == "combo-1")

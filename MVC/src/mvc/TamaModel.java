@@ -8,7 +8,7 @@ public class TamaModel{
 	private String[] species = {"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"};
 	private static ArrayList<Player> players = new ArrayList<>();
 	private static int numDays;
-	private static int numPlayers;
+	private static int numExpectedPlayers;
 	public Map<String, Pet> defaultPets = makeDefaultPetsMap();
 
 	public TamaModel()
@@ -40,14 +40,19 @@ public class TamaModel{
 	
 	public void setUp(int newNumPlayers, int newNumDays)
 	{
-		numPlayers = newNumPlayers;
+		numExpectedPlayers = newNumPlayers;
 		numDays = newNumDays;
 		//System.out.println(numPlayers + numDays);
 	}
 	
-	public int getNumPlayers()
+	public Boolean enoughPlayers()
 	{
-		return numPlayers;
+		return numExpectedPlayers == players.size();
+	}
+	
+	public int curNumPlayers()
+	{
+		return players.size();
 	}
 	
 	public String[] getSpecies()
