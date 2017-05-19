@@ -2,6 +2,7 @@ package mvc;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
 import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
@@ -20,6 +21,10 @@ public class TamaView {
 	JPanel cards;
 	
 	private String curView = "Menu";
+	private Font allFont = new Font(null, Font.BOLD, 20);
+	
+	private ImageIcon tick = new ImageIcon("resources/tick.png");
+	private ImageIcon cross = new ImageIcon("resources/cross.png");
 	
 	// First menu components
 	private JLabel helpTextLabel = new JLabel();
@@ -27,12 +32,17 @@ public class TamaView {
 	private JLabel numPlayersLabel = new JLabel("How many players?");
 	private JLabel numDaysLabel = new JLabel("How many days would you like to play for?");
 	private JLabel playerNum = new JLabel("Player 1, What is your name?");
+	private JLabel choosePets = new JLabel("Choose up to 3 pets from the dropdowns below.");
 	private JLabel petPicLabel1 = new JLabel();
 	private JLabel petPicLabel2 = new JLabel();
 	private JLabel petPicLabel3 = new JLabel();
 	private JLabel petStatLabel1 = new JLabel();
 	private JLabel petStatLabel2 = new JLabel();
 	private JLabel petStatLabel3 = new JLabel();
+	private JLabel nameAccepted = new JLabel(cross);
+	private JLabel petNameAccepted1 = new JLabel(cross);
+	private JLabel petNameAccepted2 = new JLabel(cross);
+	private JLabel petNameAccepted3 = new JLabel(cross);
 	private JButton start = new JButton("Start");
 	private JButton help = new JButton("Help");
 	private JButton back = new JButton("Back");
@@ -54,10 +64,20 @@ public class TamaView {
 	private JTextField petName1 = new JTextField();
 	private JTextField petName2 = new JTextField();
 	private JTextField petName3 = new JTextField();
+	private JPanel petPanel1 = petPanel(1);
+	private JPanel petPanel2 = petPanel(2);
+	private JPanel petPanel3 = petPanel(3);
 	
 	private ButtonGroup numPlayersGroup = new ButtonGroup();
 	private ButtonGroup numDaysGroup = new ButtonGroup();
 	private Dimension buttonSize = new Dimension(225, 50);
+	
+	private Boolean isPlayerNameAccepted = false;
+	private Boolean isPetName1Accepted = false;
+	private Boolean isPetName2Accepted = false;
+	private Boolean isPetName3Accepted = false;
+	private Boolean aPetClicked = false;
+	
 	
 	
 
@@ -203,16 +223,20 @@ public class TamaView {
 	{
 		MigLayout Layout = new MigLayout(
 				"fill, insets 20, wrap 3", 
-				"[][][]",
+				"[][][][]",
 				"[][][]");
 		
 		JPanel PCCard = new JPanel();
 		PCCard.setLayout(Layout);
-		playerNum.setFont(new Font(null, Font.BOLD, 20));
+		playerNum.setFont(allFont);
 		playerNum.setHorizontalAlignment(SwingConstants.CENTER);
-		PCCard.add(playerNum, "grow, span 2");
+		PCCard.add(playerNum, "grow");
 		nameField.setPreferredSize(buttonSize);
-		PCCard.add(nameField, "wrap");
+		PCCard.add(nameField);
+		PCCard.add(nameAccepted, "wrap");
+		choosePets.setFont(allFont);
+		choosePets.setHorizontalAlignment(SwingConstants.CENTER);
+		PCCard.add(choosePets, "grow, span, wrap, gaptop 10, gapbottom 10");
 
 		setPetComboBoxOptions(petsCombo1);
 		petsCombo1.setActionCommand("combo-1");
@@ -221,16 +245,17 @@ public class TamaView {
 		setPetComboBoxOptions(petsCombo3);
 		petsCombo3.setActionCommand("combo-3");
 		
-		PCCard.add(petsCombo1);
-		PCCard.add(petsCombo2);
-		PCCard.add(petsCombo3);
-		PCCard.add(petPanel(1));
-		PCCard.add(petPanel(2));
-		PCCard.add(petPanel(3), "wrap");
+		PCCard.add(petsCombo1, "grow");
+		PCCard.add(petsCombo2, "grow");
+		PCCard.add(petsCombo3, "grow");
+		PCCard.add(petPanel1);
+		PCCard.add(petPanel2);
+		PCCard.add(petPanel3, "wrap");
 		resetPetView();
 		clearSelections.setPreferredSize(buttonSize);
-		PCCard.add(clearSelections, "growx");
+		PCCard.add(clearSelections);
 		next_player.setPreferredSize(buttonSize);
+		next_player.setEnabled(false);
 		PCCard.add(next_player, "skip 1, growx");
 		return PCCard;
 	}
@@ -248,28 +273,31 @@ public class TamaView {
 		petPanel.setPreferredSize(new Dimension(185,270));
 		if(count == 1)
 		{
+			petName1.setPreferredSize(buttonSize);
 			petPanel.add(petPicLabel1);
 			petPanel.add(petStatLabel1);
-			petPanel.add(petName1, "gaptop 10");
-			petName1.setPreferredSize(buttonSize);
-			petName1.setVisible(false);
+			petPanel.add(petName1, "gaptop 10, grow, wrap");
+			//petNameAccepted1.setText("Name your pet");
+			petPanel.add(petNameAccepted1, "skip 2");
 		}
 		else if(count == 2)
 		{
 			petPanel.add(petPicLabel2);
 			petPanel.add(petStatLabel2);
-			petPanel.add(petName2, "gaptop 10");
+			petPanel.add(petName2, "gaptop 10, grow, wrap");
 			petName2.setPreferredSize(buttonSize);
-			petName2.setVisible(false);
+			petPanel.add(petNameAccepted2, "skip 2");
 		}
 		else if(count == 3)
 		{
 			petPanel.add(petPicLabel3);
 			petPanel.add(petStatLabel3);
-			petPanel.add(petName3, "gaptop 10");
+			petPanel.add(petName3, "gaptop 10, grow, wrap");
 			petName3.setPreferredSize(buttonSize);
-			petName3.setVisible(false);
+			petPanel.add(petNameAccepted3, "skip 2");
 		}
+		petPanel.setVisible(false);
+		
 		return petPanel;
 	}
 	
@@ -284,23 +312,23 @@ public class TamaView {
 		curBox.setPreferredSize(buttonSize);
 	}
 	
-	
 	protected void updatePetPanel(String newPet, int labelNum)
 	{
+		aPetClicked = true;
 		if(labelNum == 1)
 		{
 			if(newPet == " ")
 			{
 				petPicLabel1.setIcon(null);
 				petStatLabel1.setText(null);
-				petName1.setVisible(false);
+				petPanel1.setVisible(false);
 				petName1.setText(null);
 			}
 			else
 			{
 				petPicLabel1.setIcon(m_model.defaultPets.get(newPet).icon);
 				petStatLabel1.setText(m_model.defaultPets.get(newPet).getStatsString());
-				petName1.setVisible(true);
+				petPanel1.setVisible(true);
 			}
 		}
 		else if(labelNum == 2)
@@ -309,14 +337,14 @@ public class TamaView {
 			{
 				petPicLabel2.setIcon(null);
 				petStatLabel2.setText(null);
-				petName2.setVisible(false);
+				petPanel2.setVisible(false);
 				petName2.setText(null);
 			}
 			else
 			{
 				petPicLabel2.setIcon(m_model.defaultPets.get(newPet).icon);
 				petStatLabel2.setText(m_model.defaultPets.get(newPet).getStatsString());
-				petName2.setVisible(true);
+				petPanel2.setVisible(true);
 			}
 		}
 		else if(labelNum == 3)
@@ -325,14 +353,14 @@ public class TamaView {
 			{
 				petPicLabel3.setIcon(null);
 				petStatLabel3.setText(null);
-				petName3.setVisible(false);
-				petName2.setText(null);
+				petPanel3.setVisible(false);
+				petName3.setText(null);
 			}
 			else
 			{
 				petPicLabel3.setIcon(m_model.defaultPets.get(newPet).icon);
 				petStatLabel3.setText(m_model.defaultPets.get(newPet).getStatsString());
-				petName3.setVisible(true);
+				petPanel3.setVisible(true);
 			}
 		}
 	}
@@ -350,11 +378,19 @@ public class TamaView {
 		clearSelections.addActionListener(bal);
 	}
 	
-	protected void addComboBoxListener(ItemListener cal)
+	protected void addComboBoxListener(ItemListener cil1, ItemListener cil2, ItemListener cil3)
 	{
-		petsCombo1.addItemListener(cal);
-		petsCombo2.addItemListener(cal);
-		petsCombo3.addItemListener(cal);
+		petsCombo1.addItemListener(cil1);
+		petsCombo2.addItemListener(cil2);
+		petsCombo3.addItemListener(cil3);
+	}
+	
+	protected void addTextFieldListener(DocumentListener ndl, DocumentListener pndl1, DocumentListener pndl2, DocumentListener pndl3)
+	{
+		nameField.getDocument().addDocumentListener(ndl);
+		petName1.getDocument().addDocumentListener(pndl1);
+		petName2.getDocument().addDocumentListener(pndl2);
+		petName3.getDocument().addDocumentListener(pndl3);
 	}
 	
 	protected int getNumPlayers()
@@ -394,24 +430,33 @@ public class TamaView {
 		
 		petStatLabel1.setText(null);
 		petPicLabel1.setIcon(null);
-		petName1.setVisible(false);
+		petPanel1.setVisible(false);
 		petName1.setText(null);
 		
 		petStatLabel2.setText(null);
 		petPicLabel2.setIcon(null);
-		petName2.setVisible(false);
+		petPanel2.setVisible(false);
 		petName2.setText(null);
 		
 		petStatLabel3.setText(null);
 		petPicLabel3.setIcon(null);
-		petName3.setVisible(false);
+		petPanel3.setVisible(false);
 		petName3.setText(null);
+		
+		nameField.setText(null);
+		playerNameTaken(true);
+		petNameTaken(true, 0);
+		petNameTaken(true, 1);
+		petNameTaken(true, 2);
+		aPetClicked = false;
+		next_player.setEnabled(false);
+		allFieldsAccepted();
 	}
 	
 	protected void nextPlayer(int num)
 	{
 		resetPetView();
-		playerNum.setText("Player " + num + ", please choose your pets:");
+		playerNum.setText("Player " + num + ", What is your name?");
 	}
 	
 	protected void changeView(String view)
@@ -420,6 +465,80 @@ public class TamaView {
 		cl.show(cards, view);
 		curView = view;
 		
+	}
+	
+	protected void playerNameTaken(Boolean isTaken)
+	{
+		if(isTaken)
+		{
+			nameAccepted.setIcon(cross);
+			isPlayerNameAccepted = false;
+		}
+		else
+		{
+			nameAccepted.setIcon(tick);
+			isPlayerNameAccepted = true;
+		}
+		
+		allFieldsAccepted();
+	}
+	
+	protected void petNameTaken(Boolean isTaken, int fieldNum)
+	{
+		if(isTaken)
+		{
+			if(fieldNum == 0)
+			{
+				petNameAccepted1.setIcon(cross);
+				isPetName1Accepted = false;
+			}		
+			else if(fieldNum == 1)
+			{
+				petNameAccepted2.setIcon(cross);
+				isPetName2Accepted = false;
+			}
+			else if(fieldNum == 2)
+			{
+				petNameAccepted3.setIcon(cross);
+				isPetName3Accepted = false;
+			}
+		}
+		else
+		{
+			if(fieldNum == 0)
+			{
+				petNameAccepted1.setIcon(tick);
+				isPetName1Accepted = true;
+			}		
+			else if(fieldNum == 1)
+			{
+				petNameAccepted2.setIcon(tick);
+				isPetName2Accepted = true;
+			}
+			else if(fieldNum == 2)
+			{
+				petNameAccepted3.setIcon(tick);
+				isPetName3Accepted = true;
+			}
+		}
+		
+		allFieldsAccepted();
+	}
+	
+	protected void allFieldsAccepted()
+	{
+		if(isPlayerNameAccepted && aPetClicked)
+			if(( (petPanel1.isVisible() && isPetName1Accepted) || !(petPanel1.isVisible()) ) && 
+					( (petPanel2.isVisible() && isPetName2Accepted) || !(petPanel2.isVisible()) ) &&
+					( (petPanel3.isVisible() && isPetName3Accepted) || !(petPanel3.isVisible()) ))
+				next_player.setEnabled(true);
+		else
+			next_player.setEnabled(false);
+	}
+	
+	protected String getPlayerName()
+	{
+		return nameField.getText();
 	}
 	
 	protected void updateText()
