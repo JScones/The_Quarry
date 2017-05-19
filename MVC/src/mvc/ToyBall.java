@@ -11,7 +11,7 @@ public class ToyBall extends Toy{
 	public void play(int damage)
 	{
 		durability -= damage;
-		if( durability > 1)
+		if( durability < 1)
 		{
 			System.out.println("Oh no, the ball popped! ");
 			//remove from player's inventory here

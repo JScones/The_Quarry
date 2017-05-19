@@ -43,6 +43,8 @@ public class TamaController {
 			{
 				if(curView== "Setup")
 				{
+					System.out.println(m_view.getNumPlayers());
+					System.out.println(m_view.getNumDays());
 					m_model.setUp(m_view.getNumPlayers(), m_view.getNumDays());
 					m_view.changeView("Make Player");
 				}
