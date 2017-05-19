@@ -26,7 +26,7 @@ public class TamaView {
 	private JLabel menuTextLabel = new JLabel();
 	private JLabel numPlayersLabel = new JLabel("How many players?");
 	private JLabel numDaysLabel = new JLabel("How many days would you like to play for?");
-	private JLabel playerNum = new JLabel("Player 1, please choose your pets:");
+	private JLabel playerNum = new JLabel("Player 1, What is your name?");
 	private JLabel petPicLabel1 = new JLabel();
 	private JLabel petPicLabel2 = new JLabel();
 	private JLabel petPicLabel3 = new JLabel();
@@ -50,6 +50,7 @@ public class TamaView {
 	private JComboBox<String> petsCombo1 = new JComboBox<String>();
 	private JComboBox<String> petsCombo2 = new JComboBox<String>();
 	private JComboBox<String> petsCombo3 = new JComboBox<String>();
+	private JTextField nameField = new JTextField();
 	private JTextField petName1 = new JTextField();
 	private JTextField petName2 = new JTextField();
 	private JTextField petName3 = new JTextField();
@@ -83,12 +84,16 @@ public class TamaView {
 		//Make the player creator card
 		JPanel playerCreatorCard = buildPlayerCreatorPanel();
 		
+		//Main game
+		JPanel mainGameCard = new JPanel();
+		
 		// Add cards to the main panel in order to display and switch between them.
 		cards = new JPanel(new CardLayout());
 		cards.add(menuCard, "Menu"); // The string here is an ID used to choose which card shows through changeView(ID) below.
 		cards.add(helpCard, "Help");
 		cards.add(setupCard, "Setup");
 		cards.add(playerCreatorCard, "Make Player");
+		cards.add(mainGameCard, "Main Game");
 		
 		//frame.add(mainPane, BorderLayout.PAGE_START);
 		frame.getContentPane().add(cards, BorderLayout.CENTER);
@@ -206,8 +211,8 @@ public class TamaView {
 		playerNum.setFont(new Font(null, Font.BOLD, 20));
 		playerNum.setHorizontalAlignment(SwingConstants.CENTER);
 		PCCard.add(playerNum, "grow, span 2");
-		clearSelections.setPreferredSize(buttonSize);
-		PCCard.add(clearSelections, "wrap");
+		nameField.setPreferredSize(buttonSize);
+		PCCard.add(nameField, "wrap");
 
 		setPetComboBoxOptions(petsCombo1);
 		petsCombo1.setActionCommand("combo-1");
@@ -223,8 +228,10 @@ public class TamaView {
 		PCCard.add(petPanel(2));
 		PCCard.add(petPanel(3), "wrap");
 		resetPetView();
+		clearSelections.setPreferredSize(buttonSize);
+		PCCard.add(clearSelections, "growx");
 		next_player.setPreferredSize(buttonSize);
-		PCCard.add(next_player, "skip 1");
+		PCCard.add(next_player, "skip 1, growx");
 		return PCCard;
 	}
 	
@@ -238,7 +245,7 @@ public class TamaView {
 		JPanel petPanel = new JPanel();
 		petPanel.setLayout(Layout);
 		//petPanel.setLayout(new BoxLayout(petPanel, BoxLayout.Y_AXIS));
-		petPanel.setPreferredSize(new Dimension(185,200));
+		petPanel.setPreferredSize(new Dimension(185,270));
 		if(count == 1)
 		{
 			petPanel.add(petPicLabel1);
@@ -373,9 +380,9 @@ public class TamaView {
 	protected ArrayList<String> getPetNames()
 	{
 		ArrayList<String> petNames = new ArrayList<String>();
-		petNames.add("Bob");
-		petNames.add("Foo");
-		petNames.add("Bar");
+		petNames.add(petName1.getText());
+		petNames.add(petName2.getText());
+		petNames.add(petName3.getText());
 		return petNames;
 	}
 	
