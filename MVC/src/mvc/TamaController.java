@@ -49,9 +49,9 @@ public class TamaController {
 				}
 				else if(curView == "Make Player")
 				{
-					System.out.println(m_view.getPetSpeciesSelections());
+					System.out.println(m_view.getPetNames());
 					Player p = playerCreator.makePlayer("Josh", m_view.getPetSpeciesSelections(), m_view.getPetNames());
-					
+					m_model.addPlayer(p);
 					if(!(m_model.enoughPlayers()))
 						m_view.nextPlayer(m_model.curNumPlayers() + 1);
 				}

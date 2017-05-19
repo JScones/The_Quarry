@@ -287,6 +287,7 @@ public class TamaView {
 				petPicLabel1.setIcon(null);
 				petStatLabel1.setText(null);
 				petName1.setVisible(false);
+				petName1.setText(null);
 			}
 			else
 			{
@@ -302,6 +303,7 @@ public class TamaView {
 				petPicLabel2.setIcon(null);
 				petStatLabel2.setText(null);
 				petName2.setVisible(false);
+				petName2.setText(null);
 			}
 			else
 			{
@@ -317,6 +319,7 @@ public class TamaView {
 				petPicLabel3.setIcon(null);
 				petStatLabel3.setText(null);
 				petName3.setVisible(false);
+				petName2.setText(null);
 			}
 			else
 			{
@@ -381,15 +384,21 @@ public class TamaView {
 		petsCombo1.setSelectedItem(" ");
 		petsCombo2.setSelectedItem(" ");
 		petsCombo3.setSelectedItem(" ");
+		
 		petStatLabel1.setText(null);
 		petPicLabel1.setIcon(null);
 		petName1.setVisible(false);
+		petName1.setText(null);
+		
 		petStatLabel2.setText(null);
 		petPicLabel2.setIcon(null);
 		petName2.setVisible(false);
+		petName2.setText(null);
+		
 		petStatLabel3.setText(null);
 		petPicLabel3.setIcon(null);
 		petName3.setVisible(false);
+		petName3.setText(null);
 	}
 	
 	protected void nextPlayer(int num)

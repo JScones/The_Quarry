@@ -42,6 +42,7 @@ public class Player {
 		return foods;
 	}
 	
+	@Override
 	public String toString()
 	{
 		String out = "player: %s has pet(s) %s";

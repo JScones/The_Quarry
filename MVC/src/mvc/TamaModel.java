@@ -60,6 +60,12 @@ public class TamaModel{
 		return species;
 	}
 	
+	public void addPlayer(Player newPlayer)
+	{
+		players.add(newPlayer);
+		System.out.println(players.get(0));
+	}
+	
 	private static Map<String, Pet> makeDefaultPetsMap()
 	{
 		Map<String, Pet> speciesMap = new Hashtable<String, Pet>();

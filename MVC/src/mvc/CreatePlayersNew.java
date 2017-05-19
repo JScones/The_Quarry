@@ -51,19 +51,7 @@ public class CreatePlayersNew {
 	
 	
 	/**
-	 * Returns a collection of Pet child objects with player chosen names.
-	 * 
-	 * Creates default instances of each type of pet (potentially with unique random generated
-	 * favourite toys??), then allows the player to view the stats of each species before choosing
-	 * their pets.
-	 * 
-	 * The player is asked to choose a species and a name for each pet they desire.
-	 * The names of the pets are checked to make sure they are unique, and if not the player is asked
-	 * to choose a different name.
-	 * 
-	 * 
-	 * @param		numPets The number of pets to be created.
-	 * @return		An array list of the created pet objects.
+	 * Redo JavaDoc here
 	 */
 	private ArrayList<Pet> createPets(ArrayList<String> petSpecies, ArrayList<String> petNames)
 	{
@@ -71,7 +59,7 @@ public class CreatePlayersNew {
 	    ArrayList<Pet> pets = new ArrayList<>();
 	    	
 	    // This loop gets each pet's species and name (checking for duplicates) and adds them to an Array list
-	    for(int j = 1; j <= numPets; j++)
+	    for(int j = 0; j < numPets; j++)
 	    {
 	    	String thisPet = petSpecies.get(j);
 	    	String thisPetName = petNames.get(j);
