@@ -64,15 +64,11 @@ public class PlayerTest {
 		}
 		catch(InsufficientFundsException e)
 		{
-			System.out.println("not enough money mate"); //add GUI stuff here
-			assertTrue(bal == daxx.getMoney());
+			//System.out.println("not enough money mate"); //add GUI stuff here
+			assertTrue(1.0 == daxx.getMoney());
+			daxx.setMoney(bal);
 		}
 	}
-//	@Test
-//	public void testBuyFoodExceed() 
-//	{
-//		daxx.setMoney(1.0);
-//		daxx.Buy(milk);
-//		System.out.println(daxx.getMoney());
-//	}
+
 }
+	
