@@ -36,7 +36,7 @@ public class Player {
 //		money -= cost;
 //	}
 	
-	public void Buy(Toy toy) throws InsufficientFundsException
+	public void Buy(Toy toy)
 	{
 		if(toy.getPrice() <= money)
 		{
@@ -46,11 +46,11 @@ public class Player {
 		else
 		{
 			double amountOver = toy.getPrice();
-			throw new InsufficientFundsException(amountOver);
+			//add Gui stuff here
 		}
 	}
 	
-	public void Buy(Food food) throws InsufficientFundsException
+	public void Buy(Food food)
 	{
 		if(food.getPrice() <= money)
 		{
@@ -60,7 +60,7 @@ public class Player {
 		else
 		{
 			double amountOver = food.getPrice();
-			throw new InsufficientFundsException(amountOver);
+			System.out.println("costs $" + amountOver + " more than you have.");
 		}
 	}
 	

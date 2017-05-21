@@ -39,35 +39,26 @@ public class PlayerTest {
 	public void testBuy()
 	{
 		double bal = daxx.getMoney();
-		try
-		{
-			daxx.Buy(milk);
-			assertTrue(bal - milk.getPrice() == daxx.getMoney());
-		}
-		catch(InsufficientFundsException e)
-		{
-			System.out.println("not enough money mate"); //add GUI stuff here
-			e.printStackTrace();
-		}
+
+		daxx.Buy(milk);
+		assertTrue(bal - milk.getPrice() == daxx.getMoney());
+		
+
 	}
 	
 	@Test
 	public void testBuyExceed()
 	{
 		double bal = daxx.getMoney();
+		ArrayList<Food> foods = daxx.getFood();
 		daxx.setMoney(1.0);
 
-		try
-		{
-			daxx.Buy(milk);
-//			assertTrue(bal - milk.getPrice() == daxx.getMoney());
-		}
-		catch(InsufficientFundsException e)
-		{
-			//System.out.println("not enough money mate"); //add GUI stuff here
-			assertTrue(1.0 == daxx.getMoney());
-			daxx.setMoney(bal);
-		}
+		daxx.Buy(milk);
+
+		assertTrue(1.0 == daxx.getMoney());
+		daxx.setMoney(bal);
+		assertTrue(foods == daxx.getFood());
+		
 	}
 
 }
