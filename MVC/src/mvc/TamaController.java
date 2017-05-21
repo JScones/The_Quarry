@@ -41,7 +41,7 @@ public class TamaController {
 		{
 			String command = e.getActionCommand();
 			String curView = m_view.getCurrentView();
-			//System.out.println(command);
+			System.out.println(command);
 			if(command == "Start")
 			{
 				m_view.changeView("Setup");

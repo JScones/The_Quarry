@@ -40,19 +40,45 @@ public class TamaView {
 	private JLabel petNameAccepted1 = new JLabel(cross);
 	private JLabel petNameAccepted2 = new JLabel(cross);
 	private JLabel petNameAccepted3 = new JLabel(cross);
-	private JLabel petPicMainLabel1 = new JLabel();
-	private JLabel petPicMainLabel2 = new JLabel();
-	private JLabel petPicMainLabel3 = new JLabel();
+	
+	private JLabel mainGamePetStat1 = new JLabel();
+	private JLabel mainGamePetStat2 = new JLabel();
+	private JLabel mainGamePetStat3 = new JLabel();
+	private JLabel[] mainGamePetStats = {mainGamePetStat1, mainGamePetStat2, mainGamePetStat3};
+	
 	private JLabel nameLabel = new JLabel();
 	private JButton start = new JButton("Start");
 	private JButton help = new JButton("Help");
 	private JButton back = new JButton("Back");
 	private JButton next = new JButton("Next");
 	private JButton next_player = new JButton("Next");
+	private JButton clearSelections = new JButton("Clear");
+	
 	private JButton nextPet1 = new JButton("Done");
 	private JButton nextPet2 = new JButton("Done");
 	private JButton nextPet3 = new JButton("Done");
-	private JButton clearSelections = new JButton("Clear");
+	private JButton[] nextPetButtons = {nextPet1, nextPet2, nextPet3};
+	
+	private JButton playPet1 = new JButton("Play");
+	private JButton playPet2 = new JButton("Play");
+	private JButton playPet3 = new JButton("Play");
+	private JButton[] playPetButtons = {playPet1, playPet2, playPet3};
+	
+	private JButton feedPet1 = new JButton("Feed");
+	private JButton feedPet2 = new JButton("Feed");
+	private JButton feedPet3 = new JButton("Feed");
+	private JButton[] feedPetButtons = {feedPet1, feedPet2, feedPet3};
+	
+	private JButton toiletPet1 = new JButton("Toilet");
+	private JButton toiletPet2 = new JButton("Toilet");
+	private JButton toiletPet3 = new JButton("Toilet");
+	private JButton[] toiletPetButtons = {toiletPet1, toiletPet2, toiletPet3};
+	
+	private JButton sleepPet1 = new JButton("Sleep");
+	private JButton sleepPet2 = new JButton("Sleep");
+	private JButton sleepPet3 = new JButton("Sleep");
+	private JButton[] sleepPetButtons = {sleepPet1, sleepPet2, sleepPet3};
+	
 	private JRadioButton players1 = new JRadioButton("1 player  ");
 	private JRadioButton players2 = new JRadioButton("2 players  ");
 	private JRadioButton players3 = new JRadioButton("3 players  ");
@@ -71,9 +97,9 @@ public class TamaView {
 	private JPanel petPanel1 = petPanel(1);
 	private JPanel petPanel2 = petPanel(2);
 	private JPanel petPanel3 = petPanel(3);
-	private JPanel petTab1 = buildMainGamePanel(0);
-	private JPanel petTab2 = buildMainGamePanel(1);
-	private JPanel petTab3 = buildMainGamePanel(2);
+	private JPanel petTab1 = buildPetTab(0);
+	private JPanel petTab2 = buildPetTab(1);
+	private JPanel petTab3 = buildPetTab(2);
 	private JTabbedPane mainGameTabbedPane = buildMainGameTab();
 	
 	private ButtonGroup numPlayersGroup = new ButtonGroup();
@@ -86,10 +112,7 @@ public class TamaView {
 	private Boolean isPetName3Accepted = false;
 	private Boolean isOnePetVisible = false;
 	
-	private ArrayList<JButton> petButtonList = new ArrayList<JButton>();
-	
 
-	
 	public TamaView(TamaModel model)
 	{
 		m_model = model;
@@ -324,7 +347,7 @@ public class TamaView {
 		return mainGamePanel;
 	}
 	
-	private JPanel buildMainGamePanel(int tabNum)
+	private JPanel buildPetTab(int tabNum)
 	{
 		MigLayout Layout = new MigLayout(
 				"fill, insets 20, debug", 
@@ -334,30 +357,22 @@ public class TamaView {
 		JPanel MGCard = new JPanel();
 		MGCard.setLayout(Layout);
 		
-		petPicMainLabel1.setHorizontalTextPosition(JLabel.CENTER);
-		petPicMainLabel1.setVerticalTextPosition(JLabel.BOTTOM);
-		petPicMainLabel2.setHorizontalTextPosition(JLabel.CENTER);
-		petPicMainLabel2.setVerticalTextPosition(JLabel.BOTTOM);
-		petPicMainLabel3.setHorizontalTextPosition(JLabel.CENTER);
-		petPicMainLabel3.setVerticalTextPosition(JLabel.BOTTOM);
-		if(tabNum == 0)
-		{
-			MGCard.add(petPicMainLabel1);
-			nextPet1.setActionCommand("donePet1");
-			MGCard.add(nextPet1);
-		}
-		else if(tabNum == 1)
-		{
-			MGCard.add(petPicMainLabel2);
-			nextPet2.setActionCommand("donePet2");
-			MGCard.add(nextPet2);
-		}
-		else if(tabNum == 2)
-		{
-			MGCard.add(petPicMainLabel3);
-			nextPet3.setActionCommand("donePet3");
-			MGCard.add(nextPet3);
-		}
+		MGCard.add(mainGamePetStats[tabNum]);
+		
+		nextPetButtons[tabNum].setActionCommand("donePet" + tabNum);
+		MGCard.add(nextPetButtons[tabNum], "wrap");
+		
+		playPetButtons[tabNum].setActionCommand("play " + tabNum);
+		MGCard.add(playPetButtons[tabNum]);
+		
+		feedPetButtons[tabNum].setActionCommand("feed " + tabNum);
+		MGCard.add(feedPetButtons[tabNum]);
+		
+		toiletPetButtons[tabNum].setActionCommand("toilet " + tabNum);
+		MGCard.add(toiletPetButtons[tabNum]);
+		
+		sleepPetButtons[tabNum].setActionCommand("sleep " + tabNum);
+		MGCard.add(sleepPetButtons[tabNum]);
 		
 		
 		return MGCard;
@@ -389,13 +404,9 @@ public class TamaView {
 			mainGameTabbedPane.removeTabAt(1);
 			mainGameTabbedPane.removeTabAt(1);
 			
-			petPicMainLabel1.setIcon(player.getPets().get(0).icon);
-			petPicMainLabel2.setIcon(null);
-			petPicMainLabel3.setIcon(null);
-			
-			petPicMainLabel1.setText(player.getPets().get(0).toString());
-			petPicMainLabel2.setText(null);
-			petPicMainLabel3.setText(null);
+			mainGamePetStat1.setText(player.getPets().get(0).getStatsString());
+			mainGamePetStat2.setText(null);
+			mainGamePetStat3.setText(null);
 			
 			nextPet1.setActionCommand("Next Player");
 		}
@@ -407,13 +418,9 @@ public class TamaView {
 			
 			mainGameTabbedPane.setEnabledAt(1, false);
 			
-			petPicMainLabel1.setIcon(player.getPets().get(0).icon);
-			petPicMainLabel2.setIcon(player.getPets().get(1).icon);
-			petPicMainLabel3.setIcon(null);
-			
-			petPicMainLabel1.setText(player.getPets().get(0).toString());
-			petPicMainLabel2.setText(player.getPets().get(1).toString());
-			petPicMainLabel3.setText(null);
+			mainGamePetStat1.setText(player.getPets().get(0).getStatsString());
+			mainGamePetStat2.setText(player.getPets().get(1).getStatsString());
+			mainGamePetStat3.setText(null);
 			
 			nextPet1.setActionCommand("donePet1");
 			nextPet2.setActionCommand("Next Player");
@@ -427,13 +434,9 @@ public class TamaView {
 			mainGameTabbedPane.setEnabledAt(1, false);
 			mainGameTabbedPane.setEnabledAt(2, false);
 			
-			petPicMainLabel1.setIcon(player.getPets().get(0).icon);
-			petPicMainLabel2.setIcon(player.getPets().get(1).icon);
-			petPicMainLabel3.setIcon(player.getPets().get(2).icon);
-			
-			petPicMainLabel1.setText(player.getPets().get(0).toString());
-			petPicMainLabel2.setText(player.getPets().get(1).toString());
-			petPicMainLabel3.setText(player.getPets().get(2).toString());
+			mainGamePetStat1.setText(player.getPets().get(0).getStatsString());
+			mainGamePetStat2.setText(player.getPets().get(1).getStatsString());
+			mainGamePetStat3.setText(player.getPets().get(2).getStatsString());
 			
 			nextPet1.setActionCommand("donePet1");
 			nextPet2.setActionCommand("donePet2");
@@ -443,8 +446,22 @@ public class TamaView {
 	
 	public void changePetTab(int tab)
 	{
-		mainGameTabbedPane.setEnabledAt(tab, true);
-		mainGameTabbedPane.setSelectedIndex(tab);
+		if(tab == 1)
+		{
+			mainGameTabbedPane.setEnabledAt(tab, true);
+			mainGameTabbedPane.setSelectedIndex(tab);
+			
+			mainGameTabbedPane.setEnabledAt(0, false);
+		}
+		
+		if(tab == 2)
+		{
+			mainGameTabbedPane.setEnabledAt(tab, true);
+			mainGameTabbedPane.setSelectedIndex(tab);
+			
+			mainGameTabbedPane.setEnabledAt(0, false);
+			mainGameTabbedPane.setEnabledAt(1, false);
+		}
 	}
 	
 	private void setPetComboBoxOptions(JComboBox<String> curBox)
@@ -524,6 +541,11 @@ public class TamaView {
 		nextPet1.addActionListener(bal);
 		nextPet2.addActionListener(bal);
 		nextPet3.addActionListener(bal);
+		
+		for(JButton play : playPetButtons)
+		{
+			play.addActionListener(bal);
+		}
 	}
 	
 	protected void addComboBoxListener(ItemListener cil1, ItemListener cil2, ItemListener cil3)
@@ -696,12 +718,7 @@ public class TamaView {
 	{
 		return nameField.getText();
 	}
-	
-	protected void updateText()
-	{
-		helpTextLabel.setText(Integer.toString(m_model.getClickCount()));
-	}
-	
+
 	protected String getCurrentView()
 	{
 		return curView;
