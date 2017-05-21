@@ -32,7 +32,9 @@ public class PlayerTest {
 		ArrayList<Toy> toys = daxx.getToys();
 		toys.add(ball);
 		daxx.addToy(ball);
+		
 		assertTrue(daxx.getToys().equals(toys));
+		System.out.println("aaaaaa\nddddddd");
 	}
 
 	@Test

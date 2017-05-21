@@ -36,17 +36,19 @@ public class Player {
 //		money -= cost;
 //	}
 	
-	public void Buy(Toy toy)
+	public boolean canBuy(Toy toy)
 	{
 		if(toy.getPrice() <= money)
 		{
 			money -= toy.getPrice();
 			toys.add(toy);
+			return true
 		}
 		else
 		{
 			double amountOver = toy.getPrice();
 			//add Gui stuff here
+			return false
 		}
 	}
 	

@@ -1,13 +1,13 @@
 package mvc;
 
-public class FoodOmelette extends Food {
+public class FoodCarrot extends Food {
 	
-	private static String name = "Omelette";
+	private static String name = "Carrot";
 	private static Double price = 5.99;
 	private static int value = 5;
 	
 
-	public FoodOmelette()
+	public FoodCarrot()
 	{
 		super(name, price, value);
 	}
