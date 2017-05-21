@@ -198,9 +198,7 @@ public class TamaController {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
-				Boolean nameTaken = petNames.contains(curName) || curPetNames.get((fieldNum + 1)%3).equals(curName) || curPetNames.get((fieldNum + 2)%3).equals(curName);
-				
-				m_view.petNameTaken(nameTaken, fieldNum);
+				checkPetNames();
 	        }
 	  
 	    }
@@ -218,8 +216,7 @@ public class TamaController {
 					e1.printStackTrace();
 				}
 				
-				Boolean nameTaken = petNames.contains(curName) || curPetNames.get((fieldNum + 1)%3).equals(curName) || curPetNames.get((fieldNum + 2)%3).equals(curName);
-				m_view.petNameTaken(nameTaken, fieldNum);
+				checkPetNames();
 	        }
 	        else
 	        {
@@ -232,6 +229,27 @@ public class TamaController {
 	        System.out.println("ChangedUpdate");
 	    }
 	    
+	    private void checkPetNames()
+	    {
+			if(petNames.contains(curName))
+				m_view.petNameTaken(true, fieldNum);
+			else if(curPetNames.get((fieldNum + 1)%3).equals(curName))
+			{
+				m_view.petNameTaken(true, fieldNum);
+				m_view.petNameTaken(true, (fieldNum + 1)%3);
+			}
+			else if(curPetNames.get((fieldNum + 2)%3).equals(curName))
+			{
+				m_view.petNameTaken(true, fieldNum);
+				m_view.petNameTaken(true, (fieldNum + 2)%3);
+			}
+			else
+			{
+				m_view.petNameTaken((curPetNames.get(0).equals(" ")), 0);
+				m_view.petNameTaken((curPetNames.get(1).equals(" ")), 1);
+				m_view.petNameTaken((curPetNames.get(2).equals(" ")), 2);
+			}
+	    }
 	    
 	}
 }

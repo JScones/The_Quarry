@@ -76,7 +76,7 @@ public class TamaView {
 	private Boolean isPetName1Accepted = false;
 	private Boolean isPetName2Accepted = false;
 	private Boolean isPetName3Accepted = false;
-	private Boolean aPetClicked = false;
+	private Boolean isOnePetVisible = false;
 	
 	
 	
@@ -314,13 +314,10 @@ public class TamaView {
 	
 	protected void updatePetPanel(String newPet, int labelNum)
 	{
-		aPetClicked = true;
 		if(labelNum == 1)
 		{
 			if(newPet == " ")
 			{
-				petPicLabel1.setIcon(null);
-				petStatLabel1.setText(null);
 				petPanel1.setVisible(false);
 				petName1.setText(null);
 			}
@@ -335,8 +332,6 @@ public class TamaView {
 		{
 			if(newPet == " ")
 			{
-				petPicLabel2.setIcon(null);
-				petStatLabel2.setText(null);
 				petPanel2.setVisible(false);
 				petName2.setText(null);
 			}
@@ -351,8 +346,6 @@ public class TamaView {
 		{
 			if(newPet == " ")
 			{
-				petPicLabel3.setIcon(null);
-				petStatLabel3.setText(null);
 				petPanel3.setVisible(false);
 				petName3.setText(null);
 			}
@@ -363,6 +356,12 @@ public class TamaView {
 				petPanel3.setVisible(true);
 			}
 		}
+
+		if(!(petPanel1.isVisible() || petPanel2.isVisible() || petPanel3.isVisible()))
+			isOnePetVisible = false;
+		else
+			isOnePetVisible = true;
+		allFieldsAccepted();
 	}
 	
 	protected void addButtonListener(ActionListener bal)
@@ -448,7 +447,6 @@ public class TamaView {
 		petNameTaken(true, 0);
 		petNameTaken(true, 1);
 		petNameTaken(true, 2);
-		aPetClicked = false;
 		next_player.setEnabled(false);
 		allFieldsAccepted();
 	}
@@ -505,17 +503,17 @@ public class TamaView {
 		}
 		else
 		{
-			if(fieldNum == 0)
+			if(fieldNum == 0 && petPanel1.isVisible())
 			{
 				petNameAccepted1.setIcon(tick);
 				isPetName1Accepted = true;
 			}		
-			else if(fieldNum == 1)
+			else if(fieldNum == 1 && petPanel2.isVisible())
 			{
 				petNameAccepted2.setIcon(tick);
 				isPetName2Accepted = true;
 			}
-			else if(fieldNum == 2)
+			else if(fieldNum == 2 && petPanel3.isVisible())
 			{
 				petNameAccepted3.setIcon(tick);
 				isPetName3Accepted = true;
@@ -527,13 +525,22 @@ public class TamaView {
 	
 	protected void allFieldsAccepted()
 	{
-		if(isPlayerNameAccepted && aPetClicked)
+		if(isPlayerNameAccepted && isOnePetVisible)
+		{
 			if(( (petPanel1.isVisible() && isPetName1Accepted) || !(petPanel1.isVisible()) ) && 
 					( (petPanel2.isVisible() && isPetName2Accepted) || !(petPanel2.isVisible()) ) &&
-					( (petPanel3.isVisible() && isPetName3Accepted) || !(petPanel3.isVisible()) ))
+					( (petPanel3.isVisible() && isPetName3Accepted) || !(petPanel3.isVisible()) )
+					 )
 				next_player.setEnabled(true);
+			else
+			{
+				next_player.setEnabled(false);
+			}
+		}
 		else
+		{
 			next_player.setEnabled(false);
+		}
 	}
 	
 	protected String getPlayerName()
