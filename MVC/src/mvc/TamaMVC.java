@@ -11,5 +11,6 @@ public class TamaMVC {
 		TamaController	controller = new TamaController(model, view);
 		
 		view.frame.setVisible(true);
+		Food foods = new Food();
 	}
 }

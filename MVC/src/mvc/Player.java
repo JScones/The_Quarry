@@ -9,7 +9,7 @@ public class Player {
 	private ArrayList<Pet> pets = new ArrayList<Pet>();
 	private ArrayList<Toy> toys = new ArrayList<>();
 	private ArrayList<Food> foods = new ArrayList<>();
-	private Double money;
+	private Double money = 50.0; //dollars
 	
 	public Player(String aName, ArrayList<Pet> newPets)
 	{
@@ -17,14 +17,51 @@ public class Player {
 		pets = newPets;
 	}
 	
+	public Player(){
+		
+	}
+	
 	public Double getMoney()
 	{
 		return money;
 	}
 	
-	public void useMoney(Double cost)
+	public void setMoney(double amountNew) 
 	{
-		money -= cost;
+		money = amountNew;
+	}
+	
+//	public void useMoney(Double cost)
+//	{
+//		money -= cost;
+//	}
+	
+	public void Buy(Toy toy) throws InsufficientFundsException
+	{
+		if(toy.getPrice() <= money)
+		{
+			money -= toy.getPrice();
+			toys.add(toy);
+		}
+		else
+		{
+			double amountOver = toy.getPrice();
+			throw new InsufficientFundsException(amountOver);
+		}
+	}
+	
+	public void Buy(Food food) throws InsufficientFundsException
+	{
+		if(food.getPrice() <= money)
+		{
+			money -= food.getPrice();
+			foods.add(food);
+		}
+		else
+		{
+			double amountOver = food.getPrice();
+			throw new InsufficientFundsException(amountOver);
+		}
 	}
 	
 	public ArrayList<Pet> getPets()
@@ -41,6 +78,17 @@ public class Player {
 	{
 		return foods;
 	}
+	
+	public void addFood(Food food)
+	{
+		foods.add(food);
+	}
+	
+	public void addToy(Toy toy)
+	{
+		toys.add(toy);
+	}
+	
 	
 	@Override
 	public String toString()

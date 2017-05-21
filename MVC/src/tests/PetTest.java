@@ -4,7 +4,13 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import mvc.*;
+import mvc.Pet;
+import mvc.PetTiger;
+import mvc.Food;
+import mvc.FoodBacon;
+import mvc.Toy;
+import mvc.ToyBall;
+import mvc.ToyClub;
 
 
 public class PetTest {

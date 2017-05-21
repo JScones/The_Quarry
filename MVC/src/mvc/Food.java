@@ -13,6 +13,10 @@ public class Food {
 		value = foodValue;
 	}
 	
+	public Food(){
+		
+	}
+	
 	public int getValue()
 	{
 		return value;
@@ -33,5 +37,20 @@ public class Food {
 
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj == this) {
+	        return true;
+	    }
+	    if (obj == null || obj.getClass() != this.getClass()) {
+	        return false;
+	    } 
+	    
+	    Food other = (Food) obj;
+	    return (other.name != null && other.name.equals(name));
+	
 	}
 }
