@@ -65,6 +65,11 @@ public class TamaModel{
 		players.add(newPlayer);
 	}
 	
+	public ArrayList<Player> getPlayers()
+	{
+		return players;
+	}
+	
 	private static Map<String, Pet> makeDefaultPetsMap()
 	{
 		Map<String, Pet> speciesMap = new Hashtable<String, Pet>();

@@ -17,6 +17,7 @@ public class TamaController {
 	private ArrayList<String> playerNames = new ArrayList<>();
 	private ArrayList<String> petNames = new ArrayList<>();
 	private ArrayList<String> curPetNames = new ArrayList<>();
+	private int curPlayerNum = 0;
 	
 	public TamaController(TamaModel model, TamaView view)
 	{
@@ -77,12 +78,28 @@ public class TamaController {
 					if(!(m_model.enoughPlayers()))
 						m_view.nextPlayer(m_model.curNumPlayers() + 1);
 					else
+					{
+						m_view.setMainGameTab(m_model.getPlayers().get(0));
+						curPlayerNum = 0;
 						m_view.changeView("Main Game");
+					}
 				}
 			}	
 			else if(command == "Clear")
 			{
 				m_view.resetPetView();
+			}
+			else if(command.equals("donePet1"))
+			{
+				m_view.changePetTab(1);
+			}
+			else if(command.equals("donePet2"))
+			{
+				m_view.changePetTab(2);
+			}
+			else if(command.equals("Next Player"))
+			{
+				m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum + 1));
 			}
 		}
 	}

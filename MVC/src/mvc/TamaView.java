@@ -3,9 +3,6 @@ package mvc;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
-import javax.swing.text.SimpleAttributeSet;
-import javax.swing.text.StyleConstants;
-import javax.swing.text.StyledDocument;
 
 import net.miginfocom.swing.MigLayout;
 
@@ -43,11 +40,18 @@ public class TamaView {
 	private JLabel petNameAccepted1 = new JLabel(cross);
 	private JLabel petNameAccepted2 = new JLabel(cross);
 	private JLabel petNameAccepted3 = new JLabel(cross);
+	private JLabel petPicMainLabel1 = new JLabel();
+	private JLabel petPicMainLabel2 = new JLabel();
+	private JLabel petPicMainLabel3 = new JLabel();
+	private JLabel nameLabel = new JLabel();
 	private JButton start = new JButton("Start");
 	private JButton help = new JButton("Help");
 	private JButton back = new JButton("Back");
 	private JButton next = new JButton("Next");
 	private JButton next_player = new JButton("Next");
+	private JButton nextPet1 = new JButton("Done");
+	private JButton nextPet2 = new JButton("Done");
+	private JButton nextPet3 = new JButton("Done");
 	private JButton clearSelections = new JButton("Clear");
 	private JRadioButton players1 = new JRadioButton("1 player  ");
 	private JRadioButton players2 = new JRadioButton("2 players  ");
@@ -67,6 +71,10 @@ public class TamaView {
 	private JPanel petPanel1 = petPanel(1);
 	private JPanel petPanel2 = petPanel(2);
 	private JPanel petPanel3 = petPanel(3);
+	private JPanel petTab1 = buildMainGamePanel(0);
+	private JPanel petTab2 = buildMainGamePanel(1);
+	private JPanel petTab3 = buildMainGamePanel(2);
+	private JTabbedPane mainGameTabbedPane = buildMainGameTab();
 	
 	private ButtonGroup numPlayersGroup = new ButtonGroup();
 	private ButtonGroup numDaysGroup = new ButtonGroup();
@@ -78,7 +86,7 @@ public class TamaView {
 	private Boolean isPetName3Accepted = false;
 	private Boolean isOnePetVisible = false;
 	
-	
+	private ArrayList<JButton> petButtonList = new ArrayList<JButton>();
 	
 
 	
@@ -105,7 +113,7 @@ public class TamaView {
 		JPanel playerCreatorCard = buildPlayerCreatorPanel();
 		
 		//Main game
-		JPanel mainGameCard = new JPanel();
+		JPanel mainGameCard = buildMainGameCard();
 		
 		// Add cards to the main panel in order to display and switch between them.
 		cards = new JPanel(new CardLayout());
@@ -248,9 +256,9 @@ public class TamaView {
 		PCCard.add(petsCombo1, "grow");
 		PCCard.add(petsCombo2, "grow");
 		PCCard.add(petsCombo3, "grow");
-		PCCard.add(petPanel1);
-		PCCard.add(petPanel2);
-		PCCard.add(petPanel3, "wrap");
+		PCCard.add(petPanel1, "align center");
+		PCCard.add(petPanel2, "align center");
+		PCCard.add(petPanel3, "align center, wrap");
 		resetPetView();
 		clearSelections.setPreferredSize(buttonSize);
 		PCCard.add(clearSelections);
@@ -263,7 +271,7 @@ public class TamaView {
 	private JPanel petPanel(int count)
 	{
 		MigLayout Layout = new MigLayout(
-				"fill, flowy, insets 20", 
+				"fill, insets 20, wrap 1", 
 				"[][]",
 				"[][]");
 		
@@ -274,31 +282,169 @@ public class TamaView {
 		if(count == 1)
 		{
 			petName1.setPreferredSize(buttonSize);
-			petPanel.add(petPicLabel1);
-			petPanel.add(petStatLabel1);
-			petPanel.add(petName1, "gaptop 10, grow, wrap");
+			petPanel.add(petPicLabel1, "align center");
+			petPanel.add(petStatLabel1, "align center");
+			petPanel.add(petName1, "gaptop 10, grow, split 2");
 			//petNameAccepted1.setText("Name your pet");
-			petPanel.add(petNameAccepted1, "skip 2");
+			petPanel.add(petNameAccepted1);
 		}
 		else if(count == 2)
 		{
-			petPanel.add(petPicLabel2);
-			petPanel.add(petStatLabel2);
-			petPanel.add(petName2, "gaptop 10, grow, wrap");
+			petPanel.add(petPicLabel2, "align center");
+			petPanel.add(petStatLabel2, "align center");
+			petPanel.add(petName2, "gaptop 10, grow, split 2");
 			petName2.setPreferredSize(buttonSize);
-			petPanel.add(petNameAccepted2, "skip 2");
+			petPanel.add(petNameAccepted2);
 		}
 		else if(count == 3)
 		{
-			petPanel.add(petPicLabel3);
-			petPanel.add(petStatLabel3);
-			petPanel.add(petName3, "gaptop 10, grow, wrap");
+			petPanel.add(petPicLabel3, "align center");
+			petPanel.add(petStatLabel3, "align center");
+			petPanel.add(petName3, "gaptop 10, grow, split 2");
 			petName3.setPreferredSize(buttonSize);
-			petPanel.add(petNameAccepted3, "skip 2");
+			petPanel.add(petNameAccepted3);
 		}
 		petPanel.setVisible(false);
 		
 		return petPanel;
+	}
+	
+	private JPanel buildMainGameCard()
+	{
+		MigLayout Layout = new MigLayout(
+				"fill, insets 20, wrap 1", 
+				"[][]",
+				"[]");
+		
+		JPanel mainGamePanel = new JPanel();
+		mainGamePanel.setLayout(Layout);
+		mainGamePanel.add(nameLabel, "span, wrap");
+		mainGamePanel.add(mainGameTabbedPane, "push, grow");
+		
+		return mainGamePanel;
+	}
+	
+	private JPanel buildMainGamePanel(int tabNum)
+	{
+		MigLayout Layout = new MigLayout(
+				"fill, insets 20, debug", 
+				"[][][]",
+				"[][]");
+		
+		JPanel MGCard = new JPanel();
+		MGCard.setLayout(Layout);
+		
+		petPicMainLabel1.setHorizontalTextPosition(JLabel.CENTER);
+		petPicMainLabel1.setVerticalTextPosition(JLabel.BOTTOM);
+		petPicMainLabel2.setHorizontalTextPosition(JLabel.CENTER);
+		petPicMainLabel2.setVerticalTextPosition(JLabel.BOTTOM);
+		petPicMainLabel3.setHorizontalTextPosition(JLabel.CENTER);
+		petPicMainLabel3.setVerticalTextPosition(JLabel.BOTTOM);
+		if(tabNum == 0)
+		{
+			MGCard.add(petPicMainLabel1);
+			nextPet1.setActionCommand("donePet1");
+			MGCard.add(nextPet1);
+		}
+		else if(tabNum == 1)
+		{
+			MGCard.add(petPicMainLabel2);
+			nextPet2.setActionCommand("donePet2");
+			MGCard.add(nextPet2);
+		}
+		else if(tabNum == 2)
+		{
+			MGCard.add(petPicMainLabel3);
+			nextPet3.setActionCommand("donePet3");
+			MGCard.add(nextPet3);
+		}
+		
+		
+		return MGCard;
+	}
+	
+	private JTabbedPane buildMainGameTab()
+	{
+		JTabbedPane mainTabbedPane = new JTabbedPane(JTabbedPane.TOP);
+		
+		mainTabbedPane.addTab(null, null, petTab1, "Pet 1");
+		mainTabbedPane.addTab(null, null, petTab2, "Pet 2");
+		mainTabbedPane.addTab(null, null, petTab3, "Pet 3");
+		
+		return mainTabbedPane;
+	}
+	
+	public void setMainGameTab(Player player)
+	{
+		int numPets = player.getPets().size();
+		mainGameTabbedPane.removeAll();
+		mainGameTabbedPane.addTab(null, null, petTab1, "Pet 1");
+		mainGameTabbedPane.addTab(null, null, petTab2, "Pet 2");
+		mainGameTabbedPane.addTab(null, null, petTab3, "Pet 3");
+		nameLabel.setText("Player name here");
+		
+		if(numPets == 1)
+		{
+			mainGameTabbedPane.setIconAt(0, player.getPets().get(0).icon);
+			mainGameTabbedPane.removeTabAt(1);
+			mainGameTabbedPane.removeTabAt(1);
+			
+			petPicMainLabel1.setIcon(player.getPets().get(0).icon);
+			petPicMainLabel2.setIcon(null);
+			petPicMainLabel3.setIcon(null);
+			
+			petPicMainLabel1.setText(player.getPets().get(0).toString());
+			petPicMainLabel2.setText(null);
+			petPicMainLabel3.setText(null);
+			
+			nextPet1.setActionCommand("Next Player");
+		}
+		else if(numPets == 2)
+		{
+			mainGameTabbedPane.setIconAt(0, player.getPets().get(0).icon);
+			mainGameTabbedPane.setIconAt(1, player.getPets().get(1).icon);
+			mainGameTabbedPane.removeTabAt(2);
+			
+			mainGameTabbedPane.setEnabledAt(1, false);
+			
+			petPicMainLabel1.setIcon(player.getPets().get(0).icon);
+			petPicMainLabel2.setIcon(player.getPets().get(1).icon);
+			petPicMainLabel3.setIcon(null);
+			
+			petPicMainLabel1.setText(player.getPets().get(0).toString());
+			petPicMainLabel2.setText(player.getPets().get(1).toString());
+			petPicMainLabel3.setText(null);
+			
+			nextPet1.setActionCommand("donePet1");
+			nextPet2.setActionCommand("Next Player");
+		}
+		else if(numPets == 3)
+		{
+			mainGameTabbedPane.setIconAt(0, player.getPets().get(0).icon);
+			mainGameTabbedPane.setIconAt(1, player.getPets().get(1).icon);
+			mainGameTabbedPane.setIconAt(2, player.getPets().get(2).icon);
+			
+			mainGameTabbedPane.setEnabledAt(1, false);
+			mainGameTabbedPane.setEnabledAt(2, false);
+			
+			petPicMainLabel1.setIcon(player.getPets().get(0).icon);
+			petPicMainLabel2.setIcon(player.getPets().get(1).icon);
+			petPicMainLabel3.setIcon(player.getPets().get(2).icon);
+			
+			petPicMainLabel1.setText(player.getPets().get(0).toString());
+			petPicMainLabel2.setText(player.getPets().get(1).toString());
+			petPicMainLabel3.setText(player.getPets().get(2).toString());
+			
+			nextPet1.setActionCommand("donePet1");
+			nextPet2.setActionCommand("donePet2");
+			nextPet3.setActionCommand("Next Player");
+		}
+	}
+	
+	public void changePetTab(int tab)
+	{
+		mainGameTabbedPane.setEnabledAt(tab, true);
+		mainGameTabbedPane.setSelectedIndex(tab);
 	}
 	
 	private void setPetComboBoxOptions(JComboBox<String> curBox)
@@ -375,6 +521,9 @@ public class TamaView {
 		petsCombo2.addActionListener(bal);
 		petsCombo3.addActionListener(bal);
 		clearSelections.addActionListener(bal);
+		nextPet1.addActionListener(bal);
+		nextPet2.addActionListener(bal);
+		nextPet3.addActionListener(bal);
 	}
 	
 	protected void addComboBoxListener(ItemListener cil1, ItemListener cil2, ItemListener cil3)

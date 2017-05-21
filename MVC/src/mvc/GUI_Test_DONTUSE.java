@@ -9,21 +9,24 @@ import net.miginfocom.swing.MigLayout;
 public class GUI_Test_DONTUSE {
 
 	JFrame frame = new JFrame("Gui Test");
-	JPanel cards;
 
 	// First menu components
 	private JTextPane menuTextPane = new JTextPane();
 	private JTextPane helpTextPane = new JTextPane();
-	private JLabel numPlayersLabel = new JLabel();
 	private JButton start = new JButton("Start");
 	private JButton help = new JButton("Help");
 	private JButton back = new JButton("Back");
 	private Dimension buttonSize = new Dimension(225, 50);
 	
 	private String helpText = "This is where the help text goes\n";
-	private JRadioButton rdbtnNewRadioButton = new JRadioButton("New radio button");
-	private JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("New radio button");
-	private JRadioButton rdbtnNewRadioButton_2 = new JRadioButton("New radio button");
+	private final JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+	private final JPanel panel = new JPanel();
+	private final JPanel panel_1 = new JPanel();
+	private final JLabel lblNewLabel = new JLabel("New label");
+	private final JPanel panel_2 = new JPanel();
+	private final JPanel panel_3 = new JPanel();
+	private final JButton btnNewButton = new JButton("New button");
+	private final JButton btnNewButton_1 = new JButton("New button");
 
 	/**
 	 * Launch the application.
@@ -53,83 +56,35 @@ public class GUI_Test_DONTUSE {
 	 */
 	private void initialize() {
 		
-		//Make Menu card
-		MigLayout menuLayout = new MigLayout(
-				"fill, insets 20", 
-				"[][]",
-				"[][]");
-		
-		JPanel menuCard = new JPanel();
-		menuCard.setLayout(menuLayout);
-		menuTextPane.setEditable(false);
-		menuTextPane.setText("poop");
-		
-		//Centering the text http://stackoverflow.com/questions/3213045/centering-text-in-a-jtextarea-or-jtextpane-horizontal-text-alignment
-		StyledDocument doc = menuTextPane.getStyledDocument();
-		SimpleAttributeSet center = new SimpleAttributeSet();
-		StyleConstants.setAlignment(center, StyleConstants.ALIGN_CENTER);
-		doc.setParagraphAttributes(0, doc.getLength(), center, false);
-		
-		//
-		//info1.setPreferredSize(new Dimension(450, 300));
-		menuCard.add(menuTextPane, "span,grow,center,wrap, push");
-		start.setPreferredSize(buttonSize);
-		menuCard.add(start, "grow, hmax 50,center, span, split 2");
-		help.setPreferredSize(buttonSize);
-		menuCard.add(help, "grow, hmax 50,center");
-		
-		//Make Help menu card
-		MigLayout helpLayout = new MigLayout(
-				"fill, insets 20", 
-				"[]",
-				"[]");
-		
-		JPanel helpCard = new JPanel();
-		helpCard.setLayout(helpLayout);
-		helpTextPane.setText(helpText);
-		helpTextPane.setEditable(false);
-		
-		helpCard.add(helpTextPane, "span,grow,center,wrap, push");
-		back.setPreferredSize(buttonSize);
-		helpCard.add(back, "grow");
-		
-		//Make the Setup card
-		MigLayout setupLayout = new MigLayout(
-				"fill, insets 20", 
-				"[][]",
-				"[][][]");
-		
-		JPanel setupCard = new JPanel();
-		setupCard.setLayout(setupLayout);
-		numPlayersLabel.setText("How many players? ");
-		numPlayersLabel.setPreferredSize(buttonSize);
-		setupCard.add(numPlayersLabel, "cell 0 0");
-		
-		
-		// Add cards to the main panel in order to display and switch between them.
-		cards = new JPanel(new CardLayout());
-		//cards.add(menuCard, "Menu"); // The string here is an ID used to choose which card shows through changeView(ID) below.
-		//cards.add(helpCard, "Help");
-		cards.add(setupCard, "Setup");
-		ButtonGroup group = new ButtonGroup();
-		group.add(rdbtnNewRadioButton);
-		group.add(rdbtnNewRadioButton_1);
-		group.add(rdbtnNewRadioButton_2);
-		
-		setupCard.add(rdbtnNewRadioButton, "flowx,cell 1 0");
-		
-		setupCard.add(rdbtnNewRadioButton_1, "cell 1 0");
-		
-		setupCard.add(rdbtnNewRadioButton_2, "cell 1 0");
-		
-		//frame.add(mainPane, BorderLayout.PAGE_START);
-		frame.getContentPane().add(cards, BorderLayout.CENTER);
 		//frame.setResizable(false);
 		//frame.setMinimumSize(new Dimension(900, 600));
 		frame.setPreferredSize(new Dimension(900, 600));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.pack();
+		frame.getContentPane().setLayout(new MigLayout("", "[325px][grow]", "[290px,grow]"));
+		
+		frame.getContentPane().add(tabbedPane, "cell 0 0,grow");
+		
+		tabbedPane.addTab("New tab", null, panel, null);
+		lblNewLabel.setIcon(new ImageIcon("D:\\Josh\\Documents\\Uni\\2017\\SENG201\\Assignment\\The_Quarry\\MVC\\resources\\elephant.png"));
+		
+		panel.add(lblNewLabel);
+		
+		tabbedPane.addTab("New tab", null, panel_1, null);
+		
+		tabbedPane.addTab("New tab", null, panel_2, null);
+		panel_2.setLayout(new MigLayout("", "[]", "[]"));
+		tabbedPane.setEnabledAt(1, false);
+		tabbedPane.setSelectedIndex(2);
+		
+		frame.getContentPane().add(panel_3, "cell 1 0,grow");
+		panel_3.setLayout(new MigLayout("", "[][][][][][][][][]", "[][][][][][][]"));
+		
+		panel_3.add(btnNewButton, "cell 0 0");
+		
+		panel_3.add(btnNewButton_1, "cell 8 6");
+		
 	}
 
 }
