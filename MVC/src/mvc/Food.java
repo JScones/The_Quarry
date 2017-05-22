@@ -53,4 +53,9 @@ public class Food {
 	    return (other.name != null && other.name.equals(name));
 	
 	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
 }

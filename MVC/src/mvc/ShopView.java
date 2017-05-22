@@ -1,6 +1,9 @@
 package mvc;
 
 import java.awt.EventQueue;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 
@@ -13,6 +16,10 @@ public class ShopView {
 	
 	private ImageIcon baconImage = new ImageIcon("resources/ball.png");
 	
+	Player player = new Player();
+	
+
+		
 	private JPanel main = new JPanel();
 	private JLabel foodLabel = new JLabel("Food");
 	private JLabel clickLabel1 = new JLabel("Click picture to buy.");
@@ -50,6 +57,14 @@ public class ShopView {
 	
 	private JButton backButton = new JButton();
 	
+	private JLabel toyBoxLabel = new JLabel("Toy Box:");
+	private JLabel moneyLabel = new JLabel();
+	private JLabel toyBoxListLabel = new JLabel();
+	private JLabel foodBoxLabel = new JLabel("Food Box:");
+	private JLabel foodBoxListLabel = new JLabel();
+	
+	String toyList = new String();
+	String foodList = new String();
 
 	/**
 	 * Launch the application.
@@ -82,15 +97,30 @@ public class ShopView {
 		Toy plane = new ToyPlane();
 		Toy yarn = new ToyYarn();
 		
+		player.addToy(ball);
+		player.addToy(book);
+		player.addToy(yarn);
+		player.addToy(piano);
+		player.addToy(book);
+		player.addFood(milk);
+		player.addFood(carrot);
+		
+
+		
 		MigLayout menuLayout = new MigLayout(
 				"fill, insets 20", 
-				"[][][][][][]",
+				"[][][][][][][]",
 				"[][][][][][][][][][]");
 		main.setLayout(menuLayout);
 		
-		main.add(foodLabel, "grow, wrap");
+		main.add(foodLabel, "grow");
 		
-		main.add(clickLabel1, "grow, wrap");
+		moneyLabel.setText("Money: $" + player.getMoney());
+		main.add(moneyLabel, "skip 5, grow, wrap");
+		
+		main.add(clickLabel1, "grow");
+		
+		main.add(foodBoxLabel, "grow, skip 5, wrap");
 		
 		baconLabel.setText("<html><p>Bacon<br />"
 			+ "Price: $" + bacon.getPrice() + "<br />"
@@ -102,7 +132,7 @@ public class ShopView {
 				+ "Price: $" + carrot.getPrice() + "<br />"
 						+ "Nutrition: " + carrot.getValue() + "</p></html>");
 		milkLabel.setText("<html><p>Milk<br />"
-				+ "Price: " + milk.getPrice() + "<br />"
+				+ "Price: $" + milk.getPrice() + "<br />"
 				+ "Nutrition: " + milk.getValue() + "</p></html>");
 		steakLabel.setText("<html><p>Steak<br />"
 				+ "Price: $" + steak.getPrice() + "<br />"
@@ -137,7 +167,33 @@ public class ShopView {
 		main.add(carrotButton, "grow");		
 		main.add(milkButton, "grow");
 		main.add(steakButton, "grow");
-		main.add(sushiButton, "grow, wrap");
+		main.add(sushiButton, "grow");
+
+		Map<String, Integer> foodMap = new HashMap<String, Integer>();
+		
+		for(int j=0; j < player.getFood().size(); j++)
+		{
+			if(!foodMap.containsKey(player.getToys().get(j)))
+				foodMap.put(player.getFood().get(j).getName(), 1);
+			else
+				foodMap.put(player.getFood().get(j).getName(), foodMap.get(player.getFood().get(j).getName()) + 1);
+		}
+		
+		
+		for(int i = 0; i < player.getFood().size(); i++){
+
+		foodList += player.getFood().get(i) + " x" + foodMap.get(player.getFood().get(i).toString());
+		foodList += "<br />";
+		
+	}
+		foodList = "<html><p>" + foodList + "</p></html>";
+		
+		System.out.println(foodList);
+		
+		foodBoxListLabel.setText(foodList);
+
+		main.add(foodBoxListLabel, "grow, wrap");
+
 		
 		main.add(baconLabel, "grow");
 		main.add(bananaLabel, "grow");
@@ -147,14 +203,39 @@ public class ShopView {
 		main.add(sushiLabel, "grow, wrap");
 		
 		main.add(toyLabel, "grow, wrap");
-		main.add(clickLabel2, "grow, wrap");
+		main.add(clickLabel2, "grow");
+		main.add(toyBoxLabel, "grow, skip 5, wrap");
 		
 		main.add(ballButton, "grow");
 		main.add(bookButton, "grow");
 		main.add(clubButton, "grow");
 		main.add(pianoButton, "grow");
 		main.add(planeButton, "grow");
-		main.add(yarnButton, "grow, wrap");
+		main.add(yarnButton, "grow");
+		
+		Map<String, Integer> toysMap = new HashMap<String, Integer>();
+		
+		for(int j=0; j < player.getToys().size(); j++)
+		{
+			if(!toysMap.containsKey(player.getToys().get(j)))
+				toysMap.put(player.getToys().get(j).getName(), 1);
+			else
+				toysMap.put(player.getToys().get(j).getName(), toysMap.get(player.getToys().get(j).getName()) + 1);
+		}
+		
+		
+		for(int i = 0; i < player.getToys().size(); i++){
+
+		toyList += player.getToys().get(i) + " x" + toysMap.get(player.getToys().get(i).toString());
+		toyList += "<br />";
+		
+	}
+		toyList = "<html><p>" + toyList + "</p></html>";
+		
+		
+		toyBoxListLabel.setText(toyList);
+
+		main.add(toyBoxListLabel, "grow, wrap");
 		
 		main.add(ballLabel, "grow");
 		main.add(bookLabel, "grow");

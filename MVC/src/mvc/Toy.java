@@ -28,6 +28,11 @@ public abstract class Toy {
 	{
 		return durability;
 	}
+	
+	@Override
+	public String toString(){
+		return name;
+	}
 
 	public abstract void play(int damage);
 }
