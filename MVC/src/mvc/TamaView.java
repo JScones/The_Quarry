@@ -41,10 +41,17 @@ public class TamaView {
 	private JLabel petNameAccepted2 = new JLabel(cross);
 	private JLabel petNameAccepted3 = new JLabel(cross);
 	
+	private JLabel dayLabel = new JLabel("Day");
+	
 	private JLabel mainGamePetStat1 = new JLabel();
 	private JLabel mainGamePetStat2 = new JLabel();
 	private JLabel mainGamePetStat3 = new JLabel();
 	private JLabel[] mainGamePetStats = {mainGamePetStat1, mainGamePetStat2, mainGamePetStat3};
+	
+	private JLabel petStatus1 = new JLabel();
+	private JLabel petStatus2 = new JLabel();
+	private JLabel petStatus3 = new JLabel();
+	private JLabel[] petStatusLabels = {petStatus1, petStatus2, petStatus3};
 	
 	private JLabel nameLabel = new JLabel();
 	private JButton start = new JButton("Start");
@@ -54,10 +61,7 @@ public class TamaView {
 	private JButton next_player = new JButton("Next");
 	private JButton clearSelections = new JButton("Clear");
 	
-	private JButton nextPet1 = new JButton("Done");
-	private JButton nextPet2 = new JButton("Done");
-	private JButton nextPet3 = new JButton("Done");
-	private JButton[] nextPetButtons = {nextPet1, nextPet2, nextPet3};
+	private JButton nextPet = new JButton("Next Pet");
 	
 	private JButton playPet1 = new JButton("Play");
 	private JButton playPet2 = new JButton("Play");
@@ -78,6 +82,9 @@ public class TamaView {
 	private JButton sleepPet2 = new JButton("Sleep");
 	private JButton sleepPet3 = new JButton("Sleep");
 	private JButton[] sleepPetButtons = {sleepPet1, sleepPet2, sleepPet3};
+	
+	private JButton storeButton = new JButton("Store");
+	private JButton nextDay = new JButton("Next Day");
 	
 	private JRadioButton players1 = new JRadioButton("1 player  ");
 	private JRadioButton players2 = new JRadioButton("2 players  ");
@@ -335,14 +342,26 @@ public class TamaView {
 	private JPanel buildMainGameCard()
 	{
 		MigLayout Layout = new MigLayout(
-				"fill, insets 20, wrap 1", 
+				"flowy, fill, insets 20", 
 				"[][]",
 				"[]");
 		
 		JPanel mainGamePanel = new JPanel();
 		mainGamePanel.setLayout(Layout);
-		mainGamePanel.add(nameLabel, "span, wrap");
-		mainGamePanel.add(mainGameTabbedPane, "push, grow");
+		
+		nameLabel.setFont(allFont);
+		dayLabel.setFont(allFont);
+		storeButton.setPreferredSize(buttonSize);
+		nextPet.setPreferredSize(buttonSize);
+		nextDay.setPreferredSize(buttonSize);
+		dayLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		
+		mainGamePanel.add(nameLabel);
+		mainGamePanel.add(mainGameTabbedPane, "push, grow, wrap");
+		mainGamePanel.add(dayLabel, "grow, skip 1, split 4");
+		mainGamePanel.add(storeButton, "gaptop 100, gapbottom 100");
+		mainGamePanel.add(nextPet, "gaptop 100, gapbottom 100");
+		mainGamePanel.add(nextDay, "gaptop 100, gapbottom 100");
 		
 		return mainGamePanel;
 	}
@@ -357,22 +376,25 @@ public class TamaView {
 		JPanel MGCard = new JPanel();
 		MGCard.setLayout(Layout);
 		
+		mainGamePetStats[tabNum].setFont(allFont);
+		mainGamePetStats[tabNum].setPreferredSize(new Dimension(300, 300));
 		MGCard.add(mainGamePetStats[tabNum]);
 		
-		nextPetButtons[tabNum].setActionCommand("donePet" + tabNum);
-		MGCard.add(nextPetButtons[tabNum], "wrap");
+		petStatusLabels[tabNum].setText("Actions Left: ");
+		petStatusLabels[tabNum].setFont(allFont);
+		MGCard.add(petStatusLabels[tabNum], "wrap");
 		
 		playPetButtons[tabNum].setActionCommand("play " + tabNum);
-		MGCard.add(playPetButtons[tabNum]);
+		MGCard.add(playPetButtons[tabNum], "span 2, split 4, growx");
 		
 		feedPetButtons[tabNum].setActionCommand("feed " + tabNum);
-		MGCard.add(feedPetButtons[tabNum]);
+		MGCard.add(feedPetButtons[tabNum], "growx");
 		
 		toiletPetButtons[tabNum].setActionCommand("toilet " + tabNum);
-		MGCard.add(toiletPetButtons[tabNum]);
+		MGCard.add(toiletPetButtons[tabNum], "growx");
 		
 		sleepPetButtons[tabNum].setActionCommand("sleep " + tabNum);
-		MGCard.add(sleepPetButtons[tabNum]);
+		MGCard.add(sleepPetButtons[tabNum], "growx");
 		
 		
 		return MGCard;
@@ -396,7 +418,10 @@ public class TamaView {
 		mainGameTabbedPane.addTab(null, null, petTab1, "Pet 1");
 		mainGameTabbedPane.addTab(null, null, petTab2, "Pet 2");
 		mainGameTabbedPane.addTab(null, null, petTab3, "Pet 3");
-		nameLabel.setText("Player name here");
+		nameLabel.setText("Player: " + player.name);
+		nextPet.setActionCommand("donePet1");
+		nextPet.setText("Next Pet");
+		dayLabel.setText("<html><p>Day " + m_model.getCurDay() + "</p><html>");
 		
 		if(numPets == 1)
 		{
@@ -408,7 +433,10 @@ public class TamaView {
 			mainGamePetStat2.setText(null);
 			mainGamePetStat3.setText(null);
 			
-			nextPet1.setActionCommand("Next Player");
+			petStatus1.setText(getPetStatus(player.getPets().get(0)));
+			petStatus2.setText(null);
+			petStatus3.setText(null);
+			
 		}
 		else if(numPets == 2)
 		{
@@ -422,8 +450,10 @@ public class TamaView {
 			mainGamePetStat2.setText(player.getPets().get(1).getStatsString());
 			mainGamePetStat3.setText(null);
 			
-			nextPet1.setActionCommand("donePet1");
-			nextPet2.setActionCommand("Next Player");
+			petStatus1.setText(getPetStatus(player.getPets().get(0)));
+			petStatus2.setText(getPetStatus(player.getPets().get(1)));
+			petStatus3.setText(null);
+			
 		}
 		else if(numPets == 3)
 		{
@@ -438,10 +468,21 @@ public class TamaView {
 			mainGamePetStat2.setText(player.getPets().get(1).getStatsString());
 			mainGamePetStat3.setText(player.getPets().get(2).getStatsString());
 			
-			nextPet1.setActionCommand("donePet1");
-			nextPet2.setActionCommand("donePet2");
-			nextPet3.setActionCommand("Next Player");
+			petStatus1.setText(getPetStatus(player.getPets().get(0)));
+			petStatus2.setText(getPetStatus(player.getPets().get(1)));
+			petStatus3.setText(getPetStatus(player.getPets().get(2)));
 		}
+	}
+	
+	private String getPetStatus(Pet pet)
+	{
+		String out = (
+				"<html><p>"
+				+ "Actions left: " + pet.getActionsLeft() + "<br /><br />"
+				+ "Lives left: " + pet.getLivesLeft() + "<br />"
+				);
+				
+		return out;
 	}
 	
 	public void changePetTab(int tab)
@@ -452,6 +493,16 @@ public class TamaView {
 			mainGameTabbedPane.setSelectedIndex(tab);
 			
 			mainGameTabbedPane.setEnabledAt(0, false);
+			
+			if(mainGameTabbedPane.getTabCount() == 2)
+			{
+				nextPet.setEnabled(false);
+			}
+			else
+			{
+				nextPet.setActionCommand("donePet2");
+				nextPet.setText("Next Pet");
+			}
 		}
 		
 		if(tab == 2)
@@ -461,6 +512,8 @@ public class TamaView {
 			
 			mainGameTabbedPane.setEnabledAt(0, false);
 			mainGameTabbedPane.setEnabledAt(1, false);
+			
+			nextPet.setEnabled(false);
 		}
 	}
 	
@@ -487,7 +540,7 @@ public class TamaView {
 			else
 			{
 				petPicLabel1.setIcon(m_model.defaultPets.get(newPet).icon);
-				petStatLabel1.setText(m_model.defaultPets.get(newPet).getStatsString());
+				petStatLabel1.setText("<html>" + m_model.defaultPets.get(newPet).getStatsString() + "</html>");
 				petPanel1.setVisible(true);
 			}
 		}
@@ -501,7 +554,7 @@ public class TamaView {
 			else
 			{
 				petPicLabel2.setIcon(m_model.defaultPets.get(newPet).icon);
-				petStatLabel2.setText(m_model.defaultPets.get(newPet).getStatsString());
+				petStatLabel2.setText("<html>" + m_model.defaultPets.get(newPet).getStatsString() + "</html>");
 				petPanel2.setVisible(true);
 			}
 		}
@@ -515,7 +568,7 @@ public class TamaView {
 			else
 			{
 				petPicLabel3.setIcon(m_model.defaultPets.get(newPet).icon);
-				petStatLabel3.setText(m_model.defaultPets.get(newPet).getStatsString());
+				petStatLabel3.setText("<html>" + m_model.defaultPets.get(newPet).getStatsString() + "</html>");
 				petPanel3.setVisible(true);
 			}
 		}
@@ -538,13 +591,26 @@ public class TamaView {
 		petsCombo2.addActionListener(bal);
 		petsCombo3.addActionListener(bal);
 		clearSelections.addActionListener(bal);
-		nextPet1.addActionListener(bal);
-		nextPet2.addActionListener(bal);
-		nextPet3.addActionListener(bal);
+		nextPet.addActionListener(bal);
 		
 		for(JButton play : playPetButtons)
 		{
 			play.addActionListener(bal);
+		}
+		
+		for(JButton feed : feedPetButtons)
+		{
+			feed.addActionListener(bal);
+		}
+		
+		for(JButton toilet : toiletPetButtons)
+		{
+			toilet.addActionListener(bal);
+		}
+		
+		for(JButton sleep : sleepPetButtons)
+		{
+			sleep.addActionListener(bal);
 		}
 	}
 	

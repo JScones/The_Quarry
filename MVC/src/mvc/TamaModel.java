@@ -9,6 +9,7 @@ public class TamaModel{
 	private static ArrayList<Player> players = new ArrayList<>();
 	private static int numDays;
 	private static int numExpectedPlayers;
+	private static int curDay = 0;
 	public Map<String, Pet> defaultPets = makeDefaultPetsMap();
 
 	public TamaModel()
@@ -89,6 +90,16 @@ public class TamaModel{
 		defaultPets.add(eagle);
 		
 		return defaultPets;
+	}
+	
+	public void incrementDay()
+	{
+		curDay = curDay + 1;
+	}
+	
+	public int getCurDay()
+	{
+		return curDay;
 	}
 	
 }

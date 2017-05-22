@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 public class Player {
 
-	private String name;
+	public String name;
 	private ArrayList<Pet> pets = new ArrayList<Pet>();
 	private ArrayList<Toy> toys = new ArrayList<>();
 	private ArrayList<Food> foods = new ArrayList<>();
@@ -42,13 +42,11 @@ public class Player {
 		{
 			money -= toy.getPrice();
 			toys.add(toy);
-			return true
+			return true;
 		}
 		else
 		{
-			double amountOver = toy.getPrice();
-			//add Gui stuff here
-			return false
+			return false;
 		}
 	}
 	

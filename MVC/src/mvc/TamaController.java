@@ -79,6 +79,7 @@ public class TamaController {
 						m_view.nextPlayer(m_model.curNumPlayers() + 1);
 					else
 					{
+						m_model.incrementDay();
 						m_view.setMainGameTab(m_model.getPlayers().get(0));
 						curPlayerNum = 0;
 						m_view.changeView("Main Game");

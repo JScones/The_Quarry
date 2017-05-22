@@ -20,6 +20,8 @@ public class Pet {
 	private int dayActions = 2;
 	private Boolean dayActionsUsed = false;
 	private String favToy;
+	private int livesLeft = 1;
+	private Boolean isAlive = true;
 
 	
 	public Pet(String aSpecies, String aFavToy, int[] petStats, ImageIcon aIcon)
@@ -51,6 +53,11 @@ public class Pet {
 		name = aName;
 	}
 	
+	public String getName()
+	{
+		return name;
+	}
+	
 	public int[] getStats()
 	{
 		return new int[]{hunger, energy, weight, toilet, health, mood};
@@ -58,11 +65,24 @@ public class Pet {
 	
 	public String getStatsString()
 	{
-		String out = ("<html><p>Species: " + species + "<br />"
-				+ "Appetite: " + maxHunger + "<br />"
-				+ "Energy: " + maxEnergy + "<br />"
-				+ "Weight: " + weight + "Kg<br />"
-				+ "Favourite toy: " + favToy + "</p></html>");
+		String out;
+		if(name == null)
+		{
+			out = ("<html><p>Species: " + species + "<br />"
+					+ "Appetite: " + maxHunger + "<br />"
+					+ "Energy: " + maxEnergy + "<br />"
+					+ "Weight: " + weight + "Kg<br />"
+					+ "Favourite toy: " + favToy + "</p></html>");
+		}
+		else
+		{
+			out = ("<html><p>Name :" + name + "<br /><br />"
+					+ "Species: " + species + "<br /><br />"
+					+ "Appetite: " + maxHunger + "<br /><br />"
+					+ "Energy: " + maxEnergy + "<br /><br />"
+					+ "Weight: " + weight + "Kg<br /><br />"
+					+ "Favourite toy: " + favToy + "</p></html>");
+		}
 		return out;
 	}
 	
@@ -120,6 +140,27 @@ public class Pet {
 	{
 		dayActions -= 1;
 		energy += 5;
+	}
+	
+	public int getLivesLeft()
+	{
+		return livesLeft;
+	}
+	
+	public boolean getAliveStatus()
+	{
+		return isAlive;
+	}
+	
+	public void died()
+	{
+		isAlive = false;
+		livesLeft = 0;
+	}
+	
+	public int getActionsLeft()
+	{
+		return dayActions;
 	}
 	
 }
