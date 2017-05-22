@@ -78,8 +78,9 @@ public class Pet {
 		{
 			out = ("<html><p>Name :" + name + "<br /><br />"
 					+ "Species: " + species + "<br /><br />"
-					+ "Appetite: " + maxHunger + "<br /><br />"
-					+ "Energy: " + maxEnergy + "<br /><br />"
+					+ "Appetite: " + hunger + "/" + maxHunger + "<br /><br />"
+					+ "Energy: " + energy + "/" + maxEnergy + "<br /><br />"
+					+ "Mood: " + mood + "<br /><br />"
 					+ "Weight: " + weight + "Kg<br /><br />"
 					+ "Favourite toy: " + favToy + "</p></html>");
 		}
@@ -140,6 +141,12 @@ public class Pet {
 	{
 		dayActions -= 1;
 		energy += 5;
+	}
+	
+	public void goToilet()
+	{
+		toilet += 3;
+		weight -= 1;
 	}
 	
 	public int getLivesLeft()

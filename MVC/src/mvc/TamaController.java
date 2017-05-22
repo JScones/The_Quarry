@@ -18,6 +18,7 @@ public class TamaController {
 	private ArrayList<String> petNames = new ArrayList<>();
 	private ArrayList<String> curPetNames = new ArrayList<>();
 	private int curPlayerNum = 0;
+	private Player curPlayer;
 	
 	public TamaController(TamaModel model, TamaView view)
 	{
@@ -27,6 +28,7 @@ public class TamaController {
 		view.addButtonListener(new ButtonListener());
 		view.addComboBoxListener(new ComboBoxListener(1), new ComboBoxListener(2), new ComboBoxListener(3));
 		view.addTextFieldListener(new NameTextFieldListener(), new PetNameTextFieldListener(0), new PetNameTextFieldListener(1), new PetNameTextFieldListener(2));
+		view.addMainGameLoopListener(new MainLoopButtonListener());
 		
 		curPetNames.add(" ");
 		curPetNames.add(" ");
@@ -103,6 +105,41 @@ public class TamaController {
 				m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum + 1));
 			}
 		}
+	}
+	
+	class MainLoopButtonListener implements ActionListener
+	{
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			String command = e.getActionCommand();
+			String[] commands = command.split(" ");
+			curPlayer = m_model.getPlayers().get(curPlayerNum);
+			System.out.println(command);
+			
+			if(commands[0].equals("feed"))
+			{
+				curPlayer.getPets().get(Integer.parseInt(commands[1])).feed(new FoodBacon());
+				m_view.updatePetStats(Integer.parseInt(commands[1]), curPlayer);
+			}
+			else if(commands[0].equals("play"))
+			{
+				curPlayer.getPets().get(Integer.parseInt(commands[1])).play(new ToyBall());
+				m_view.updatePetStats(Integer.parseInt(commands[1]), curPlayer);
+			}
+			else if(commands[0].equals("toilet"))
+			{
+				curPlayer.getPets().get(Integer.parseInt(commands[1])).goToilet();
+				m_view.updatePetStats(Integer.parseInt(commands[1]), curPlayer);
+			}
+			else if(commands[0].equals("sleep"))
+			{
+				curPlayer.getPets().get(Integer.parseInt(commands[1])).sleep();
+				m_view.updatePetStats(Integer.parseInt(commands[1]), curPlayer);
+			}
+			
+		}
+			
 	}
 	
 	class ComboBoxListener implements ItemListener

@@ -517,6 +517,11 @@ public class TamaView {
 		}
 	}
 	
+	public void updatePetStats(int petNum, Player player)
+	{
+		mainGamePetStats[petNum].setText(player.getPets().get(petNum).getStatsString());
+	}
+	
 	private void setPetComboBoxOptions(JComboBox<String> curBox)
 	{
 		String[] species = m_model.getSpecies();
@@ -592,25 +597,31 @@ public class TamaView {
 		petsCombo3.addActionListener(bal);
 		clearSelections.addActionListener(bal);
 		nextPet.addActionListener(bal);
+	}
+	
+	protected void addMainGameLoopListener(ActionListener mglal)
+	{
+		storeButton.addActionListener(mglal);
+		nextDay.addActionListener(mglal);
 		
 		for(JButton play : playPetButtons)
 		{
-			play.addActionListener(bal);
+			play.addActionListener(mglal);
 		}
 		
 		for(JButton feed : feedPetButtons)
 		{
-			feed.addActionListener(bal);
+			feed.addActionListener(mglal);
 		}
 		
 		for(JButton toilet : toiletPetButtons)
 		{
-			toilet.addActionListener(bal);
+			toilet.addActionListener(mglal);
 		}
 		
 		for(JButton sleep : sleepPetButtons)
 		{
-			sleep.addActionListener(bal);
+			sleep.addActionListener(mglal);
 		}
 	}
 	

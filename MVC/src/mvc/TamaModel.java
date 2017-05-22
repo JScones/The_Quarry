@@ -102,4 +102,9 @@ public class TamaModel{
 		return curDay;
 	}
 	
+	public int getNumDays()
+	{
+		return numDays;
+	}
+	
 }
