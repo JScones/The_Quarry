@@ -18,7 +18,6 @@ public class Pet {
 	private int health = 10;
 	private int mood = 10;
 	private int dayActions = 2;
-	private Boolean dayActionsUsed = false;
 	private String favToy;
 	private int livesLeft = 1;
 	private Boolean isAlive = true;

@@ -121,5 +121,15 @@ public class Player {
 			pets.get(i).displayPetStats();
 		}
 	}
+	
+	public void dayOver()
+	{
+		money += 50;
+		
+		for(Pet pet : pets)
+		{
+			pet.dayEnd();
+		}
+	}
 
 }
