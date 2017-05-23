@@ -481,6 +481,12 @@ public class TamaView {
 		dayLabel.setText("<html><p>Day " + m_model.getCurDay() + "</p><html>");
 	}
 	
+	public void dayOver()
+	{
+		JOptionPane.showMessageDialog(frame,
+			    "Day " + m_model.getCurDay() + " over.");
+	}
+	
 	private String getPetStatus(Pet pet)
 	{
 		String out = (
