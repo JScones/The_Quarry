@@ -225,21 +225,21 @@ public class ShopView {
 		updateShop();
 	}
 	
-	public String List(Food food)
+	private String List(Food food)
 	{
 		return "<html><p>" + food.getName() + "<br />"
 				+ "Price: $" + food.getPrice() + "<br />"
 				+ "Nutrition: " + food.getValue() + "</p></html>";
 	}
 	
-	public String List(Toy toy)
+	private String List(Toy toy)
 	{
 		return "<html><p>" + toy.getName() + "<br />"
 				+ "Price: $" + toy.getPrice() + "<br />"
 				+ "Durability: " + toy.getDurability() + "</p></html>";
 	}
 	
-	public void addButtonListener(ActionListener bl)
+	private void addButtonListener(ActionListener bl)
 	{
 		baconButton.addActionListener(bl);
 		bananaButton.addActionListener(bl);
@@ -256,7 +256,12 @@ public class ShopView {
 		yarnButton.addActionListener(bl);
 	}
 	
-	public void updateShop()
+	private void showNotEnoughMoneyDialog()
+	{
+		JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+	}
+	
+	private void updateShop()
 	{
 		Map<String, Integer> foodMap = new HashMap<String, Integer>();
 		String foodList = "";
@@ -325,7 +330,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 				
@@ -337,7 +342,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("carrot"))
@@ -348,7 +353,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("milk"))
@@ -359,7 +364,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("steak"))
@@ -370,7 +375,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("sushi"))
@@ -381,7 +386,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("ball"))
@@ -392,7 +397,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("book"))
@@ -403,7 +408,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("club"))
@@ -414,7 +419,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("piano"))
@@ -425,7 +430,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("plane"))
@@ -436,7 +441,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("yarn"))
@@ -447,7 +452,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			

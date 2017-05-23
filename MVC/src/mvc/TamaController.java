@@ -138,8 +138,10 @@ public class TamaController {
 				System.out.println(curPlayer);
 				ShopView shop = new ShopView(curPlayer);
 			}
-			else if(command.equals("Next Day"))
+			else if(command.equals("End my day"))
 			{
+				curPlayer.dayOver();
+				
 				if(curPlayerNum + 1 < m_model.curNumPlayers())
 				{
 					m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum + 1));
@@ -148,12 +150,18 @@ public class TamaController {
 				else
 				{
 					curPlayerNum = 0;
+					curPlayer = m_model.getPlayers().get(curPlayerNum);
+					m_view.dayOver();
 					m_model.incrementDay();
 					m_view.updateDayCount();
-					m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum));
+					m_view.setMainGameTab(curPlayer);
 					
 				}
 				
+			}
+			if(commands.length == 2 && curPlayer.getPets().get(Integer.parseInt(commands[1])).getActionsLeft() == 0)
+			{
+				m_view.enablePetActionButtons(false, Integer.parseInt(commands[1]));
 			}
 		}
 			
