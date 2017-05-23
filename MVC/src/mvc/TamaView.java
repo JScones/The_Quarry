@@ -437,6 +437,8 @@ public class TamaView {
 			petStatus2.setText(null);
 			petStatus3.setText(null);
 			
+			nextPet.setEnabled(false);
+			
 		}
 		else if(numPets == 2)
 		{
@@ -472,6 +474,11 @@ public class TamaView {
 			petStatus2.setText(getPetStatus(player.getPets().get(1)));
 			petStatus3.setText(getPetStatus(player.getPets().get(2)));
 		}
+	}
+	
+	public void updateDayCount()
+	{
+		dayLabel.setText("<html><p>Day " + m_model.getCurDay() + "</p><html>");
 	}
 	
 	private String getPetStatus(Pet pet)

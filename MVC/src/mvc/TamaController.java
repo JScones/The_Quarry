@@ -100,10 +100,6 @@ public class TamaController {
 			{
 				m_view.changePetTab(2);
 			}
-			else if(command.equals("Next Player"))
-			{
-				m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum + 1));
-			}
 		}
 	}
 	
@@ -137,7 +133,26 @@ public class TamaController {
 				curPlayer.getPets().get(Integer.parseInt(commands[1])).sleep();
 				m_view.updatePetStats(Integer.parseInt(commands[1]), curPlayer);
 			}
-			
+			else if(commands[0].equals("Store"))
+			{
+				System.out.println(curPlayer);
+			}
+			else if(command.equals("Next Day"))
+			{
+				if(curPlayerNum + 1 < m_model.curNumPlayers())
+				{
+					m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum + 1));
+				}
+				else
+				{
+					curPlayerNum = 0;
+					m_model.incrementDay();
+					m_view.updateDayCount();
+					m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum));
+					
+				}
+				
+			}
 		}
 			
 	}
