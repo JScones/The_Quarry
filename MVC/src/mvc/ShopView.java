@@ -4,6 +4,7 @@ import java.awt.EventQueue;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 import javax.swing.*;
 
@@ -104,6 +105,7 @@ public class ShopView {
 		player.addToy(book);
 		player.addFood(milk);
 		player.addFood(carrot);
+		player.addFood(carrot);
 		
 
 		
@@ -173,22 +175,22 @@ public class ShopView {
 		
 		for(int j=0; j < player.getFood().size(); j++)
 		{
-			if(!foodMap.containsKey(player.getToys().get(j)))
+			if(!foodMap.containsKey(player.getFood().get(j).toString()))
 				foodMap.put(player.getFood().get(j).getName(), 1);
 			else
 				foodMap.put(player.getFood().get(j).getName(), foodMap.get(player.getFood().get(j).getName()) + 1);
 		}
 		
+		String[] foodKeys = foodMap.keySet().toArray(new String[]{});
 		
-		for(int i = 0; i < player.getFood().size(); i++){
+		for(int i = 0; i < foodMap.size(); i++){
 
-		foodList += player.getFood().get(i) + " x" + foodMap.get(player.getFood().get(i).toString());
+		foodList += foodKeys[i] + " x" + foodMap.get(foodKeys[i]);
 		foodList += "<br />";
 		
 	}
 		foodList = "<html><p>" + foodList + "</p></html>";
-		
-		System.out.println(foodList);
+
 		
 		foodBoxListLabel.setText(foodList);
 
@@ -217,19 +219,22 @@ public class ShopView {
 		
 		for(int j=0; j < player.getToys().size(); j++)
 		{
-			if(!toysMap.containsKey(player.getToys().get(j)))
+			if(!toysMap.containsKey(player.getToys().get(j).toString()))
 				toysMap.put(player.getToys().get(j).getName(), 1);
 			else
+
 				toysMap.put(player.getToys().get(j).getName(), toysMap.get(player.getToys().get(j).getName()) + 1);
 		}
 		
 		
-		for(int i = 0; i < player.getToys().size(); i++){
-
-		toyList += player.getToys().get(i) + " x" + toysMap.get(player.getToys().get(i).toString());
-		toyList += "<br />";
+		String[] toyKeys = toysMap.keySet().toArray(new String[]{});
 		
-	}
+		for(int i = 0; i < toysMap.size(); i++)
+		{
+		toyList += toyKeys[i] + " x" + toysMap.get(toyKeys[i]);
+		toyList += "<br />";
+		}
+		
 		toyList = "<html><p>" + toyList + "</p></html>";
 		
 		
