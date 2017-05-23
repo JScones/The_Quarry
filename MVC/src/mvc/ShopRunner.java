@@ -7,7 +7,7 @@ public class ShopRunner {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ShopView window = new ShopView();
+					ShopView window = new ShopView(new Player());
 
 				} catch (Exception e) {
 					e.printStackTrace();

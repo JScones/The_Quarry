@@ -1,6 +1,9 @@
 package mvc;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
@@ -17,7 +20,7 @@ public class ShopView {
 	
 	private ImageIcon baconImage = new ImageIcon("resources/ball.png");
 	
-	Player player = new Player();
+	private Player player;
 	
 
 		
@@ -75,8 +78,12 @@ public class ShopView {
 	/**
 	 * Create the application.
 	 */
-	public ShopView() {
+	public ShopView(Player aPlayer) {
+		player = aPlayer;
 		initialize();
+		ActionListener bl = new ButtonListener();
+		addButtonListener(bl);
+		updateShop();
 	}
 
 	/**
@@ -98,15 +105,15 @@ public class ShopView {
 		Toy plane = new ToyPlane();
 		Toy yarn = new ToyYarn();
 		
-		player.addToy(ball);
-		player.addToy(book);
-		player.addToy(yarn);
-		player.addToy(piano);
-		player.addToy(book);
-		player.addFood(milk);
-		player.addFood(carrot);
-		player.addFood(carrot);
-		
+//		player.addToy(ball);
+//		player.addToy(book);
+//		player.addToy(yarn);
+//		player.addToy(piano);
+//		player.addToy(book);
+//		player.addFood(milk);
+//		player.addFood(carrot);
+//		player.addFood(carrot);
+//		
 
 		
 		MigLayout menuLayout = new MigLayout(
@@ -164,6 +171,14 @@ public class ShopView {
 		
 		backButton.setText("Back");
 		
+		baconButton.setActionCommand("bacon");
+		bananaButton.setActionCommand("banana");
+		carrotButton.setActionCommand("carrot");
+		milkButton.setActionCommand("milk");
+		steakButton.setActionCommand("steak");
+		sushiButton.setActionCommand("sushi");
+		
+		
 		main.add(baconButton, "grow");
 		main.add(bananaButton, "grow");
 		main.add(carrotButton, "grow");		
@@ -183,12 +198,14 @@ public class ShopView {
 		
 		String[] foodKeys = foodMap.keySet().toArray(new String[]{});
 		
-		for(int i = 0; i < foodMap.size(); i++){
+		for(int i = 0; i < foodMap.size(); i++)
+		{
 
-		foodList += foodKeys[i] + " x" + foodMap.get(foodKeys[i]);
-		foodList += "<br />";
+			foodList += foodKeys[i] + " x" + foodMap.get(foodKeys[i]);
+			foodList += "<br />";
+			
+		}
 		
-	}
 		foodList = "<html><p>" + foodList + "</p></html>";
 
 		
@@ -208,6 +225,7 @@ public class ShopView {
 		main.add(clickLabel2, "grow");
 		main.add(toyBoxLabel, "grow, skip 5, wrap");
 		
+		ballButton.setActionCommand("ball");
 		main.add(ballButton, "grow");
 		main.add(bookButton, "grow");
 		main.add(clubButton, "grow");
@@ -235,10 +253,10 @@ public class ShopView {
 		toyList += "<br />";
 		}
 		
-		toyList = "<html><p>" + toyList + "</p></html>";
+		String toyList2 = "<html><p>" + toyList + "</p></html>";
 		
 		
-		toyBoxListLabel.setText(toyList);
+		toyBoxListLabel.setText(toyList2);
 
 		main.add(toyBoxListLabel, "grow, wrap");
 		
@@ -272,8 +290,117 @@ public class ShopView {
 		frame.add(main);
 		
 		frame.setBounds(100, 100, 900, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
+	}
+	
+	public void addButtonListener(ActionListener bl)
+	{
+		baconButton.addActionListener(bl);
+		bananaButton.addActionListener(bl);
+		carrotButton.addActionListener(bl);
+		milkButton.addActionListener(bl);
+		steakButton.addActionListener(bl);
+		sushiButton.addActionListener(bl);
+		
+		ballButton.addActionListener(bl);
+		bookButton.addActionListener(bl);
+		clubButton.addActionListener(bl);
+		pianoButton.addActionListener(bl);
+		planeButton.addActionListener(bl);
+		yarnButton.addActionListener(bl);
+	}
+	
+	public void updateShop()
+	{
+		Map<String, Integer> toysMap = new HashMap<String, Integer>();
+		String toyList = "";
+		for(int j=0; j < player.getToys().size(); j++)
+		{
+			if(!toysMap.containsKey(player.getToys().get(j).toString()))
+				toysMap.put(player.getToys().get(j).getName(), 1);
+			else
+
+				toysMap.put(player.getToys().get(j).getName(), toysMap.get(player.getToys().get(j).getName()) + 1);
+		}
+		
+		
+		String[] toyKeys = toysMap.keySet().toArray(new String[]{});
+		
+		for(int i = 0; i < toysMap.size(); i++)
+		{
+		toyList += toyKeys[i] + " x" + toysMap.get(toyKeys[i]);
+		toyList += "<br />";
+		}
+		
+		toyList = "<html><p>" + toyList + "</p></html>";
+		toyBoxListLabel.setText(toyList);
+	}
+	
+	class ButtonListener implements ActionListener
+	{
+		
+
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			String command = e.getActionCommand();
+			System.out.println(command);
+			
+			if(command.equals("bacon"))
+			{
+				player.addFood(new FoodBacon());
+			}
+			else if(command.equals("banana"))
+			{
+				player.addFood(new FoodBanana());
+			}
+			else if(command.equals("carrot"))
+			{
+				player.addFood(new FoodCarrot());
+			}
+			else if(command.equals("milk"))
+			{
+				player.addFood(new FoodMilk());
+			}
+			else if(command.equals("steak"))
+			{
+				player.addFood(new FoodSteak());
+			}
+			else if(command.equals("sushi"))
+			{
+				player.addFood(new FoodSushi());
+			}
+			else if(command.equals("ball"))
+			{
+				player.addToy(new ToyBall());
+			}
+			else if(command.equals("book"))
+			{
+				player.addToy(new ToyBook());
+			}
+			else if(command.equals("club"))
+			{
+				player.addToy(new ToyClub());
+			}
+			else if(command.equals("piano"))
+			{
+				player.addToy(new ToyPiano());
+			}
+			else if(command.equals("plane"))
+			{
+				player.addToy(new ToyPlane());
+			}
+			else if(command.equals("yarn"))
+			{
+				player.addToy(new ToyYarn());
+			}
+			
+			updateShop();
+			
+		}
+	
 	}
 
 }
+
+

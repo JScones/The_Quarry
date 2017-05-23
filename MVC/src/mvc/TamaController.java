@@ -136,12 +136,14 @@ public class TamaController {
 			else if(commands[0].equals("Store"))
 			{
 				System.out.println(curPlayer);
+				ShopView shop = new ShopView(curPlayer);
 			}
 			else if(command.equals("Next Day"))
 			{
 				if(curPlayerNum + 1 < m_model.curNumPlayers())
 				{
 					m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum + 1));
+					curPlayerNum ++;
 				}
 				else
 				{
