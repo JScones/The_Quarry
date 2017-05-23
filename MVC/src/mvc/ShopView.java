@@ -225,6 +225,11 @@ public class ShopView {
 		updateShop();
 	}
 	
+	private  void closeShop()
+	{
+		
+	}
+	
 	private String List(Food food)
 	{
 		return "<html><p>" + food.getName() + "<br />"

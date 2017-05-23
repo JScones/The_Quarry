@@ -835,5 +835,10 @@ public class TamaView {
 	{
 		return curView;
 	}
+	
+	public void disableGame()
+	{
+		frame.setEnabled(false);
+	}
 
 }
