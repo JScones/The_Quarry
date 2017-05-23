@@ -136,8 +136,8 @@ public class TamaController {
 			else if(commands[0].equals("Store"))
 			{
 				System.out.println(curPlayer);
-				//m_view.disableGame();
-				ShopView shop = new ShopView(curPlayer);
+				m_view.disableGame();
+				ShopView shop = new ShopView(curPlayer, m_view);
 			}
 			else if(command.equals("End my day"))
 			{

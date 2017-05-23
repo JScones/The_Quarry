@@ -2,6 +2,8 @@ package mvc;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -17,7 +19,7 @@ public class ShopView {
 	private ImageIcon baconImage = new ImageIcon("resources/ball.png");
 	
 	private Player player;
-	
+	private TamaView m_view;
 
 		
 	private JPanel main = new JPanel();
@@ -80,6 +82,15 @@ public class ShopView {
 		ActionListener bl = new ButtonListener();
 		addButtonListener(bl);
 		updateShop();
+	}
+	
+	public ShopView(Player aPlayer, TamaView view) {
+		player = aPlayer;
+		initialize();
+		ActionListener bl = new ButtonListener();
+		addButtonListener(bl);
+		updateShop();
+		m_view = view;
 	}
 
 	/**
@@ -219,7 +230,14 @@ public class ShopView {
 		frame.add(main);
 		
 		frame.setBounds(100, 100, 900, 600);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		frame.addWindowListener(new WindowAdapter() {
+			   public void windowClosing(WindowEvent evt) {
+			     closeShop();
+			   }
+			  });
+		
 		frame.setVisible(true);
 		
 		updateShop();
@@ -227,7 +245,8 @@ public class ShopView {
 	
 	private  void closeShop()
 	{
-		
+		m_view.enableGame();
+		frame.dispose();
 	}
 	
 	private String List(Food food)
@@ -259,6 +278,8 @@ public class ShopView {
 		pianoButton.addActionListener(bl);
 		planeButton.addActionListener(bl);
 		yarnButton.addActionListener(bl);
+		
+		backButton.addActionListener(bl);
 	}
 	
 	private void showNotEnoughMoneyDialog()
@@ -460,7 +481,10 @@ public class ShopView {
 					showNotEnoughMoneyDialog();
 				}
 			}
-			
+			else if(command.equals("Back"))
+			{
+				closeShop();
+			}
 			updateShop();
 			
 		}

@@ -840,5 +840,10 @@ public class TamaView {
 	{
 		frame.setEnabled(false);
 	}
+	
+	public void enableGame()
+	{
+		frame.setEnabled(true);
+	}
 
 }
