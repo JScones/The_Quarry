@@ -40,8 +40,6 @@ public class Player {
 	{
 		if(toy.getPrice() <= money)
 		{
-			money -= toy.getPrice();
-			toys.add(toy);
 			return true;
 		}
 		else
@@ -50,19 +48,30 @@ public class Player {
 		}
 	}
 	
-	public void Buy(Food food)
+	public boolean canBuy(Food food)
 	{
 		if(food.getPrice() <= money)
 		{
-			money -= food.getPrice();
-			foods.add(food);
+			return true;
 		}
 		else
 		{
-			double amountOver = food.getPrice();
-			System.out.println("costs $" + amountOver + " more than you have.");
+			return false;
 		}
 	}
+	
+	public void Buy(Toy toy)
+	{
+		money -= toy.getPrice();
+		toys.add(toy);
+	}
+	
+	public void Buy(Food food)
+	{
+		money -= food.getPrice();
+		foods.add(food);
+	}
+	
 	
 	public ArrayList<Pet> getPets()
 	{

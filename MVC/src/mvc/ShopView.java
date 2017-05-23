@@ -1,13 +1,9 @@
 package mvc;
 
-import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Arrays;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 
 import javax.swing.*;
 
@@ -131,43 +127,19 @@ public class ShopView {
 		
 		main.add(foodBoxLabel, "grow, skip 5, wrap");
 		
-		baconLabel.setText("<html><p>Bacon<br />"
-			+ "Price: $" + bacon.getPrice() + "<br />"
-			+ "Nutrition: " + bacon.getValue() + "</p></html>");
-		bananaLabel.setText("<html><p>Banana<br />"
-				+ "Price: $" + banana.getPrice() + "<br />"
-						+ "Nutrition: " + banana.getValue() + "</p></html>");
-		carrotLabel.setText("<html><p>Carrot<br />"
-				+ "Price: $" + carrot.getPrice() + "<br />"
-						+ "Nutrition: " + carrot.getValue() + "</p></html>");
-		milkLabel.setText("<html><p>Milk<br />"
-				+ "Price: $" + milk.getPrice() + "<br />"
-				+ "Nutrition: " + milk.getValue() + "</p></html>");
-		steakLabel.setText("<html><p>Steak<br />"
-				+ "Price: $" + steak.getPrice() + "<br />"
-				+ "Nutrition: " + steak.getValue() + "</p></html>");
-		sushiLabel.setText("<html><p>Sushi<br />"
-				+ "Price: $" + sushi.getPrice() + "<br />"
-				+ "Nutrition: " + sushi.getValue() + "</p></html>");
+		baconLabel.setText(List(bacon));
+		bananaLabel.setText(List(banana));
+		carrotLabel.setText(List(carrot));
+		milkLabel.setText(List(milk));
+		steakLabel.setText(List(steak));
+		sushiLabel.setText(List(sushi));
 		
-		ballLabel.setText("<html><p>Ball<br />"
-				+ "Price: $" + ball.getPrice() + "<br />"
-				+ "Durability: " + ball.getDurability() + "</p></html>");
-		bookLabel.setText("<html><p>Book<br />"
-				+ "Price: $" + book.getPrice() + "<br />"
-				+ "Durability: " + book.getDurability() + "</p></html>");
-		clubLabel.setText("<html><p>Club<br />"
-				+ "Price: $" + club.getPrice() + "<br />"
-				+ "Durability: " + club.getDurability() + "</p></html>");
-		pianoLabel.setText("<html><p>Piano<br />"
-				+ "Price: $" + piano.getPrice() + "<br />"
-				+ "Durability: " + piano.getDurability() + "</p></html>");
-		planeLabel.setText("<html><p>Plane<br />"
-				+ "Price: $" + plane.getPrice() + "<br />"
-				+ "Durability: " + plane.getDurability() + "</p></html>");
-		yarnLabel.setText("<html><p>Yarn<br />"
-				+ "Price: $" + yarn.getPrice() + "<br />"
-				+ "Durability: " + yarn.getDurability() + "</p></html>");
+		ballLabel.setText(List(ball));
+		bookLabel.setText(List(book));
+		clubLabel.setText(List(club));
+		pianoLabel.setText(List(piano));
+		planeLabel.setText(List(plane));
+		yarnLabel.setText(List(yarn));
 		
 		backButton.setText("Back");
 		
@@ -186,31 +158,6 @@ public class ShopView {
 		main.add(steakButton, "grow");
 		main.add(sushiButton, "grow");
 
-		Map<String, Integer> foodMap = new HashMap<String, Integer>();
-		
-		for(int j=0; j < player.getFood().size(); j++)
-		{
-			if(!foodMap.containsKey(player.getFood().get(j).toString()))
-				foodMap.put(player.getFood().get(j).getName(), 1);
-			else
-				foodMap.put(player.getFood().get(j).getName(), foodMap.get(player.getFood().get(j).getName()) + 1);
-		}
-		
-		String[] foodKeys = foodMap.keySet().toArray(new String[]{});
-		
-		for(int i = 0; i < foodMap.size(); i++)
-		{
-
-			foodList += foodKeys[i] + " x" + foodMap.get(foodKeys[i]);
-			foodList += "<br />";
-			
-		}
-		
-		foodList = "<html><p>" + foodList + "</p></html>";
-
-		
-		foodBoxListLabel.setText(foodList);
-
 		main.add(foodBoxListLabel, "grow, wrap");
 
 		
@@ -226,37 +173,19 @@ public class ShopView {
 		main.add(toyBoxLabel, "grow, skip 5, wrap");
 		
 		ballButton.setActionCommand("ball");
+		bookButton.setActionCommand("book");
+		clubButton.setActionCommand("club");
+		pianoButton.setActionCommand("piano");
+		planeButton.setActionCommand("plane");
+		yarnButton.setActionCommand("yarn");
+		
 		main.add(ballButton, "grow");
 		main.add(bookButton, "grow");
 		main.add(clubButton, "grow");
 		main.add(pianoButton, "grow");
 		main.add(planeButton, "grow");
 		main.add(yarnButton, "grow");
-		
-		Map<String, Integer> toysMap = new HashMap<String, Integer>();
-		
-		for(int j=0; j < player.getToys().size(); j++)
-		{
-			if(!toysMap.containsKey(player.getToys().get(j).toString()))
-				toysMap.put(player.getToys().get(j).getName(), 1);
-			else
 
-				toysMap.put(player.getToys().get(j).getName(), toysMap.get(player.getToys().get(j).getName()) + 1);
-		}
-		
-		
-		String[] toyKeys = toysMap.keySet().toArray(new String[]{});
-		
-		for(int i = 0; i < toysMap.size(); i++)
-		{
-		toyList += toyKeys[i] + " x" + toysMap.get(toyKeys[i]);
-		toyList += "<br />";
-		}
-		
-		String toyList2 = "<html><p>" + toyList + "</p></html>";
-		
-		
-		toyBoxListLabel.setText(toyList2);
 
 		main.add(toyBoxListLabel, "grow, wrap");
 		
@@ -292,6 +221,22 @@ public class ShopView {
 		frame.setBounds(100, 100, 900, 600);
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.setVisible(true);
+		
+		updateShop();
+	}
+	
+	public String List(Food food)
+	{
+		return "<html><p>" + food.getName() + "<br />"
+				+ "Price: $" + food.getPrice() + "<br />"
+				+ "Nutrition: " + food.getValue() + "</p></html>";
+	}
+	
+	public String List(Toy toy)
+	{
+		return "<html><p>" + toy.getName() + "<br />"
+				+ "Price: $" + toy.getPrice() + "<br />"
+				+ "Durability: " + toy.getDurability() + "</p></html>";
 	}
 	
 	public void addButtonListener(ActionListener bl)
@@ -313,6 +258,31 @@ public class ShopView {
 	
 	public void updateShop()
 	{
+		Map<String, Integer> foodMap = new HashMap<String, Integer>();
+		String foodList = "";
+		for(int j=0; j < player.getFood().size(); j++)
+		{
+			if(!foodMap.containsKey(player.getFood().get(j).toString()))
+				foodMap.put(player.getFood().get(j).getName(), 1);
+			else
+				foodMap.put(player.getFood().get(j).getName(), foodMap.get(player.getFood().get(j).getName()) + 1);
+		}
+		
+		String[] foodKeys = foodMap.keySet().toArray(new String[]{});
+		
+		for(int i = 0; i < foodMap.size(); i++)
+		{
+
+			foodList += foodKeys[i] + " x" + foodMap.get(foodKeys[i]);
+			foodList += "<br />";
+			
+		}
+		
+		foodList = "<html><p>" + foodList + "</p></html>";
+
+		
+		foodBoxListLabel.setText(foodList);
+		
 		Map<String, Integer> toysMap = new HashMap<String, Integer>();
 		String toyList = "";
 		for(int j=0; j < player.getToys().size(); j++)
@@ -329,12 +299,14 @@ public class ShopView {
 		
 		for(int i = 0; i < toysMap.size(); i++)
 		{
-		toyList += toyKeys[i] + " x" + toysMap.get(toyKeys[i]);
-		toyList += "<br />";
+			toyList += toyKeys[i] + " x" + toysMap.get(toyKeys[i]);
+			toyList += "<br />";
 		}
 		
 		toyList = "<html><p>" + toyList + "</p></html>";
 		toyBoxListLabel.setText(toyList);
+		
+		moneyLabel.setText("Money: $" + String.format("%.2f", player.getMoney()));
 	}
 	
 	class ButtonListener implements ActionListener
@@ -344,55 +316,139 @@ public class ShopView {
 		@Override
 		public void actionPerformed(ActionEvent e) {
 			String command = e.getActionCommand();
-			System.out.println(command);
 			
 			if(command.equals("bacon"))
 			{
-				player.addFood(new FoodBacon());
+				if(player.canBuy(new FoodBacon()))
+				{
+					player.Buy(new FoodBacon());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+				}
 			}
+				
 			else if(command.equals("banana"))
 			{
-				player.addFood(new FoodBanana());
+				if(player.canBuy(new FoodBanana()))
+				{
+					player.Buy(new FoodBanana());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+				}
 			}
 			else if(command.equals("carrot"))
 			{
-				player.addFood(new FoodCarrot());
+				if(player.canBuy(new FoodCarrot()))
+				{
+					player.Buy(new FoodCarrot());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+				}
 			}
 			else if(command.equals("milk"))
 			{
-				player.addFood(new FoodMilk());
+				if(player.canBuy(new FoodMilk()))
+				{
+					player.Buy(new FoodMilk());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+				}
 			}
 			else if(command.equals("steak"))
 			{
-				player.addFood(new FoodSteak());
+				if(player.canBuy(new FoodSteak()))
+				{
+					player.Buy(new FoodSteak());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+				}
 			}
 			else if(command.equals("sushi"))
 			{
-				player.addFood(new FoodSushi());
+				if(player.canBuy(new FoodSushi()))
+				{
+					player.Buy(new FoodSushi());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+				}
 			}
 			else if(command.equals("ball"))
 			{
-				player.addToy(new ToyBall());
+				if(player.canBuy(new ToyBall()))
+				{
+					player.Buy(new ToyBall());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+				}
 			}
 			else if(command.equals("book"))
 			{
-				player.addToy(new ToyBook());
+				if(player.canBuy(new ToyBook()))
+				{
+					player.Buy(new ToyBook());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+				}
 			}
 			else if(command.equals("club"))
 			{
-				player.addToy(new ToyClub());
+				if(player.canBuy(new ToyClub()))
+				{
+					player.Buy(new ToyClub());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+				}
 			}
 			else if(command.equals("piano"))
 			{
-				player.addToy(new ToyPiano());
+				if(player.canBuy(new ToyPiano()))
+				{
+					player.Buy(new ToyPiano());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+				}
 			}
 			else if(command.equals("plane"))
 			{
-				player.addToy(new ToyPlane());
+				if(player.canBuy(new ToyPlane()))
+				{
+					player.Buy(new ToyPlane());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+				}
 			}
 			else if(command.equals("yarn"))
 			{
-				player.addToy(new ToyYarn());
+				if(player.canBuy(new ToyYarn()))
+				{
+					player.Buy(new ToyYarn());
+				}
+				else
+				{
+					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+				}
 			}
 			
 			updateShop();
