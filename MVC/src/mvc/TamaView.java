@@ -84,7 +84,7 @@ public class TamaView {
 	private JButton[] sleepPetButtons = {sleepPet1, sleepPet2, sleepPet3};
 	
 	private JButton storeButton = new JButton("Store");
-	private JButton nextDay = new JButton("Next Day");
+	private JButton nextDay = new JButton("End my day");
 	
 	private JRadioButton players1 = new JRadioButton("1 player  ");
 	private JRadioButton players2 = new JRadioButton("2 players  ");
@@ -423,6 +423,7 @@ public class TamaView {
 		nextPet.setText("Next Pet");
 		dayLabel.setText("<html><p>Day " + m_model.getCurDay() + "</p><html>");
 		
+		
 		if(numPets == 1)
 		{
 			mainGameTabbedPane.setIconAt(0, player.getPets().get(0).icon);
@@ -438,6 +439,7 @@ public class TamaView {
 			petStatus3.setText(null);
 			
 			nextPet.setEnabled(false);
+			enablePetActionButtons(true, 0);
 			
 		}
 		else if(numPets == 2)
@@ -456,6 +458,10 @@ public class TamaView {
 			petStatus2.setText(getPetStatus(player.getPets().get(1)));
 			petStatus3.setText(null);
 			
+			nextPet.setEnabled(true);
+			
+			enablePetActionButtons(true, 1);
+			
 		}
 		else if(numPets == 3)
 		{
@@ -473,7 +479,19 @@ public class TamaView {
 			petStatus1.setText(getPetStatus(player.getPets().get(0)));
 			petStatus2.setText(getPetStatus(player.getPets().get(1)));
 			petStatus3.setText(getPetStatus(player.getPets().get(2)));
+			
+			nextPet.setEnabled(true);
+			
+			enablePetActionButtons(true, 2);
 		}
+	}
+	
+	public void enablePetActionButtons(boolean enable, int petNum)
+	{
+		feedPetButtons[petNum].setEnabled(enable);
+		playPetButtons[petNum].setEnabled(enable);
+		sleepPetButtons[petNum].setEnabled(enable);
+		toiletPetButtons[petNum].setEnabled(enable);
 	}
 	
 	public void updateDayCount()
@@ -529,6 +547,7 @@ public class TamaView {
 			nextPet.setEnabled(false);
 		}
 	}
+
 	
 	public void updatePetStats(int petNum, Player player)
 	{
