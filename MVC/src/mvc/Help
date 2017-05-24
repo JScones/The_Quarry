@@ -1,0 +1,18 @@
+Help section
+
+1. Upon starting the game you will have an option of choosing how many players are playing the game and how many days 
+	the game will last for. In each "day" you will be able to do up to two actions to each and every pet.
+	
+2. You will be asked for the name of each player and the name(s) and species of their pet(s).
+
+3. Each player is now able to view the stats of their pet as well as perform actions.
+
+4. The store may be visited to check a players inventory as well as buy food and toys for their pets.
+
+
+ACTIONS
+Play:
+Feed: select food items you have bought from the store to give to your pet. This action helps restore the 'Hunger' bar of the
+	pet.
+Toilet: Relieves the pet and restores the 'Toilet' bar.
+Sleep: Restores the pets 'Energy' bar. This does not advance a day forward in the game.
