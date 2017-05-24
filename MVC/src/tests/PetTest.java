@@ -39,7 +39,7 @@ public class PetTest {
 		Toy testToy = Ballo;
 		//Toy testToy = Clubbo;
 		int tiggerMood = Tigger.getStats()[5];
-		Tigger.play(testToy);
+		Tigger.playAndBreak(testToy);
 		if(testToy.getName() == Tigger.getFavToy()){
 			assertEquals(tiggerMood + 5, Tigger.getStats()[5]);
 		}

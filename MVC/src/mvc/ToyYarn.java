@@ -6,11 +6,4 @@ public class ToyYarn extends Toy {
 	{
 		super.setVars("Ball of yarn", 10.0, 10);
 	}
-	
-	@Override
-	public void play(int damage) {
-		// TODO Auto-generated method stub
-
-	}
-
 }

@@ -112,51 +112,80 @@ public class TamaController {
 			String[] commands = command.split(" ");
 			curPlayer = m_model.getPlayers().get(curPlayerNum);
 			System.out.println(command);
-			
-			if(commands[0].equals("feed"))
+			if(commands.length == 2)
 			{
-				curPlayer.getPets().get(Integer.parseInt(commands[1])).feed(new FoodBacon());
-				m_view.updatePetStats(Integer.parseInt(commands[1]), curPlayer);
-			}
-			else if(commands[0].equals("play"))
-			{
-				curPlayer.getPets().get(Integer.parseInt(commands[1])).play(new ToyBall());
-				m_view.updatePetStats(Integer.parseInt(commands[1]), curPlayer);
-			}
-			else if(commands[0].equals("toilet"))
-			{
-				curPlayer.getPets().get(Integer.parseInt(commands[1])).goToilet();
-				m_view.updatePetStats(Integer.parseInt(commands[1]), curPlayer);
-			}
-			else if(commands[0].equals("sleep"))
-			{
-				curPlayer.getPets().get(Integer.parseInt(commands[1])).sleep();
-				m_view.updatePetStats(Integer.parseInt(commands[1]), curPlayer);
+				int petNum = Integer.parseInt(commands[1]);
+				
+				if(commands[0].equals("feed"))
+				{
+					Food food = m_view.showFeedOptions(curPlayer);
+					if(food != null)
+					{
+						curPlayer.getPets().get(petNum).feed(food);
+						curPlayer.getFood().remove(food);
+						m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
+					}
+				}
+				else if(commands[0].equals("play"))
+				{
+					Toy toy = m_view.showPlayOptions(curPlayer);
+					if(toy != null)
+					{
+						boolean isToyBroken = curPlayer.getPets().get(petNum).playAndBreak(toy);
+						if(isToyBroken)
+						{
+							m_view.toyBrokeDialog(toy);
+							curPlayer.getToys().remove(toy);
+						}
+						
+						m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
+					}
+				}
+				else if(commands[0].equals("toilet"))
+				{
+					curPlayer.getPets().get(petNum).goToilet();
+					m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
+				}
+				else if(commands[0].equals("sleep"))
+				{
+					curPlayer.getPets().get(petNum).sleep();
+					m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
+				}
+				
+				if(curPlayer.getPets().get(petNum).getActionsLeft() == 0)
+				{
+					m_view.enablePetActionButtons(false, Integer.parseInt(commands[1]));
+				}
+				
 			}
 			else if(commands[0].equals("Store"))
 			{
 				System.out.println(curPlayer);
-				ShopView shop = new ShopView(curPlayer);
+				m_view.disableGame();
+				ShopView shop = new ShopView(curPlayer, m_view);
 			}
-			else if(command.equals("Next Day"))
+			else if(command.equals("End my day"))
 			{
+				curPlayer.dayOver();
+				
 				if(curPlayerNum + 1 < m_model.curNumPlayers())
 				{
 					m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum + 1));
 					curPlayerNum ++;
+					curPlayer = m_model.getPlayers().get(curPlayerNum);
 				}
 				else
 				{
 					curPlayerNum = 0;
+					curPlayer = m_model.getPlayers().get(curPlayerNum);
+					m_view.dayOver();
 					m_model.incrementDay();
 					m_view.updateDayCount();
-					m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum));
+					m_view.setMainGameTab(curPlayer);
 					
 				}
-				
 			}
-		}
-			
+		}	
 	}
 	
 	class ComboBoxListener implements ItemListener
@@ -196,7 +225,7 @@ public class TamaController {
 				try {
 					curName = e.getDocument().getText(0, curLen);
 				} catch (BadLocationException e1) {
-					// TODO Auto-generated catch block
+					m_view.showErrorDialog();
 					e1.printStackTrace();
 				}
 				
@@ -220,7 +249,7 @@ public class TamaController {
 				try {
 					curName = e.getDocument().getText(0, curLen);
 				} catch (BadLocationException e1) {
-					// TODO Auto-generated catch block
+					m_view.showErrorDialog();
 					e1.printStackTrace();
 				}
 				
@@ -267,7 +296,7 @@ public class TamaController {
 					curName = e.getDocument().getText(0, curLen);
 					curPetNames.set(fieldNum, curName);
 				} catch (BadLocationException e1) {
-					// TODO Auto-generated catch block
+					m_view.showErrorDialog();
 					e1.printStackTrace();
 				}
 				checkPetNames();
@@ -284,7 +313,7 @@ public class TamaController {
 					curName = e.getDocument().getText(0, curLen);
 					curPetNames.set(fieldNum, curName);
 				} catch (BadLocationException e1) {
-					// TODO Auto-generated catch block
+					m_view.showErrorDialog();
 					e1.printStackTrace();
 				}
 				

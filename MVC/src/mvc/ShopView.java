@@ -2,6 +2,8 @@ package mvc;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -12,12 +14,12 @@ import net.miginfocom.swing.MigLayout;
 
 public class ShopView {
 
-	private JFrame frame;
+	private JFrame frame = new JFrame("Store");
 	
 	private ImageIcon baconImage = new ImageIcon("resources/ball.png");
 	
 	private Player player;
-	
+	private TamaView m_view;
 
 		
 	private JPanel main = new JPanel();
@@ -81,12 +83,20 @@ public class ShopView {
 		addButtonListener(bl);
 		updateShop();
 	}
+	
+	public ShopView(Player aPlayer, TamaView view) {
+		player = aPlayer;
+		initialize();
+		ActionListener bl = new ButtonListener();
+		addButtonListener(bl);
+		updateShop();
+		m_view = view;
+	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
 		Food bacon = new FoodBacon();
 		Food banana = new FoodBanana();
 		Food carrot = new FoodCarrot();
@@ -219,27 +229,41 @@ public class ShopView {
 		frame.add(main);
 		
 		frame.setBounds(100, 100, 900, 600);
-		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		
+		frame.addWindowListener(new WindowAdapter() {
+			   public void windowClosing(WindowEvent evt) {
+			     closeShop();
+			   }
+			  });
+		
 		frame.setVisible(true);
 		
 		updateShop();
 	}
 	
-	public String List(Food food)
+	private  void closeShop()
+	{
+		if(m_view != null)
+			m_view.enableGame();
+		frame.dispose();
+	}
+	
+	private String List(Food food)
 	{
 		return "<html><p>" + food.getName() + "<br />"
 				+ "Price: $" + food.getPrice() + "<br />"
 				+ "Nutrition: " + food.getValue() + "</p></html>";
 	}
 	
-	public String List(Toy toy)
+	private String List(Toy toy)
 	{
 		return "<html><p>" + toy.getName() + "<br />"
 				+ "Price: $" + toy.getPrice() + "<br />"
 				+ "Durability: " + toy.getDurability() + "</p></html>";
 	}
 	
-	public void addButtonListener(ActionListener bl)
+	private void addButtonListener(ActionListener bl)
 	{
 		baconButton.addActionListener(bl);
 		bananaButton.addActionListener(bl);
@@ -254,9 +278,16 @@ public class ShopView {
 		pianoButton.addActionListener(bl);
 		planeButton.addActionListener(bl);
 		yarnButton.addActionListener(bl);
+		
+		backButton.addActionListener(bl);
 	}
 	
-	public void updateShop()
+	private void showNotEnoughMoneyDialog()
+	{
+		JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+	}
+	
+	private void updateShop()
 	{
 		Map<String, Integer> foodMap = new HashMap<String, Integer>();
 		String foodList = "";
@@ -325,7 +356,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 				
@@ -337,7 +368,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("carrot"))
@@ -348,7 +379,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("milk"))
@@ -359,7 +390,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("steak"))
@@ -370,7 +401,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("sushi"))
@@ -381,7 +412,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("ball"))
@@ -392,7 +423,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("book"))
@@ -403,7 +434,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("club"))
@@ -414,7 +445,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("piano"))
@@ -425,7 +456,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("plane"))
@@ -436,7 +467,7 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
 			else if(command.equals("yarn"))
@@ -447,10 +478,13 @@ public class ShopView {
 				}
 				else
 				{
-					JOptionPane.showMessageDialog(frame, "You don't have enough money to buy this item.");
+					showNotEnoughMoneyDialog();
 				}
 			}
-			
+			else if(command.equals("Back"))
+			{
+				closeShop();
+			}
 			updateShop();
 			
 		}
