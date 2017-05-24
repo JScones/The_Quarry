@@ -14,7 +14,7 @@ public class Pet {
 	protected int maxEnergy;
 
 	private int weight;
-	private int toilet = 10;
+	private int toilet = 5;
 	private int health = 10;
 	private int mood = 10;
 	private int dayActions = 2;
@@ -29,8 +29,8 @@ public class Pet {
 		maxHunger = petStats[0];
 		maxEnergy = petStats[1];
 		weight = petStats[2];
-		hunger = maxHunger;
-		energy = maxEnergy;
+		hunger = maxHunger/2;
+		energy = maxEnergy/2;
 		favToy = aFavToy;
 		icon = aIcon;
 	}

@@ -484,6 +484,8 @@ public class TamaView {
 			petStatus2.setText(getPetStatus(player.getPets().get(1)));
 			petStatus3.setText(null);
 			
+			nextPet.setEnabled(true);
+			
 			updatePetBars(0, player.getPets().get(0));
 			updatePetBars(1, player.getPets().get(1));
 			
@@ -504,6 +506,8 @@ public class TamaView {
 			petStatus1.setText(getPetStatus(player.getPets().get(0)));
 			petStatus2.setText(getPetStatus(player.getPets().get(1)));
 			petStatus3.setText(getPetStatus(player.getPets().get(2)));
+			
+			nextPet.setEnabled(true);
 			
 			updatePetBars(0, player.getPets().get(0));
 			updatePetBars(1, player.getPets().get(1));
