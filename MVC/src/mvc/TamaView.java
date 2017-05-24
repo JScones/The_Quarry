@@ -14,8 +14,8 @@ public class TamaView {
 	
 	private TamaModel m_model;
 	
-	JFrame frame = new JFrame("Tamagotchi");
-	JPanel cards;
+	public JFrame frame = new JFrame("Tamagotchi");
+	private JPanel cards;
 	
 	private String curView = "Menu";
 	private Font allFont = new Font(null, Font.BOLD, 20);
@@ -369,7 +369,7 @@ public class TamaView {
 	private JPanel buildPetTab(int tabNum)
 	{
 		MigLayout Layout = new MigLayout(
-				"fill, insets 20, debug", 
+				"fill, insets 20", 
 				"[][][]",
 				"[][]");
 		
@@ -549,7 +549,7 @@ public class TamaView {
 	
 	public void dayOver()
 	{
-		JOptionPane.showMessageDialog(frame, "Day " + m_model.getCurDay() + "over!");
+		JOptionPane.showMessageDialog(frame, "Day " + m_model.getCurDay() + " over!");
 	}
 	
 	public void updatePetStats(int petNum, Player player)
@@ -844,6 +844,58 @@ public class TamaView {
 	public void enableGame()
 	{
 		frame.setEnabled(true);
+	}
+	
+	public Food showFeedOptions(Player player)
+	{
+		ArrayList<Food> foods = player.getFood();
+		
+		Food[] foodArray = foods.toArray(new Food[0]);
+		
+		if(foodArray.length != 0)
+		{
+			Food s = (Food)JOptionPane.showInputDialog(
+					frame, 
+					"What do you want to feed your pet?",
+					"Feed",
+					JOptionPane.PLAIN_MESSAGE,
+					null,
+					foodArray,
+					foodArray[0]);
+			return s;
+		}
+		
+		else
+		{
+			JOptionPane.showMessageDialog(frame, "You don't have any food :(\n" + "Go buy some in the Store.");
+			return null;
+		}
+	}
+	
+	public Toy showPlayOptions(Player player)
+	{
+		ArrayList<Toy> toys = player.getToys();
+		
+		Toy[] toyArray = toys.toArray(new Toy[0]);
+		
+		if(toyArray.length != 0)
+		{
+			Toy s = (Toy)JOptionPane.showInputDialog(
+					frame, 
+					"What toy do you want to your pet to play with?",
+					"Play",
+					JOptionPane.PLAIN_MESSAGE,
+					null,
+					toyArray,
+					toyArray[0]);
+			return s;
+		}
+		
+		else
+		{
+			JOptionPane.showMessageDialog(frame, "You don't have any toys :(\n" + "Go buy some in the Store.");
+			return null;
+		}
 	}
 
 }

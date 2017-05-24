@@ -14,7 +14,7 @@ import net.miginfocom.swing.MigLayout;
 
 public class ShopView {
 
-	private JFrame frame;
+	private JFrame frame = new JFrame("Store");
 	
 	private ImageIcon baconImage = new ImageIcon("resources/ball.png");
 	
@@ -97,7 +97,6 @@ public class ShopView {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
-		frame = new JFrame();
 		Food bacon = new FoodBacon();
 		Food banana = new FoodBanana();
 		Food carrot = new FoodCarrot();
@@ -245,7 +244,8 @@ public class ShopView {
 	
 	private  void closeShop()
 	{
-		m_view.enableGame();
+		if(m_view != null)
+			m_view.enableGame();
 		frame.dispose();
 	}
 	

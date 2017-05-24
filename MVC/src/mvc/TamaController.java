@@ -115,11 +115,15 @@ public class TamaController {
 			
 			if(commands[0].equals("feed"))
 			{
+				Food food = m_view.showFeedOptions(curPlayer);
+				System.out.println(food);
 				curPlayer.getPets().get(Integer.parseInt(commands[1])).feed(new FoodBacon());
 				m_view.updatePetStats(Integer.parseInt(commands[1]), curPlayer);
 			}
 			else if(commands[0].equals("play"))
 			{
+				Toy toy = m_view.showPlayOptions(curPlayer);
+				System.out.println(toy);
 				curPlayer.getPets().get(Integer.parseInt(commands[1])).play(new ToyBall());
 				m_view.updatePetStats(Integer.parseInt(commands[1]), curPlayer);
 			}
