@@ -16,7 +16,12 @@ public class ShopView {
 
 	private JFrame frame = new JFrame("Store");
 	
-	private ImageIcon baconImage = new ImageIcon("resources/ball.png");
+	private ImageIcon baconImage = new ImageIcon("resources/bacon.png");
+	private ImageIcon bananaImage = new ImageIcon("resources/banana.png");
+	private ImageIcon carrotImage = new ImageIcon("resources/carrot.png");
+	private ImageIcon milkImage = new ImageIcon("resources/milk.png");
+	private ImageIcon steakImage = new ImageIcon("resources/steak.png");
+	private ImageIcon sushiImage = new ImageIcon("resources/sushi.png");
 	
 	private Player player;
 	private TamaView m_view;
@@ -210,11 +215,11 @@ public class ShopView {
 		
 		
 		baconButton.setIcon(baconImage);
-		bananaButton.setIcon(baconImage);
-		carrotButton.setIcon(baconImage);
-		milkButton.setIcon(baconImage);
-		steakButton.setIcon(baconImage);
-		sushiButton.setIcon(baconImage);
+		bananaButton.setIcon(bananaImage);
+		carrotButton.setIcon(carrotImage);
+		milkButton.setIcon(milkImage);
+		steakButton.setIcon(steakImage);
+		sushiButton.setIcon(sushiImage);
 		
 		ballButton.setIcon(baconImage);
 		bookButton.setIcon(baconImage);
