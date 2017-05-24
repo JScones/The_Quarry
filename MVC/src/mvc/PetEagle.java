@@ -4,7 +4,7 @@ import javax.swing.ImageIcon;
 
 public class PetEagle extends Pet {
 	
-	private static String favToy = "Freedom";
+	private static String favToy = "Ball";
 	private static int maxHunger = 8;
 	private static int maxEnergy = 15;
 	private static int weight = 100;
