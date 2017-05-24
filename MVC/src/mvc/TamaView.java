@@ -157,7 +157,7 @@ public class TamaView {
 		frame.getContentPane().add(cards, BorderLayout.CENTER);
 		//frame.setResizable(false);
 		//frame.setMinimumSize(new Dimension(900, 600));
-		frame.setPreferredSize(new Dimension(900, 600));
+		frame.setPreferredSize(new Dimension(1000, 700));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.pack();
@@ -421,7 +421,7 @@ public class TamaView {
 		nameLabel.setText("Player: " + player.name);
 		nextPet.setActionCommand("donePet1");
 		nextPet.setText("Next Pet");
-		dayLabel.setText("<html><p>Day " + m_model.getCurDay() + "</p><html>");
+		dayLabel.setText("<html><p>Day " + m_model.getCurDay() + " of " + m_model.getNumDays() + "</p><html>");
 		enablePetActionButtons();
 		
 		if(numPets == 1)
@@ -480,7 +480,7 @@ public class TamaView {
 	
 	public void updateDayCount()
 	{
-		dayLabel.setText("<html><p>Day " + m_model.getCurDay() + "</p><html>");
+		dayLabel.setText("<html><p>Day " + m_model.getCurDay() + " of " + m_model.getNumDays() + "</p><html>");
 	}
 	
 	private String getPetStatus(Pet pet)
@@ -550,11 +550,13 @@ public class TamaView {
 	public void dayOver()
 	{
 		JOptionPane.showMessageDialog(frame, "Day " + m_model.getCurDay() + " over!");
+		enablePetActionButtons();
 	}
 	
 	public void updatePetStats(int petNum, Player player)
 	{
 		mainGamePetStats[petNum].setText(player.getPets().get(petNum).getStatsString());
+		petStatusLabels[petNum].setText(getPetStatus(player.getPets().get(petNum)));
 	}
 	
 	private void setPetComboBoxOptions(JComboBox<String> curBox)
@@ -896,6 +898,16 @@ public class TamaView {
 			JOptionPane.showMessageDialog(frame, "You don't have any toys :(\n" + "Go buy some in the Store.");
 			return null;
 		}
+	}
+	
+	public void showErrorDialog()
+	{
+		JOptionPane.showMessageDialog(frame, "An error was caught somewhere");
+	}
+	
+	public void toyBrokeDialog(Toy brokenToy)
+	{
+		JOptionPane.showMessageDialog(frame, "Oh no, your pet broke the " + brokenToy.getName());
 	}
 
 }

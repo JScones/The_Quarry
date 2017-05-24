@@ -114,19 +114,20 @@ public class Pet {
 		
 	}
 	
-	public void play(Toy toy)
+	public boolean playAndBreak(Toy toy)
 	{
 		dayActions -= 1;
 		if( toy.getName() == favToy)
 		{
-			toy.play(1);
 			mood += 5;
+			return toy.playAndBreak(1);
 		}
 		else
 		{
-			toy.play(2);
 			mood += 2;
+			return toy.playAndBreak(2);
 		}
+		
 	}
 	
 	public void feed(Food food)

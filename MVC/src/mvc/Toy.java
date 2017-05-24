@@ -1,6 +1,6 @@
 package mvc;
 
-public abstract class Toy {
+public class Toy {
 	
 	private String name;
 	private Double price;
@@ -34,5 +34,14 @@ public abstract class Toy {
 		return name;
 	}
 
-	public abstract void play(int damage);
+	public boolean playAndBreak(int damage)
+	{
+		durability -= damage;
+		if( durability < 1)
+		{
+			return true;
+		}
+		else
+			return false;
+	}
 }
