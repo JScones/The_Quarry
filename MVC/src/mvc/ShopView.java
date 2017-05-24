@@ -1,5 +1,6 @@
 package mvc;
 
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -16,12 +17,22 @@ public class ShopView {
 
 	private JFrame frame = new JFrame("Store");
 	
+	private Font allFont = new Font(null, Font.BOLD, 20);
+	
 	private ImageIcon baconImage = new ImageIcon("resources/bacon.png");
 	private ImageIcon bananaImage = new ImageIcon("resources/banana.png");
 	private ImageIcon carrotImage = new ImageIcon("resources/carrot.png");
 	private ImageIcon milkImage = new ImageIcon("resources/milk.png");
 	private ImageIcon steakImage = new ImageIcon("resources/steak.png");
 	private ImageIcon sushiImage = new ImageIcon("resources/sushi.png");
+	
+	private ImageIcon ballImage = new ImageIcon("resources/ball.png");
+	private ImageIcon bookImage = new ImageIcon("resources/book.png");
+	private ImageIcon clubImage = new ImageIcon("resources/club.png");
+	private ImageIcon pianoImage = new ImageIcon("resources/piano.png");
+	private ImageIcon planeImage = new ImageIcon("resources/plane.png");
+	private ImageIcon yarnImage = new ImageIcon("resources/yarn.png");
+	
 	
 	private Player player;
 	private TamaView m_view;
@@ -133,9 +144,11 @@ public class ShopView {
 				"[][][][][][][][][][]");
 		main.setLayout(menuLayout);
 		
+		foodLabel.setFont(allFont);
 		main.add(foodLabel, "grow");
 		
 		moneyLabel.setText("Money: $" + player.getMoney());
+		moneyLabel.setFont(allFont);
 		main.add(moneyLabel, "skip 5, grow, wrap");
 		
 		main.add(clickLabel1, "grow");
@@ -183,6 +196,7 @@ public class ShopView {
 		main.add(steakLabel, "grow");
 		main.add(sushiLabel, "grow, wrap");
 		
+		toyLabel.setFont(allFont);
 		main.add(toyLabel, "grow, wrap");
 		main.add(clickLabel2, "grow");
 		main.add(toyBoxLabel, "grow, skip 5, wrap");
@@ -221,19 +235,19 @@ public class ShopView {
 		steakButton.setIcon(steakImage);
 		sushiButton.setIcon(sushiImage);
 		
-		ballButton.setIcon(baconImage);
-		bookButton.setIcon(baconImage);
-		clubButton.setIcon(baconImage);
-		pianoButton.setIcon(baconImage);
-		planeButton.setIcon(baconImage);
-		yarnButton.setIcon(baconImage);
+		ballButton.setIcon(ballImage);
+		bookButton.setIcon(bookImage);
+		clubButton.setIcon(clubImage);
+		pianoButton.setIcon(pianoImage);
+		planeButton.setIcon(planeImage);
+		yarnButton.setIcon(yarnImage);
 		
 
 		
 		
 		frame.add(main);
 		
-		frame.setBounds(100, 100, 900, 600);
+		frame.setBounds(100, 100, 1100, 600);
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		frame.addWindowListener(new WindowAdapter() {
