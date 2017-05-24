@@ -98,10 +98,25 @@ public class TamaView {
 	private JProgressBar toiletBar3 = new JProgressBar();
 	private JProgressBar[] toiletBars = {toiletBar1, toiletBar2, toiletBar3};
 	
+	private JProgressBar healthBar1 = new JProgressBar();
+	private JProgressBar healthBar2 = new JProgressBar();
+	private JProgressBar healthBar3 = new JProgressBar();
+	private JProgressBar[] healthBars = {healthBar1, healthBar2, healthBar3};
+	
 	private JLabel petNameSpecies1 = new JLabel();
 	private JLabel petNameSpecies2 = new JLabel();
 	private JLabel petNameSpecies3 = new JLabel();
 	private JLabel[] petNameSpecies = {petNameSpecies1, petNameSpecies2, petNameSpecies3};
+	
+	private JLabel mood1 = new JLabel();
+	private JLabel mood2 = new JLabel();
+	private JLabel mood3 = new JLabel();
+	private JLabel[] moods = {mood1, mood2, mood3};
+	
+	private JLabel favToy1 = new JLabel();
+	private JLabel favToy2 = new JLabel();
+	private JLabel favToy3 = new JLabel();
+	private JLabel[] favToyLabels = {favToy1, favToy2, favToy3};
 	
 	private JButton storeButton = new JButton("Store");
 	private JButton nextDay = new JButton("End my day");
@@ -182,7 +197,7 @@ public class TamaView {
 		frame.getContentPane().add(cards, BorderLayout.CENTER);
 		//frame.setResizable(false);
 		//frame.setMinimumSize(new Dimension(900, 600));
-		frame.setPreferredSize(new Dimension(1000, 700));
+		frame.setPreferredSize(new Dimension(1100, 700));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		frame.pack();
@@ -287,7 +302,7 @@ public class TamaView {
 		MigLayout Layout = new MigLayout(
 				"fill, insets 20, wrap 3", 
 				"[][][][]",
-				"[][][]");
+				"[][][][]");
 		
 		JPanel PCCard = new JPanel();
 		PCCard.setLayout(Layout);
@@ -311,9 +326,9 @@ public class TamaView {
 		PCCard.add(petsCombo1, "grow");
 		PCCard.add(petsCombo2, "grow");
 		PCCard.add(petsCombo3, "grow");
-		PCCard.add(petPanel1, "align center");
-		PCCard.add(petPanel2, "align center");
-		PCCard.add(petPanel3, "align center, wrap");
+		PCCard.add(petPanel1, "align center, hmin 310");
+		PCCard.add(petPanel2, "align center, hmin 310");
+		PCCard.add(petPanel3, "align center, hmin 310, wrap");
 		resetPetView();
 		clearSelections.setPreferredSize(buttonSize);
 		PCCard.add(clearSelections);
@@ -326,14 +341,19 @@ public class TamaView {
 	private JPanel petPanel(int count)
 	{
 		MigLayout Layout = new MigLayout(
-				"fill, insets 20, wrap 1", 
+				"fill, insets 20, wrap 1, debug", 
 				"[][]",
 				"[][]");
 		
 		JPanel petPanel = new JPanel();
 		petPanel.setLayout(Layout);
 		//petPanel.setLayout(new BoxLayout(petPanel, BoxLayout.Y_AXIS));
-		petPanel.setPreferredSize(new Dimension(185,270));
+		petPanel.setPreferredSize(new Dimension(300,270));
+		
+		petStatLabel1.setFont(allFont);
+		petStatLabel2.setFont(allFont);
+		petStatLabel3.setFont(allFont);
+		
 		if(count == 1)
 		{
 			petName1.setPreferredSize(buttonSize);
@@ -598,6 +618,8 @@ public class TamaView {
 		energyBar.setStringPainted(true);
 		JProgressBar toiletBar = toiletBars[tabNum];
 		toiletBar.setStringPainted(true);
+		JProgressBar healthBar = healthBars[tabNum];
+		healthBar.setStringPainted(true);
 		
 		JLabel hunger = new JLabel("Hunger:");
 		hunger.setFont(allFont);
@@ -605,8 +627,16 @@ public class TamaView {
 		energy.setFont(allFont);
 		JLabel toilet = new JLabel("Toilet:");
 		toilet.setFont(allFont);
+		JLabel health = new JLabel("Health: ");
+		health.setFont(allFont);
+		JLabel mood = new JLabel("Mood: ");
+		mood.setFont(allFont);
+		JLabel favToy = new JLabel("Favourite toy: ");
+		favToy.setFont(allFont);
 		
 		petNameSpecies[tabNum].setFont(allFont);
+		moods[tabNum].setFont(allFont);
+		favToyLabels[tabNum].setFont(allFont);
 		
 		statBarHolder.add(petNameSpecies[tabNum], "span, wrap");
 		statBarHolder.add(hunger);
@@ -615,6 +645,12 @@ public class TamaView {
 		statBarHolder.add(energyBar, "wrap, growx");
 		statBarHolder.add(toilet);
 		statBarHolder.add(toiletBar, "wrap, growx");
+		statBarHolder.add(health);
+		statBarHolder.add(healthBar, "wrap, growx");
+		statBarHolder.add(mood);
+		statBarHolder.add(moods[tabNum], "wrap, growx");
+		statBarHolder.add(favToy);
+		statBarHolder.add(favToyLabels[tabNum], "wrap");
 		
 		return statBarHolder;
 	}
@@ -631,6 +667,11 @@ public class TamaView {
 		energyBars[petNum].setValue(barStats[2]);
 		toiletBars[petNum].setMaximum(10);
 		toiletBars[petNum].setValue(barStats[4]);
+		healthBars[petNum].setMaximum(barStats[6]);
+		healthBars[petNum].setValue(barStats[5]);
+		
+		moods[petNum].setText(pet.getMood());
+		favToyLabels[petNum].setText(pet.getFavToy());
 		
 		
 	}

@@ -43,7 +43,7 @@ public class TamaController {
 		{
 			String command = e.getActionCommand();
 			String curView = m_view.getCurrentView();
-			System.out.println(command);
+			//System.out.println(command);
 			if(command == "Start")
 			{
 				m_view.changeView("Setup");
@@ -111,7 +111,7 @@ public class TamaController {
 			String command = e.getActionCommand();
 			String[] commands = command.split(" ");
 			curPlayer = m_model.getPlayers().get(curPlayerNum);
-			System.out.println(command);
+			//System.out.println(command);
 			if(commands.length == 2)
 			{
 				int petNum = Integer.parseInt(commands[1]);
@@ -160,7 +160,7 @@ public class TamaController {
 			}
 			else if(commands[0].equals("Store"))
 			{
-				System.out.println(curPlayer);
+				//System.out.println(curPlayer);
 				m_view.disableGame();
 				ShopView shop = new ShopView(curPlayer, m_view);
 			}
@@ -229,14 +229,7 @@ public class TamaController {
 					e1.printStackTrace();
 				}
 				
-				if(playerNames.contains(curName))
-				{
-					m_view.playerNameTaken(true);
-				}
-				else
-				{
-					m_view.playerNameTaken(false);
-				}
+				checkPlayerName();
 	        }
 	  
 	    }
@@ -253,14 +246,7 @@ public class TamaController {
 					e1.printStackTrace();
 				}
 				
-				if(playerNames.contains(curName))
-				{
-					m_view.playerNameTaken(true);
-				}
-				else
-				{
-					m_view.playerNameTaken(false);
-				}
+				checkPlayerName();
 	        }
 	        else
 	        {
@@ -271,6 +257,24 @@ public class TamaController {
 	    @Override
 	    public void changedUpdate(DocumentEvent e) {
 	        System.out.println("ChangedUpdate");
+	    }
+	    
+	    private void checkPlayerName()
+	    {
+	    	boolean allLetters = curName.chars().allMatch(Character::isLetter);
+	    	
+			if(playerNames.contains(curName))
+			{
+				m_view.playerNameTaken(true);
+			}
+			else if(!(allLetters))
+			{
+				m_view.playerNameTaken(true);
+			}
+			else
+			{
+				m_view.playerNameTaken(false);
+			}
 	    }
 	    
 	    
@@ -332,6 +336,8 @@ public class TamaController {
 	    
 	    private void checkPetNames()
 	    {
+	    	boolean allLetters = curName.chars().allMatch(Character::isLetter);
+	    	
 			if(petNames.contains(curName))
 				m_view.petNameTaken(true, fieldNum);
 			else if(curPetNames.get((fieldNum + 1)%3).equals(curName))
@@ -343,6 +349,10 @@ public class TamaController {
 			{
 				m_view.petNameTaken(true, fieldNum);
 				m_view.petNameTaken(true, (fieldNum + 2)%3);
+			}
+			else if(!(allLetters))
+			{
+				m_view.petNameTaken(true, fieldNum);
 			}
 			else
 			{
