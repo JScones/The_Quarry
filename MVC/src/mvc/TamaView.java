@@ -83,6 +83,26 @@ public class TamaView {
 	private JButton sleepPet3 = new JButton("Sleep");
 	private JButton[] sleepPetButtons = {sleepPet1, sleepPet2, sleepPet3};
 	
+	private JProgressBar hungerBar1 = new JProgressBar();
+	private JProgressBar hungerBar2 = new JProgressBar();
+	private JProgressBar hungerBar3 = new JProgressBar();
+	private JProgressBar[] hungerBars = {hungerBar1, hungerBar2, hungerBar3};
+	
+	private JProgressBar energyBar1 = new JProgressBar();
+	private JProgressBar energyBar2 = new JProgressBar();
+	private JProgressBar energyBar3 = new JProgressBar();
+	private JProgressBar[] energyBars = {energyBar1, energyBar2, energyBar3};
+	
+	private JProgressBar toiletBar1 = new JProgressBar();
+	private JProgressBar toiletBar2 = new JProgressBar();
+	private JProgressBar toiletBar3 = new JProgressBar();
+	private JProgressBar[] toiletBars = {toiletBar1, toiletBar2, toiletBar3};
+	
+	private JLabel petNameSpecies1 = new JLabel();
+	private JLabel petNameSpecies2 = new JLabel();
+	private JLabel petNameSpecies3 = new JLabel();
+	private JLabel[] petNameSpecies = {petNameSpecies1, petNameSpecies2, petNameSpecies3};
+	
 	private JButton storeButton = new JButton("Store");
 	private JButton nextDay = new JButton("End my day");
 	
@@ -101,6 +121,12 @@ public class TamaView {
 	private JTextField petName1 = new JTextField();
 	private JTextField petName2 = new JTextField();
 	private JTextField petName3 = new JTextField();
+	
+	private JPanel petStatBars1 = buildPetStatBars(0);
+	private JPanel petStatBars2 = buildPetStatBars(1);
+	private JPanel petStatBars3 = buildPetStatBars(2);
+	private JPanel[] petStatBars = {petStatBars1, petStatBars2, petStatBars3};
+	
 	private JPanel petPanel1 = petPanel(1);
 	private JPanel petPanel2 = petPanel(2);
 	private JPanel petPanel3 = petPanel(3);
@@ -118,7 +144,6 @@ public class TamaView {
 	private Boolean isPetName2Accepted = false;
 	private Boolean isPetName3Accepted = false;
 	private Boolean isOnePetVisible = false;
-	
 
 	public TamaView(TamaModel model)
 	{
@@ -369,16 +394,18 @@ public class TamaView {
 	private JPanel buildPetTab(int tabNum)
 	{
 		MigLayout Layout = new MigLayout(
-				"fill, insets 20", 
+				"fill, insets 20, debug", 
 				"[][][]",
 				"[][]");
 		
 		JPanel MGCard = new JPanel();
 		MGCard.setLayout(Layout);
 		
-		mainGamePetStats[tabNum].setFont(allFont);
-		mainGamePetStats[tabNum].setPreferredSize(new Dimension(300, 300));
-		MGCard.add(mainGamePetStats[tabNum]);
+//		mainGamePetStats[tabNum].setFont(allFont);
+//		mainGamePetStats[tabNum].setPreferredSize(new Dimension(300, 300));
+//		MGCard.add(mainGamePetStats[tabNum]);
+		petStatBars[tabNum].setPreferredSize(new Dimension(400, 300));
+		MGCard.add(petStatBars[tabNum]);
 		
 		petStatusLabels[tabNum].setText("Actions Left: ");
 		petStatusLabels[tabNum].setFont(allFont);
@@ -430,9 +457,8 @@ public class TamaView {
 			mainGameTabbedPane.removeTabAt(1);
 			mainGameTabbedPane.removeTabAt(1);
 			
-			mainGamePetStat1.setText(player.getPets().get(0).getStatsString());
-			mainGamePetStat2.setText(null);
-			mainGamePetStat3.setText(null);
+			updatePetBars(0, player.getPets().get(0));
+
 			
 			petStatus1.setText(getPetStatus(player.getPets().get(0)));
 			petStatus2.setText(null);
@@ -458,6 +484,9 @@ public class TamaView {
 			petStatus2.setText(getPetStatus(player.getPets().get(1)));
 			petStatus3.setText(null);
 			
+			updatePetBars(0, player.getPets().get(0));
+			updatePetBars(1, player.getPets().get(1));
+			
 		}
 		else if(numPets == 3)
 		{
@@ -475,6 +504,10 @@ public class TamaView {
 			petStatus1.setText(getPetStatus(player.getPets().get(0)));
 			petStatus2.setText(getPetStatus(player.getPets().get(1)));
 			petStatus3.setText(getPetStatus(player.getPets().get(2)));
+			
+			updatePetBars(0, player.getPets().get(0));
+			updatePetBars(1, player.getPets().get(1));
+			updatePetBars(2, player.getPets().get(2));
 		}
 	}
 	
@@ -545,6 +578,61 @@ public class TamaView {
 			sleepPetButtons[i].setEnabled(true);
 			toiletPetButtons[i].setEnabled(true);
 		}
+	}
+	
+	private JPanel buildPetStatBars(int tabNum)
+	{
+		
+		JPanel statBarHolder = new JPanel();
+		
+		MigLayout Layout = new MigLayout(
+				"fill, insets 20", 
+				"[][]",
+				"[][][][]");
+		
+		statBarHolder.setLayout(Layout);
+		
+		JProgressBar hungerBar = hungerBars[tabNum];
+		hungerBar.setStringPainted(true);
+		JProgressBar energyBar = energyBars[tabNum];
+		energyBar.setStringPainted(true);
+		JProgressBar toiletBar = toiletBars[tabNum];
+		toiletBar.setStringPainted(true);
+		
+		JLabel hunger = new JLabel("Hunger:");
+		hunger.setFont(allFont);
+		JLabel energy = new JLabel("Energy:");
+		energy.setFont(allFont);
+		JLabel toilet = new JLabel("Toilet:");
+		toilet.setFont(allFont);
+		
+		petNameSpecies[tabNum].setFont(allFont);
+		
+		statBarHolder.add(petNameSpecies[tabNum], "span, wrap");
+		statBarHolder.add(hunger);
+		statBarHolder.add(hungerBar, "wrap, growx");
+		statBarHolder.add(energy);
+		statBarHolder.add(energyBar, "wrap, growx");
+		statBarHolder.add(toilet);
+		statBarHolder.add(toiletBar, "wrap, growx");
+		
+		return statBarHolder;
+	}
+	
+	public void updatePetBars(int petNum, Pet pet)
+	{
+		petStatusLabels[petNum].setText(getPetStatus(pet));
+		petNameSpecies[petNum].setText(pet.toString());
+		int[] barStats = pet.getBarStats();
+		
+		hungerBars[petNum].setMaximum(barStats[1]);
+		hungerBars[petNum].setValue(barStats[0]);
+		energyBars[petNum].setMaximum(barStats[3]);
+		energyBars[petNum].setValue(barStats[2]);
+		toiletBars[petNum].setMaximum(10);
+		toiletBars[petNum].setValue(barStats[4]);
+		
+		
 	}
 	
 	public void dayOver()

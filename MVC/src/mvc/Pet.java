@@ -43,7 +43,7 @@ public class Pet {
 	
 	public String toString()
 	{
-		return name + " (" + species + ")";
+		return "Name: " + name + "       Species: " + species;
 	}
 	
 	
@@ -60,6 +60,11 @@ public class Pet {
 	public int[] getStats()
 	{
 		return new int[]{hunger, energy, weight, toilet, health, mood};
+	}
+	
+	public int[] getBarStats()
+	{
+		return new int[]{hunger, maxHunger, energy, maxEnergy, toilet, health};
 	}
 	
 	public String getStatsString()
@@ -134,7 +139,7 @@ public class Pet {
 	{
 		dayActions -= 1;
 		hunger += food.getValue();
-		// when calling this in main, food must be removed from inventory
+		weight += 1;
 	}
 	
 	public void sleep()
@@ -145,6 +150,7 @@ public class Pet {
 	
 	public void goToilet()
 	{
+		dayActions -= 1;
 		toilet += 3;
 		weight -= 1;
 	}

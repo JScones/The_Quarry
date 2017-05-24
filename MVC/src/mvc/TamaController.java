@@ -123,7 +123,7 @@ public class TamaController {
 					{
 						curPlayer.getPets().get(petNum).feed(food);
 						curPlayer.getFood().remove(food);
-						m_view.updatePetStats((petNum), curPlayer);
+						m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
 					}
 				}
 				else if(commands[0].equals("play"))
@@ -138,18 +138,18 @@ public class TamaController {
 							curPlayer.getToys().remove(toy);
 						}
 						
-						m_view.updatePetStats(Integer.parseInt(commands[1]), curPlayer);
+						m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
 					}
 				}
 				else if(commands[0].equals("toilet"))
 				{
 					curPlayer.getPets().get(petNum).goToilet();
-					m_view.updatePetStats(petNum, curPlayer);
+					m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
 				}
 				else if(commands[0].equals("sleep"))
 				{
 					curPlayer.getPets().get(petNum).sleep();
-					m_view.updatePetStats(petNum, curPlayer);
+					m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
 				}
 				
 				if(curPlayer.getPets().get(petNum).getActionsLeft() == 0)
