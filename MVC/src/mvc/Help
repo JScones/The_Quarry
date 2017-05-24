@@ -3,7 +3,8 @@ Help section
 1. Upon starting the game you will have an option of choosing how many players are playing the game and how many days 
 	the game will last for. In each "day" you will be able to do up to two actions to each and every pet.
 	
-2. You will be asked for the name of each player and the name(s) and species of their pet(s).
+2. You will be asked for the name of each player and the name(s) and species of their pet(s). Names must contain at least one 
+	character and be unique from all other names.
 
 3. Each player is now able to view the stats of their pet as well as perform actions.
 

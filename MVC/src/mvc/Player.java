@@ -97,6 +97,10 @@ public class Player {
 	{
 		toys.add(toy);
 	}
+	public void addPet(Pet pet) //for testing
+	{
+		pets.add(pet);
+	}
 	
 	
 	@Override
