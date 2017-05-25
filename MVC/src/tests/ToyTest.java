@@ -35,11 +35,12 @@ public class ToyTest {
 	}
 
 	@Test
-	public void testBreak()
+	public void testDamage()
 	{
 		Toy book = player.getToys().get(0);
-		player.getPets().get(0).playAndBreak(player.getToys().get(0));
-		player.getPets().get(0).playAndBreak(player.getToys().get(0));
-		System.out.println(player.getToys());
+		int duro = book.getDurability();
+		Pet lion = player.getPets().get(0);
+		lion.playAndBreak(book);
+		assertTrue(book.getDurability() == duro - 2);
 	}
 }
