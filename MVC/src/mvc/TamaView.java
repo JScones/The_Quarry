@@ -4,7 +4,11 @@ import java.awt.*;
 import javax.swing.*;
 
 import java.util.ArrayList;
-
+/**
+ * View class of the MVC architecture.
+ * 
+ *
+ */
 public class TamaView {
 	
 	private TamaModel m_model;

@@ -7,7 +7,11 @@ import java.util.Random;
 import javax.swing.event.*;
 import javax.swing.text.BadLocationException;
 
-
+/**
+ * Controller class of the MVC architecture.
+ * 
+ *
+ */
 public class TamaController {
 
 	private TamaModel m_model;

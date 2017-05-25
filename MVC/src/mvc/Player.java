@@ -3,8 +3,7 @@ package mvc;
 import java.util.ArrayList;
 
 /**
- * TODO Javadoc
- *
+ * Player Object class, used to hold all a players attributes and pets.
  */
 public class Player {
 

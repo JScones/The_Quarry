@@ -1,7 +1,7 @@
 package mvc;
 
 /**
- * This class is the parent class of all the seperate foods.
+ * This class is the parent class of all the separate foods.
  * Contains self explanatory getters and setters.
  *
  */

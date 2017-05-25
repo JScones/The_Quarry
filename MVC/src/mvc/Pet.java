@@ -2,6 +2,12 @@ package mvc;
 
 import javax.swing.ImageIcon;
 
+/**
+ * Pet Parent class, subclassed by Petxxx class.
+ * Not functional on its own.
+ * 
+ *
+ */
 public class Pet {
 	
 	public ImageIcon icon;

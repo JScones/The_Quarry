@@ -1,7 +1,11 @@
 package mvc;
 
 import java.util.*;
-
+/**
+ *  Model class of the MVC architecture.
+ * 
+ *
+ */
 public class TamaModel{
 	
 	private String[] species = {"Lion", "Gorilla", "Eagle", "Tiger", "Elephant", "Snake"};

@@ -1,5 +1,11 @@
 package mvc;
 
+/**
+ * 	This class is the parent class of all the separate Toys
+ *
+ *
+ */
+
 public class Toy {
 	
 	private String name;

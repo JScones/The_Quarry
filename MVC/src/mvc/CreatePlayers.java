@@ -4,9 +4,7 @@ import java.util.*;
 
 
 /**
- * TODO Javadoc
- * 
- * 
+ * Class for creating players, mainly to separate code.
  *
  */
 public class CreatePlayers {
