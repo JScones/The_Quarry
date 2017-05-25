@@ -197,20 +197,7 @@ public class TamaController {
 						}
 						if(curPlayer.getPets().get(i).checkSick())
 						{
-							boolean cure = m_view.showPetSickDialog(curPlayer, curPlayer.getPets().get(i));
-							if(cure)
-							{
-								if(curPlayer.getMoney() >= 10.0)
-								{
-									curPlayer.setMoney(curPlayer.getMoney() - 10.0);
-									curPlayer.getPets().get(i).becomesNotSick();
-									curPlayer.getPets().get(i).increaseMood(2);
-								}
-								else
-								{
-									JOptionPane.showMessageDialog(m_view.frame, "You don't have enough money to buy medicine"); //fix
-								}
-							}
+							sickPetPopUp(curPlayer, curPlayer.getPets().get(i));
 						}
 					}
 					randomEvents();
@@ -268,25 +255,13 @@ public class TamaController {
 	    		}
 	    		Pet sickPet = sickPlayer.getPets().get(sickPetIndex);
 	    		sickPet.becomesSick();
-				boolean cure = m_view.showPetSickDialog(sickPlayer, sickPet);
-				m_view.mainGameLoopGUI.updatePetBars(sickPetIndex, sickPet);
-				if(cure)
-				{
-					if(sickPlayer.getMoney() >= 10.0)
-					{
-						sickPlayer.setMoney(sickPlayer.getMoney() - 10.0);
-						sickPet.becomesNotSick();
-						sickPet.increaseMood(2);
-					}
-					else
-					{
-						JOptionPane.showMessageDialog(m_view.frame, "You don't have enough money to buy medicine"); //TODO
-					}
-				}
+	    		sickPetPopUp(sickPlayer, sickPet);
+				
 	    		
 	    	}
 	    	
-	    	int behaveNum = rand.nextInt(9);
+	    	Random rando = new Random();
+	    	int behaveNum = rando.nextInt(9);
 	    	
 	    	if(behaveNum == 8)
 	    	{
@@ -311,15 +286,36 @@ public class TamaController {
 	    		}
 	    		Pet behavePet = behavePlayer.getPets().get(behavePetIndex);
 	    		behavePet.misbehave();
-	    		boolean punish = m_view.showPetMisbehavingDialog(behavePlayer, behavePet);
-	    		m_view.mainGameLoopGUI.updatePetBars(behavePetIndex, behavePet);
-	    		if(punish)
-	    		{
-	    			behavePet.notMisbehave();
-	    			behavePet.increaseMood(-2);
-	    			// feel sad? check deliverables
-	    		}
+
+	    		misbehavePetPopUp(behavePlayer, behavePet);
 	    	}
+	    }
+	    
+	    private void sickPetPopUp(Player sickPlayer, Pet sickPet)
+	    {
+	    	boolean cure = m_view.showPetSickDialog(sickPlayer, sickPet);
+	    	m_view.mainGameLoopGUI.updatePetBars(sickPlayer.getPets().indexOf(sickPet), sickPet); //TODO
+			if(cure)
+			{
+				if(sickPlayer.getMoney() >= 10.0)
+				{
+					sickPlayer.setMoney(sickPlayer.getMoney() - 10.0);
+					sickPet.becomesNotSick();
+					sickPet.increaseMood(2);
+				}
+			}	
+	    }
+	    
+	    private void misbehavePetPopUp(Player behavePlayer, Pet behavePet)
+	    {
+    		boolean punish = m_view.showPetMisbehavingDialog(behavePlayer, behavePet);
+    		m_view.mainGameLoopGUI.updatePetBars(behavePlayer.getPets().indexOf(behavePet), behavePet);
+    		if(punish)
+    		{
+    			behavePet.notMisbehave();
+    			behavePet.increaseMood(-2);
+    			// feel sad? check deliverables
+    		}
 	    }
 	    
 	    private void checkPetDied(Player player, Pet pet)

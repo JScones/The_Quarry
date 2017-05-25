@@ -186,7 +186,15 @@ public class TamaView {
 		int giveMedicine = (Integer)JOptionPane.showOptionDialog(frame, "Oh no, player " + sickPlayer.name + "'s pet " + sickPet.getName() + " got sick! \n" + "Do you want to give it medicine for $10?", "Uh oh", 0, JOptionPane.WARNING_MESSAGE, null, null, null);
 		if(giveMedicine == 0)
 		{
-			return true;
+			if(sickPlayer.getMoney() < 10.0)
+			{
+				JOptionPane.showMessageDialog(frame, "You don't have enough money to buy medicine");
+				return false;
+			}
+			else
+			{
+				return true;
+			}
 		}
 		else
 		{
