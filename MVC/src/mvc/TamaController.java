@@ -97,11 +97,11 @@ public class TamaController {
 			}
 			else if(command.equals("donePet1"))
 			{
-				m_view.changePetTab(1);
+				m_view.changePetTab(curPlayer.getPets().get(1), 1);
 			}
 			else if(command.equals("donePet2"))
 			{
-				m_view.changePetTab(2);
+				m_view.changePetTab(curPlayer.getPets().get(2), 2);
 			}
 		}
 	}
@@ -152,24 +152,10 @@ public class TamaController {
 				
 				if(curPlayer.getPets().get(petNum).getActionsLeft() == 0)
 				{
-					m_view.enablePetActionButtons(false, Integer.parseInt(commands[1]));
+					m_view.enablePetActionButtons(false, petNum);
 				}
 				
-				if(curPlayer.getPets().get(petNum).checkAlive() == false)
-				{
-					if(curPlayer.getPets().get(petNum).getLivesLeft() == 1)
-					{
-						Boolean revivePet = m_view.showPetDiedDialog(curPlayer.getPets().get(petNum));
-						if(revivePet == true)
-						{
-							curPlayer.getPets().get(petNum).revive();
-						}
-						else
-						{
-							curPlayer.getPets().remove(curPlayer.getPets().get(petNum));
-						}
-					}
-				}
+				checkPetDied(curPlayer, curPlayer.getPets().get(petNum));
 				
 				m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
 				
@@ -183,6 +169,10 @@ public class TamaController {
 			else if(command.equals("End my day"))
 			{
 				curPlayer.dayOver();
+				for(Pet pet : curPlayer.getPets())
+				{
+					checkPetDied(curPlayer, pet);
+				}
 				
 				if(curPlayerNum + 1 < m_model.curNumPlayers())
 				{
@@ -283,6 +273,31 @@ public class TamaController {
 	    			// feel sad? check deliverables
 	    		}
 	    	}
+	    }
+	    
+	    private void checkPetDied(Player player, Pet pet)
+	    {
+	    	if(pet.checkAlive() == false)
+			{
+				if(pet.checkHasDied() == false)
+				{
+					Boolean revivePet = m_view.showPetReviveDialog(curPlayer, pet);
+					if(revivePet == true)
+					{
+						pet.revive();
+					}
+					else
+					{
+						m_view.enablePetActionButtons(false, player.getPets().indexOf(pet));
+					}
+				}
+				else
+				{
+					m_view.showPetDiedDialog(player, pet);
+					m_view.enablePetActionButtons(false, player.getPets().indexOf(pet));
+				}
+			}
+	    	m_view.updatePetBars(player.getPets().indexOf(pet), pet);
 	    }
 	}
 

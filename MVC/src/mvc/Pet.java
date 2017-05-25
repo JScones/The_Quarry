@@ -21,6 +21,7 @@ public class Pet {
 	private int dayActions = 2;
 	private String favToy;
 	private int livesLeft = 1;
+	private Boolean hasDied = false;
 	private Boolean isAlive = true;
 	private Boolean isSick = false;
 	private Boolean isMisbehaving = false;
@@ -115,13 +116,17 @@ public class Pet {
 	
 	public void dayEnd()
 	{
-		hunger -= 4;
-		energy -= 3;
-		toilet -= 3;
-		mood -= 4;
-		
-		health = getHealth();
-		dayActions = 2;
+		if(isAlive == true)
+		{
+			hunger -= 4;
+			energy -= 3;
+			toilet -= 3;
+			mood -= 4;
+			
+			health = getHealth();
+			dayActions = 2;
+			checkAlive();
+		}
 		
 	}
 	
@@ -262,6 +267,11 @@ public class Pet {
 		if(toilet < 1 || hunger < 1 || energy < 1)
 		{
 			isAlive = false;
+			livesLeft -= 1;
+			toilet = 0;
+			hunger = 0;
+			energy = 0;
+			health = 0;
 		}
 		
 		return isAlive;
@@ -295,11 +305,17 @@ public class Pet {
 	public void revive()
 	{
 		isAlive = true;
+		hasDied = true;
 		livesLeft = 0;
 		
 		hunger = maxHunger / 2;
 		energy = maxEnergy / 2;
 		toilet = 7;
 		health = getHealth();
+	}
+	
+	public Boolean checkHasDied()
+	{
+		return hasDied;
 	}
 }

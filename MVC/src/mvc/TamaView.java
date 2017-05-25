@@ -22,6 +22,7 @@ public class TamaView {
 	
 	private ImageIcon tick = new ImageIcon("resources/tick.png");
 	private ImageIcon cross = new ImageIcon("resources/cross.png");
+	private ImageIcon sad = new ImageIcon("resources/sad.png");
 	
 	// First menu components
 	private JLabel helpTextLabel = new JLabel();
@@ -473,35 +474,67 @@ public class TamaView {
 		
 		if(numPets == 1)
 		{
+			Boolean petAlive1 = player.getPets().get(0).checkAlive();
+			enablePetActionButtons(petAlive1, 0);
+			
 			mainGameTabbedPane.setIconAt(0, player.getPets().get(0).icon);
 			mainGameTabbedPane.removeTabAt(1);
 			mainGameTabbedPane.removeTabAt(1);
-			
-			updatePetBars(0, player.getPets().get(0));
-
-			
-			petStatus1.setText(getPetStatus(player.getPets().get(0)));
-			petStatus2.setText(null);
-			petStatus3.setText(null);
-			
 			nextPet.setEnabled(false);
 			
+			if(petAlive1)
+			{
+				updatePetBars(0, player.getPets().get(0));
+	
+				
+				petStatus1.setText(getPetStatus(player.getPets().get(0)));
+				petStatus2.setText(null);
+				petStatus3.setText(null);
+			}
+			else
+			{				
+				petStatus1.setText("Dead");
+				petStatus1.setIcon(sad);
+				petStatus2.setText(null);
+				petStatus3.setText(null);
+			}
 			
 		}
 		else if(numPets == 2)
 		{
+			Boolean petAlive1 = player.getPets().get(0).checkAlive();
+			enablePetActionButtons(petAlive1, 0);
+			Boolean petAlive2 = player.getPets().get(1).checkAlive();
+			enablePetActionButtons(petAlive2, 1);
+			
+			
 			mainGameTabbedPane.setIconAt(0, player.getPets().get(0).icon);
 			mainGameTabbedPane.setIconAt(1, player.getPets().get(1).icon);
 			mainGameTabbedPane.removeTabAt(2);
 			
 			mainGameTabbedPane.setEnabledAt(1, false);
+			nextPet.setEnabled(true);
 			
-			mainGamePetStat1.setText(player.getPets().get(0).getStatsString());
-			mainGamePetStat2.setText(player.getPets().get(1).getStatsString());
-			mainGamePetStat3.setText(null);
+			if(petAlive1)
+			{
+				petStatus1.setText(player.getPets().get(0).getStatsString());
+			}
+			else
+			{
+				petStatus1.setText("Dead");
+				petStatus1.setIcon(sad);
+			}
 			
-			petStatus1.setText(getPetStatus(player.getPets().get(0)));
-			petStatus2.setText(getPetStatus(player.getPets().get(1)));
+			if(petAlive2)
+			{
+				petStatus2.setText(player.getPets().get(1).getStatsString());
+			}
+			else
+			{
+				petStatus2.setText("Dead");
+				petStatus2.setIcon(sad);
+			}
+			
 			petStatus3.setText(null);
 			
 			updatePetBars(0, player.getPets().get(0));
@@ -510,6 +543,15 @@ public class TamaView {
 		}
 		else if(numPets == 3)
 		{
+			Boolean petAlive1 = player.getPets().get(0).checkAlive();
+			enablePetActionButtons(petAlive1, 0);
+			Boolean petAlive2 = player.getPets().get(1).checkAlive();
+			enablePetActionButtons(petAlive2, 1);
+			Boolean petAlive3 = player.getPets().get(0).checkAlive();
+			enablePetActionButtons(petAlive3, 2);
+			
+			nextPet.setEnabled(true);
+			
 			mainGameTabbedPane.setIconAt(0, player.getPets().get(0).icon);
 			mainGameTabbedPane.setIconAt(1, player.getPets().get(1).icon);
 			mainGameTabbedPane.setIconAt(2, player.getPets().get(2).icon);
@@ -517,13 +559,35 @@ public class TamaView {
 			mainGameTabbedPane.setEnabledAt(1, false);
 			mainGameTabbedPane.setEnabledAt(2, false);
 			
-			mainGamePetStat1.setText(player.getPets().get(0).getStatsString());
-			mainGamePetStat2.setText(player.getPets().get(1).getStatsString());
-			mainGamePetStat3.setText(player.getPets().get(2).getStatsString());
+			if(petAlive1)
+			{
+				petStatus1.setText(player.getPets().get(0).getStatsString());
+			}
+			else
+			{
+				petStatus1.setText("Dead");
+				petStatus1.setIcon(sad);
+			}
 			
-			petStatus1.setText(getPetStatus(player.getPets().get(0)));
-			petStatus2.setText(getPetStatus(player.getPets().get(1)));
-			petStatus3.setText(getPetStatus(player.getPets().get(2)));
+			if(petAlive2)
+			{
+				petStatus2.setText(player.getPets().get(1).getStatsString());
+			}
+			else
+			{
+				petStatus2.setText("Dead");
+				petStatus2.setIcon(sad);
+			}
+			
+			if(petAlive3)
+			{
+				petStatus3.setText(getPetStatus(player.getPets().get(2)));
+			}
+			else
+			{
+				petStatus3.setText("Dead");
+				petStatus3.setIcon(sad);
+			}
 			
 			updatePetBars(0, player.getPets().get(0));
 			updatePetBars(1, player.getPets().get(1));
@@ -547,9 +611,9 @@ public class TamaView {
 		return out;
 	}
 	
-	public void changePetTab(int tab)
+	public void changePetTab(Pet pet, int tab)
 	{
-		enablePetActionButtons();
+		enablePetActionButtons(pet.checkAlive(), tab);
 		
 		if(tab == 1)
 		{
@@ -1024,7 +1088,7 @@ public class TamaView {
 		
 		else
 		{
-			JOptionPane.showMessageDialog(frame, "You don't have any toys :(\n" + "Go buy some in the Store.");
+			JOptionPane.showMessageDialog(frame, "You don't have any toys :( \n" + "Go buy some in the Store.");
 			return null;
 		}
 	}
@@ -1039,9 +1103,9 @@ public class TamaView {
 		JOptionPane.showMessageDialog(frame, "Oh no, your pet broke the " + brokenToy.getName());
 	}
 	
-	public Boolean showPetDiedDialog(Pet pet)
+	public Boolean showPetReviveDialog(Player player, Pet pet)
 	{
-		int revive = (Integer)JOptionPane.showOptionDialog(frame, "Oh no, your pet died! \n" + "Do you want to revive it", "Uh oh", 0, 1, null, null, null);
+		int revive = (Integer)JOptionPane.showOptionDialog(frame, "Oh no " + player.name + ", your pet " + pet.getName() + " died! \n" + "Do you want to revive it", "Uh oh", 0, 1, null, null, null);
 		if(revive == 0)
 		{
 			return true;
@@ -1050,6 +1114,11 @@ public class TamaView {
 		{
 			return false;
 		}
+	}
+	
+	public void showPetDiedDialog(Player player, Pet pet)
+	{
+		JOptionPane.showMessageDialog(frame, "Oh no " + player.name + "\n" + "Your pet " + pet.getName() + " died again!");
 	}
 	
 	public Boolean showPetSickDialog(Player sickPlayer, Pet sickPet)
