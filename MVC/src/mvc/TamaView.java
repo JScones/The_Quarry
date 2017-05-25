@@ -1041,13 +1041,21 @@ public class TamaView {
 	
 	public Boolean showPetDiedDialog(Pet pet)
 	{
-		int revive = (Integer)JOptionPane.showOptionDialog(frame, "Oh no, your pet died! \n" + "Do you want to revive it", "Uh oh", 0, 1, null, null, null);
-		if(revive == 0)
+		if(pet.getLivesLeft() == 1)
 		{
-			return true;
+			int revive = (Integer)JOptionPane.showOptionDialog(frame, "Oh no, your pet died! \n" + "Do you want to revive it", "Uh oh", 0, 1, null, null, null);
+			if(revive == 0)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
 		}
 		else
 		{
+			JOptionPane.showMessageDialog(frame, "Oh no, your pet died again!/n" + "Animal control has taken it away");
 			return false;
 		}
 	}

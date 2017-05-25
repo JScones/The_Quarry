@@ -86,6 +86,7 @@ public class TamaController {
 						curPlayerNum = 0;
 						m_view.changeView("Main Game");
 					}
+					curPlayer = m_model.getPlayers().get(0);
 				}
 			}	
 			else if(command == "Clear")
@@ -123,7 +124,6 @@ public class TamaController {
 					{
 						curPlayer.getPets().get(petNum).feed(food);
 						curPlayer.getFood().remove(food);
-						m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
 					}
 				}
 				else if(commands[0].equals("play"))
@@ -137,19 +137,15 @@ public class TamaController {
 							m_view.toyBrokeDialog(toy);
 							curPlayer.getToys().remove(toy);
 						}
-						
-						m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
 					}
 				}
 				else if(commands[0].equals("toilet"))
 				{
 					curPlayer.getPets().get(petNum).goToilet();
-					m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
 				}
 				else if(commands[0].equals("sleep"))
 				{
 					curPlayer.getPets().get(petNum).sleep();
-					m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
 				}
 				
 				if(curPlayer.getPets().get(petNum).getActionsLeft() == 0)
@@ -159,12 +155,21 @@ public class TamaController {
 				
 				if(curPlayer.getPets().get(petNum).checkAlive() == false)
 				{
-					if(curPlayer.getPets().get(petNum).getLivesLeft() == 0)
+					if(curPlayer.getPets().get(petNum).getLivesLeft() == 1)
 					{
 						Boolean revivePet = m_view.showPetDiedDialog(curPlayer.getPets().get(petNum));
-						System.out.println(revivePet);
+						if(revivePet == true)
+						{
+							curPlayer.getPets().get(petNum).revive();
+						}
+						else
+						{
+							curPlayer.getPets().remove(curPlayer.getPets().get(petNum));
+						}
 					}
 				}
+				
+				m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
 				
 			}
 			else if(commands[0].equals("Store"))
@@ -179,22 +184,21 @@ public class TamaController {
 				
 				if(curPlayerNum + 1 < m_model.curNumPlayers())
 				{
-					m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum + 1));
 					curPlayerNum ++;
 					curPlayer = m_model.getPlayers().get(curPlayerNum);
+					m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum));
 				}
 				else
-				{
+				{	
 					curPlayerNum = 0;
 					curPlayer = m_model.getPlayers().get(curPlayerNum);
 					m_view.dayOver();
 					m_model.incrementDay();
 					m_view.updateDayCount();
 					m_view.setMainGameTab(curPlayer);
-					
-				}
+				}	
 			}
-		}	
+		}
 	}
 	
 	class ComboBoxListener implements ItemListener
