@@ -3,8 +3,8 @@ package mvc;
 public class FoodBanana extends Food {
 	
 	private static String name = "Banana";
-	private static Double price = 1.99;
-	private static int value = 3;
+	private static Double price = 4.99;
+	private static int value = 10;
 	
 
 	public FoodBanana()

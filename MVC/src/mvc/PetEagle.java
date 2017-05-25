@@ -5,8 +5,8 @@ import javax.swing.ImageIcon;
 public class PetEagle extends Pet {
 	
 	private static String favToy = "Ball";
-	private static int maxHunger = 8;
-	private static int maxEnergy = 15;
+	private static int maxHunger = 70;
+	private static int maxEnergy = 80;
 	private static int weight = 100;
 	private static int[] stats = {maxHunger, maxEnergy, weight};
 	private static ImageIcon icon = new ImageIcon("resources/eagle_small.png");

@@ -255,6 +255,7 @@ public class TamaController {
 	    		Pet sickPet = sickPlayer.getPets().get(sickPetIndex);
 	    		sickPet.becomesSick();
 				boolean cure = m_view.showPetSickDialog(sickPlayer, sickPet);
+				m_view.mainGameLoopGUI.updatePetBars(sickPetIndex, sickPet);
 				if(cure)
 				{
 					if(sickPlayer.getMoney() >= 10.0)
@@ -265,7 +266,7 @@ public class TamaController {
 					}
 					else
 					{
-						JOptionPane.showMessageDialog(m_view.frame, "You don't have enough money to buy medicine"); //fix
+						JOptionPane.showMessageDialog(m_view.frame, "You don't have enough money to buy medicine"); //TODO
 					}
 				}
 	    		
@@ -297,6 +298,7 @@ public class TamaController {
 	    		Pet behavePet = behavePlayer.getPets().get(behavePetIndex);
 	    		behavePet.misbehave();
 	    		boolean punish = m_view.showPetMisbehavingDialog(behavePlayer, behavePet);
+	    		m_view.mainGameLoopGUI.updatePetBars(behavePetIndex, behavePet);
 	    		if(punish)
 	    		{
 	    			behavePet.notMisbehave();
@@ -325,6 +327,7 @@ public class TamaController {
 				else
 				{
 					m_view.showPetDiedDialog(player, pet);
+					m_view.mainGameLoopGUI.updatePetBars(player.getPets().indexOf(pet), pet);
 					m_view.mainGameLoopGUI.enablePetActionButtons(false, player.getPets().indexOf(pet));
 				}
 			}

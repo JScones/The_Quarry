@@ -70,7 +70,13 @@ public class Pet {
 	
 	public int[] getBarStats()
 	{
-		return new int[]{hunger, maxHunger, energy, maxEnergy, toilet, health, maxHealth};
+		return new int[]{hunger, maxHunger, energy, maxEnergy, toilet, getHealth(), maxHealth};
+	}
+	
+	public int getScore()
+	{
+		int score = (hunger/maxHunger) + (energy/maxEnergy) + (toilet/10) + (mood/10);
+		return score;
 	}
 	
 	public String getStatsString()
@@ -118,8 +124,8 @@ public class Pet {
 	{
 		if(isAlive == true)
 		{
-			hunger -= 4;
-			energy -= 3;
+			hunger -= 10;
+			energy -= 8;
 			toilet -= 3;
 			mood -= 4;
 			
@@ -141,7 +147,7 @@ public class Pet {
 		if( toy.getName() == favToy)
 		{
 			mood += 5;
-			energy -= 2;
+			energy -= 5;
 			
 			checkOverMax();
 			
@@ -150,7 +156,7 @@ public class Pet {
 		else
 		{
 			mood += 2;
-			energy -= 2;
+			energy -= 5;
 			
 			checkOverMax();
 			
@@ -177,7 +183,7 @@ public class Pet {
 	public void sleep()
 	{
 		dayActions -= 1;
-		energy += 5;
+		energy = maxEnergy;
 		
 		checkOverMax();
 	}
@@ -185,7 +191,7 @@ public class Pet {
 	public void goToilet()
 	{
 		dayActions -= 1;
-		toilet += 3;
+		toilet += 10;
 		weight -= 1;
 		
 		checkOverMax();
