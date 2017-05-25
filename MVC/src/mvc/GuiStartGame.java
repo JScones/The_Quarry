@@ -13,6 +13,13 @@ import javax.swing.SwingConstants;
 
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * This class handles the GUI for the section of the game where the number of days and players are chosen for 
+ * the game, as well as the help section.
+ * 
+ * @author Josh & Jack
+ *
+ */
 public class GuiStartGame{
 	
 	private TamaModel m_model;
@@ -50,6 +57,12 @@ public class GuiStartGame{
 		m_model = model;
 	}
 	
+	/**
+	 * Builds a <code> JPanel </code> the first screen of the game
+	 * displays some welcome text and button options to start the game or view the help section.
+	 * 
+	 * @return a <code> JPanel</code> with all the necessary main menu components.
+	 */
 	protected JPanel buildMainMenuPanel()
 	{
 		MigLayout menuLayout = new MigLayout(
@@ -74,6 +87,11 @@ public class GuiStartGame{
 		return menuCard;
 	}
 	
+	/**
+	 * Builds a <code>JPanel</code> that displays the help section of the game with a back button 
+	 * to return to main menu.
+	 * @return Help section <code>JPanel</code>.
+	 */
 	protected JPanel buildHelpPanel()
 	{
 		MigLayout helpLayout = new MigLayout(
@@ -93,6 +111,13 @@ public class GuiStartGame{
 		return helpCard;
 	}
 	
+	/**
+	 * Builds the <code>JPanel</code> where number of players and number of days for the game
+	 * are chosen using <code>Radio Buttons</code>. Also contains a "Next" <code>Button</code> to
+	 * advance to the player creation screen.
+	 * 
+	 * @return <code>JPanel</code> containing the Set Up Game screen.
+	 */
 	protected JPanel buildSetupPanel()
 	{
 		//Make the Setup card

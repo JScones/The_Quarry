@@ -6,6 +6,13 @@ import javax.swing.SwingConstants;
 
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * This class creates the last screen in the game displaying the Overall score for each player
+ * 
+ * @author Josh % Jack
+ *
+ */
+
 public class GuiEndGame {
 
 	private TamaModel m_model;
@@ -17,6 +24,12 @@ public class GuiEndGame {
 		m_model = model;
 	}
 	
+	/**
+	 * Builds a <code>JPanel</code> containing a <code>JLabel</code> of each players overall score aswell as a 
+	 * well done message.
+	 * 
+	 * @return End game <code>JPanel</code>.
+	 */
 	public JPanel buildEndGame()
 	{
 		JPanel endGame = new JPanel();
