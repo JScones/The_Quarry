@@ -144,7 +144,7 @@ public class GuiMainGameLoop {
 	private JPanel buildPetTab(int tabNum)
 	{
 		MigLayout Layout = new MigLayout(
-				"fill, insets 20, debug", 
+				"fill, insets 20", 
 				"[][][]",
 				"[][]");
 		
@@ -222,7 +222,7 @@ public class GuiMainGameLoop {
 			}
 			else
 			{				
-				petStatus1.setText("Dead");
+				petStatus1.setText("<html><font size='30' face='Comic Sans MS' color='red'>it Ded</font></html>");
 				petStatus1.setIcon(sad);
 				petStatus2.setText(null);
 				petStatus3.setText(null);
@@ -250,7 +250,7 @@ public class GuiMainGameLoop {
 			}
 			else
 			{
-				petStatus1.setText("Dead");
+				petStatus1.setText("<html><font face='Comic Sans MS'>Ded</font></html>");
 				petStatus1.setIcon(sad);
 			}
 			
@@ -260,7 +260,7 @@ public class GuiMainGameLoop {
 			}
 			else
 			{
-				petStatus2.setText("Dead");
+				petStatus2.setText("<html><font face='Comic Sans MS'>Ded</font></html>");
 				petStatus2.setIcon(sad);
 			}
 			
@@ -294,7 +294,7 @@ public class GuiMainGameLoop {
 			}
 			else
 			{
-				petStatus1.setText("Dead");
+				petStatus1.setText("<html><font face='Comic Sans MS'>Ded</font></html>");
 				petStatus1.setIcon(sad);
 			}
 			
@@ -304,7 +304,7 @@ public class GuiMainGameLoop {
 			}
 			else
 			{
-				petStatus2.setText("Dead");
+				petStatus2.setText("<html><font face='Comic Sans MS'>Ded</font></html>");
 				petStatus2.setIcon(sad);
 			}
 			
@@ -314,7 +314,7 @@ public class GuiMainGameLoop {
 			}
 			else
 			{
-				petStatus3.setText("Dead");
+				petStatus3.setText("<html><font face='Comic Sans MS'>Ded</font></html>");
 				petStatus3.setIcon(sad);
 			}
 			

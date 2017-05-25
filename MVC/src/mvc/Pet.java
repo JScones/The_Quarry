@@ -70,7 +70,7 @@ public class Pet {
 	
 	public int[] getBarStats()
 	{
-		return new int[]{hunger, maxHunger, energy, maxEnergy, toilet, getHealth(), maxHealth};
+		return new int[]{hunger, maxHunger, energy, maxEnergy, toilet, health, maxHealth};
 	}
 	
 	public String getStatsString()
