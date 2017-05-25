@@ -42,11 +42,11 @@ public class GuiStartGame{
 	private JRadioButton players1 = new JRadioButton("1 player  ");
 	private JRadioButton players2 = new JRadioButton("2 players ");
 	private JRadioButton players3 = new JRadioButton("3 players  ");
-	private JRadioButton days1 = new JRadioButton("1");
-	private JRadioButton days2 = new JRadioButton("2");
-	private JRadioButton days3 = new JRadioButton("3");
-	private JRadioButton days4 = new JRadioButton("4");
-	private JRadioButton days5 = new JRadioButton("5");
+	private JRadioButton days1 = new JRadioButton("3");
+	private JRadioButton days2 = new JRadioButton("5");
+	private JRadioButton days3 = new JRadioButton("7");
+	private JRadioButton days4 = new JRadioButton("10");
+	private JRadioButton days5 = new JRadioButton("15");
 
 	private ButtonGroup numPlayersGroup = new ButtonGroup();
 	private ButtonGroup numDaysGroup = new ButtonGroup();
@@ -136,13 +136,13 @@ public class GuiStartGame{
 		numDaysGroup.add(days5);
 		days1.setActionCommand("1");
 		days1.setFont(allFont);
-		days2.setActionCommand("2");
+		days2.setActionCommand("5");
 		days2.setFont(allFont);
-		days3.setActionCommand("3");
+		days3.setActionCommand("7");
 		days3.setFont(allFont);
-		days4.setActionCommand("4");
+		days4.setActionCommand("10");
 		days4.setFont(allFont);
-		days5.setActionCommand("5");
+		days5.setActionCommand("15");
 		days5.setFont(allFont);
 
 		days1.setSelected(true);

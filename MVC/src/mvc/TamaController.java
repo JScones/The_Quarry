@@ -209,6 +209,7 @@ public class TamaController {
 							}
 						}
 					}
+					randomEvents();
 				}
 				else
 				{	
@@ -216,11 +217,20 @@ public class TamaController {
 					curPlayer = m_model.getPlayers().get(curPlayerNum);
 					m_view.dayOver();
 					m_model.incrementDay();
-					m_view.mainGameLoopGUI.updateDayCount();
-					m_view.mainGameLoopGUI.setMainGameTab(curPlayer);
+					if(m_model.getCurDay() == m_model.getNumDays() + 1)
+					{
+						m_view.endGameGUI.updateScores();
+						m_view.changeView("End Game");
+					}
+					else
+					{
+						m_view.mainGameLoopGUI.updateDayCount();
+						m_view.mainGameLoopGUI.setMainGameTab(curPlayer);
+						randomEvents();
+					}
 				}
 
-				randomEvents();
+				
 			}
 		}
 		

@@ -146,5 +146,10 @@ public class Player {
 			score += pet.getScore();
 		}
 	}
+	
+	public int getScore()
+	{
+		return score;
+	}
 
 }

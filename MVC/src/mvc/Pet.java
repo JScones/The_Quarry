@@ -81,7 +81,7 @@ public class Pet {
 	
 	public int getScore()
 	{
-		int score = (hunger/maxHunger) + (energy/maxEnergy) + (toilet/10) + (mood/10);
+		int score = ((hunger * 100) /maxHunger) + ((energy* 100)/maxEnergy) + (toilet/10) + (mood/10);
 		return score;
 	}
 	

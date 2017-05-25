@@ -15,6 +15,7 @@ public class TamaView {
 	protected GuiStartGame viewSetup;
 	protected GuiPlayerCreation playerCreationGUI;
 	protected GuiMainGameLoop mainGameLoopGUI;
+	public GuiEndGame endGameGUI;
 	
 	private String curView = "Menu";
 	
@@ -27,6 +28,7 @@ public class TamaView {
 		viewSetup = new GuiStartGame(m_model);
 		playerCreationGUI = new GuiPlayerCreation(m_model);
 		mainGameLoopGUI = new GuiMainGameLoop(m_model);
+		endGameGUI = new GuiEndGame(m_model);
 		UIManager.put("OptionPane.font", allFont);
 		initialise();
 		changeView(curView);
@@ -50,6 +52,9 @@ public class TamaView {
 		//Main game
 		JPanel mainGameCard = mainGameLoopGUI.buildMainGameCard();
 		
+		//End game
+		JPanel endGameCard = endGameGUI.buildEndGame();
+		
 		// Add cards to the main panel in order to display and switch between them.
 		cards = new JPanel(new CardLayout());
 		cards.add(menuCard, "Menu"); // The string here is an ID used to choose which card shows through changeView(ID) below.
@@ -57,6 +62,7 @@ public class TamaView {
 		cards.add(setupCard, "Setup");
 		cards.add(playerCreatorCard, "Make Player");
 		cards.add(mainGameCard, "Main Game");
+		cards.add(endGameCard, "End Game");
 		
 		//frame.add(mainPane, BorderLayout.PAGE_START);
 		frame.getContentPane().add(cards, BorderLayout.CENTER);
