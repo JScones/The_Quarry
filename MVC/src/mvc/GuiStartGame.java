@@ -95,13 +95,14 @@ public class GuiStartGame{
 	protected JPanel buildHelpPanel()
 	{
 		MigLayout helpLayout = new MigLayout(
-				"fill, insets 80", 
+				"fill, insets 40", 
 				"[]",
 				"[]");
 		
 		JPanel helpCard = new JPanel();
 		helpCard.setLayout(helpLayout);
 		helpTextLabel.setText(m_model.getHelpText());
+		helpTextLabel.setFont(new Font(null, Font.BOLD, 16));
 		helpTextLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		helpCard.add(helpTextLabel, "span,grow,center,wrap, push");

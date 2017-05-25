@@ -65,7 +65,7 @@ public class TamaView {
 		
 		//frame.add(mainPane, BorderLayout.PAGE_START);
 		frame.getContentPane().add(cards, BorderLayout.CENTER);
-		//frame.setResizable(false);
+		frame.setResizable(false);
 		//frame.setMinimumSize(new Dimension(900, 600));
 		frame.setPreferredSize(new Dimension(1100, 700));
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -99,14 +99,6 @@ public class TamaController {
 			{
 				m_view.playerCreationGUI.resetPetView();
 			}
-			else if(command.equals("donePet1"))
-			{
-				m_view.mainGameLoopGUI.changePetTab(curPlayer.getPets().get(1), 1);
-			}
-			else if(command.equals("donePet2"))
-			{
-				m_view.mainGameLoopGUI.changePetTab(curPlayer.getPets().get(2), 2);
-			}
 		}
 	}
 	
@@ -164,6 +156,14 @@ public class TamaController {
 				m_view.mainGameLoopGUI.updatePetBars((petNum), curPlayer.getPets().get(petNum));
 				
 			}
+			else if(command.equals("donePet1"))
+			{
+				m_view.mainGameLoopGUI.changePetTab(curPlayer.getPets().get(1), 1);
+			}
+			else if(command.equals("donePet2"))
+			{
+				m_view.mainGameLoopGUI.changePetTab(curPlayer.getPets().get(2), 2);
+			}
 			else if(commands[0].equals("Store"))
 			{
 				m_view.disableGame();
@@ -182,7 +182,8 @@ public class TamaController {
 				{
 					curPlayerNum ++;
 					curPlayer = m_model.getPlayers().get(curPlayerNum);
-					m_view.mainGameLoopGUI.setMainGameTab(m_model.getPlayers().get(curPlayerNum));
+					m_view.mainGameLoopGUI.setMainGameTab(curPlayer);
+					m_view.mainGameLoopGUI.updatePetBars(0, curPlayer.getPets().get(0));
 					for(int i = 0; i < curPlayer.getPets().size(); i++)
 					{
 						if(curPlayer.getPets().get(i).checkMisbehave())

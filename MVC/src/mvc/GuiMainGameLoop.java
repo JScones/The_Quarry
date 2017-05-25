@@ -529,6 +529,7 @@ public class GuiMainGameLoop {
 	{
 		storeButton.addActionListener(mglal);
 		nextDay.addActionListener(mglal);
+		nextPetButton.addActionListener(mglal);
 		
 		for(JButton play : playPetButtons)
 		{
@@ -550,12 +551,7 @@ public class GuiMainGameLoop {
 			sleep.addActionListener(mglal);
 		}
 	}
-	
-	public void addButtonListener(ActionListener bal)
-	{
-		nextPetButton.addActionListener(bal);
-	}
-	
+
 	private String getPetStatus(Pet pet)
 	{
 		String sick = "";

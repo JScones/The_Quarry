@@ -142,6 +142,16 @@ public class Pet {
 			dayActions = 2;
 			checkAlive();
 		}
+		else
+		{
+			hunger = 0;;
+			energy = 0;
+			toilet = 0;
+			mood = 0;
+			
+			health = 0;
+			dayActions = 2;
+		}
 		
 	}
 	
