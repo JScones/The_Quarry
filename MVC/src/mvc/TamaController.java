@@ -157,6 +157,15 @@ public class TamaController {
 					m_view.enablePetActionButtons(false, Integer.parseInt(commands[1]));
 				}
 				
+				if(curPlayer.getPets().get(petNum).checkAlive() == false)
+				{
+					if(curPlayer.getPets().get(petNum).getLivesLeft() == 0)
+					{
+						Boolean revivePet = m_view.showPetDiedDialog(curPlayer.getPets().get(petNum));
+						System.out.println(revivePet);
+					}
+				}
+				
 			}
 			else if(commands[0].equals("Store"))
 			{

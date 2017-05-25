@@ -22,6 +22,7 @@ public class Pet {
 	private String favToy;
 	private int livesLeft = 1;
 	private Boolean isAlive = true;
+	private Boolean hasDied = false;
 
 	
 	public Pet(String aSpecies, String aFavToy, int[] petStats, ImageIcon aIcon)
@@ -184,17 +185,6 @@ public class Pet {
 		return livesLeft;
 	}
 	
-	public boolean getAliveStatus()
-	{
-		return isAlive;
-	}
-	
-	public void died()
-	{
-		isAlive = false;
-		livesLeft = 0;
-	}
-	
 	public int getActionsLeft()
 	{
 		return dayActions;
@@ -264,7 +254,10 @@ public class Pet {
 	public boolean checkAlive()
 	{
 		if(toilet < 1 || hunger < 1 || energy < 1)
+		{
 			isAlive = false;
+			livesLeft -= 1;
+		}
 		
 		return isAlive;
 	}

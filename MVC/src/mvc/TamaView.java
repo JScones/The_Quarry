@@ -1038,5 +1038,18 @@ public class TamaView {
 	{
 		JOptionPane.showMessageDialog(frame, "Oh no, your pet broke the " + brokenToy.getName());
 	}
+	
+	public Boolean showPetDiedDialog(Pet pet)
+	{
+		int revive = (Integer)JOptionPane.showOptionDialog(frame, "Oh no, your pet died! \n" + "Do you want to revive it", "Uh oh", 0, 1, null, null, null);
+		if(revive == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 }
