@@ -180,6 +180,35 @@ public class TamaController {
 					curPlayerNum ++;
 					curPlayer = m_model.getPlayers().get(curPlayerNum);
 					m_view.mainGameLoopGUI.setMainGameTab(m_model.getPlayers().get(curPlayerNum));
+					for(int i = 0; i < curPlayer.getPets().size(); i++)
+					{
+						if(curPlayer.getPets().get(i).checkMisbehave())
+						{
+				    		boolean punish = m_view.showPetMisbehavingDialog(curPlayer, curPlayer.getPets().get(i));
+				    		if(punish)
+				    		{
+				    			curPlayer.getPets().get(i).notMisbehave();
+				    			curPlayer.getPets().get(i).increaseMood(-2);
+				    		}
+						}
+						if(curPlayer.getPets().get(i).checkSick())
+						{
+							boolean cure = m_view.showPetSickDialog(curPlayer, curPlayer.getPets().get(i));
+							if(cure)
+							{
+								if(curPlayer.getMoney() >= 10.0)
+								{
+									curPlayer.setMoney(curPlayer.getMoney() - 10.0);
+									curPlayer.getPets().get(i).becomesNotSick();
+									curPlayer.getPets().get(i).increaseMood(2);
+								}
+								else
+								{
+									JOptionPane.showMessageDialog(m_view.frame, "You don't have enough money to buy medicine"); //fix
+								}
+							}
+						}
+					}
 				}
 				else
 				{	
@@ -200,8 +229,8 @@ public class TamaController {
 	    {
 	    	Random rand = new Random();
 	    	int num = rand.nextInt(9);
-	    	num = 9;
-	    	if(num == 9)
+	    	//System.out.println(num);
+	    	if(num == 8)
 	    	{
 	    		int playerIndex;
 	    		if(m_model.curNumPlayers() == 1)
@@ -243,9 +272,9 @@ public class TamaController {
 	    	}
 	    	
 	    	int behaveNum = rand.nextInt(9);
-	    	if(behaveNum == 9)
+	    	//System.out.println(behaveNum);
+	    	if(behaveNum == 8)
 	    	{
-	    		//misbehavin
 	    		int behavePlayerIndex;
 	    		int behavePetIndex;
 	    		if(m_model.curNumPlayers() == 1)
@@ -271,6 +300,7 @@ public class TamaController {
 	    		if(punish)
 	    		{
 	    			behavePet.notMisbehave();
+	    			behavePet.increaseMood(-2);
 	    			// feel sad? check deliverables
 	    		}
 	    	}

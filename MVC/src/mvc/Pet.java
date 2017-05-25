@@ -302,6 +302,11 @@ public class Pet {
 		isMisbehaving = false;
 	}
 	
+	public boolean checkMisbehave()
+	{
+		return isMisbehaving;
+	}
+	
 	public void revive()
 	{
 		isAlive = true;
