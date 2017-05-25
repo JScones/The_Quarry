@@ -138,7 +138,7 @@ public class Player {
 		for(Pet pet : pets)
 		{
 			pet.dayEnd();
-			score += pet.getHealth() * 4;
+			score += pet.getScore();
 		}
 	}
 

@@ -123,7 +123,7 @@ public class GuiPlayerCreation {
 	private JPanel petPanel(int count)
 	{
 		MigLayout Layout = new MigLayout(
-				"fill, insets 20, wrap 1, debug", 
+				"fill, insets 20, wrap 1", 
 				"[][]",
 				"[][]");
 		

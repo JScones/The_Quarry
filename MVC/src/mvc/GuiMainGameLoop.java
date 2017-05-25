@@ -497,10 +497,21 @@ public class GuiMainGameLoop {
 	
 	private String getPetStatus(Pet pet)
 	{
+		String sick = "";
+		if(pet.checkSick())
+		{
+			sick = "Yes";
+		}
+		else
+		{
+			sick = "No";
+		}
+		
 		String out = (
 				"<html><p>"
 				+ "Actions left: " + pet.getActionsLeft() + "<br /><br />"
-				+ "Lives left: " + pet.getLivesLeft() + "<br />"
+				+ "Lives left: " + pet.getLivesLeft() + "<br /><br />"
+				+ "Is sick: " + sick
 				);
 				
 		return out;
