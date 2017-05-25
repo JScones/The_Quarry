@@ -83,15 +83,6 @@ public class TamaModel{
 		speciesMap.put("Snake", new PetSnake());
 		return speciesMap;
 	}
-		
-	private static ArrayList<Pet> makeDefaultPets()
-	{
-		ArrayList<Pet> defaultPets = new ArrayList<Pet>();
-		PetEagle eagle = new PetEagle();
-		defaultPets.add(eagle);
-		
-		return defaultPets;
-	}
 	
 	public void incrementDay()
 	{
