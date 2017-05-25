@@ -262,12 +262,12 @@ public class Pet {
 		if(toilet < 1 || hunger < 1 || energy < 1)
 		{
 			isAlive = false;
-			livesLeft -= 1;
 		}
 		
 		return isAlive;
 	}
 	
+<<<<<<< HEAD
 	public boolean checkSick()
 	{
 		return isSick;
@@ -291,5 +291,16 @@ public class Pet {
 	public void notMisbehave()
 	{
 		isMisbehaving = false;
+=======
+	public void revive()
+	{
+		isAlive = true;
+		livesLeft = 0;
+		
+		hunger = maxHunger / 2;
+		energy = maxEnergy / 2;
+		toilet = 7;
+		health = getHealth();
+>>>>>>> origin/master
 	}
 }
