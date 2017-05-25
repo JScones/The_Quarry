@@ -19,19 +19,19 @@ public class ShopView {
 	
 	private Font allFont = new Font(null, Font.BOLD, 20);
 	
-	private ImageIcon baconImage = new ImageIcon("resources/bacon.png");
-	private ImageIcon bananaImage = new ImageIcon("resources/banana.png");
-	private ImageIcon carrotImage = new ImageIcon("resources/carrot.png");
-	private ImageIcon milkImage = new ImageIcon("resources/milk.png");
-	private ImageIcon steakImage = new ImageIcon("resources/steak.png");
-	private ImageIcon sushiImage = new ImageIcon("resources/sushi.png");
+	private ImageIcon baconImage = new ImageIcon(ShopView.class.getResource("/resources/bacon.png"));
+	private ImageIcon bananaImage = new ImageIcon(ShopView.class.getResource("/resources/banana.png"));
+	private ImageIcon carrotImage = new ImageIcon(ShopView.class.getResource("/resources/carrot.png"));
+	private ImageIcon milkImage = new ImageIcon(ShopView.class.getResource("/resources/milk.png"));
+	private ImageIcon steakImage = new ImageIcon(ShopView.class.getResource("/resources/steak.png"));
+	private ImageIcon sushiImage = new ImageIcon(ShopView.class.getResource("/resources/sushi.png"));
 	
-	private ImageIcon ballImage = new ImageIcon("resources/ball.png");
-	private ImageIcon bookImage = new ImageIcon("resources/book.png");
-	private ImageIcon clubImage = new ImageIcon("resources/club.png");
-	private ImageIcon pianoImage = new ImageIcon("resources/piano.png");
-	private ImageIcon planeImage = new ImageIcon("resources/plane.png");
-	private ImageIcon yarnImage = new ImageIcon("resources/yarn.png");
+	private ImageIcon ballImage = new ImageIcon(ShopView.class.getResource("/resources/ball.png"));
+	private ImageIcon bookImage = new ImageIcon(ShopView.class.getResource("/resources/book.png"));
+	private ImageIcon clubImage = new ImageIcon(ShopView.class.getResource("/resources/club.png"));
+	private ImageIcon pianoImage = new ImageIcon(ShopView.class.getResource("/resources/piano.png"));
+	private ImageIcon planeImage = new ImageIcon(ShopView.class.getResource("/resources/plane.png"));
+	private ImageIcon yarnImage = new ImageIcon(ShopView.class.getResource("/resources/yarn.png"));
 	
 	
 	private Player player;

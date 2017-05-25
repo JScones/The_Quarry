@@ -24,8 +24,8 @@ public class GuiPlayerCreation {
 	private Font allFont = new Font(null, Font.BOLD, 20);
 	private Dimension buttonSize = new Dimension(225, 50);
 	
-	private ImageIcon tick = new ImageIcon("resources/tick.png");
-	private ImageIcon cross = new ImageIcon("resources/cross.png");
+	private ImageIcon tick = new ImageIcon(GuiPlayerCreation.class.getResource("/resources/tick.png"));
+	private ImageIcon cross = new ImageIcon(GuiPlayerCreation.class.getResource("/resources/cross.png"));
 	
 	private JLabel playerNum = new JLabel("Player 1, What is your name?");
 	private JLabel choosePets = new JLabel("Choose up to 3 pets from the dropdowns below.");

@@ -9,7 +9,7 @@ public class PetSnake extends Pet {
 	private static int maxEnergy = 40;
 	private static int weight = 4;
 	private static int[] stats = {maxHunger, maxEnergy, weight};
-	private static ImageIcon icon = new ImageIcon("resources/snake_small.png");
+	private static ImageIcon icon = new ImageIcon(PetSnake.class.getResource("/resources/snake_small.png"));
 	
 	
 	public PetSnake(String name){

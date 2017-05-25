@@ -9,7 +9,7 @@ public class PetGorilla extends Pet {
 	private static int maxEnergy = 60;
 	private static int weight = 250;
 	private static int[] stats = {maxHunger, maxEnergy, weight};
-	private static ImageIcon icon = new ImageIcon("resources/Harambe_small.png");
+	private static ImageIcon icon = new ImageIcon(PetGorilla.class.getResource("/resources/Harambe_small.png"));
 
 	public PetGorilla(String name){
 		
