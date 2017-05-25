@@ -267,7 +267,6 @@ public class Pet {
 		return isAlive;
 	}
 	
-<<<<<<< HEAD
 	public boolean checkSick()
 	{
 		return isSick;
@@ -291,7 +290,8 @@ public class Pet {
 	public void notMisbehave()
 	{
 		isMisbehaving = false;
-=======
+	}
+	
 	public void revive()
 	{
 		isAlive = true;
@@ -301,6 +301,5 @@ public class Pet {
 		energy = maxEnergy / 2;
 		toilet = 7;
 		health = getHealth();
->>>>>>> origin/master
 	}
 }

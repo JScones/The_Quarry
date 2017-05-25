@@ -198,13 +198,12 @@ public class TamaController {
 					m_model.incrementDay();
 					m_view.updateDayCount();
 					m_view.setMainGameTab(curPlayer);
-<<<<<<< HEAD
-					
 				}
 
 				randomEvents();
 			}
-		}	
+		}
+		
 		
 	    private void randomEvents()
 	    {
@@ -285,14 +284,8 @@ public class TamaController {
 	    		}
 	    	}
 	    }
-	    
-	    
-=======
-				}	
-			}
-		}
->>>>>>> origin/master
 	}
+
 	
 	class ComboBoxListener implements ItemListener
 	{
