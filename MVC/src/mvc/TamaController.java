@@ -215,7 +215,7 @@ public class TamaController {
 					}
 					else
 					{
-						m_view.mainGameLoopGUI.updateDayCount();
+						m_view.mainGameLoopGUI.updateDisplayedDayCount();
 						m_view.mainGameLoopGUI.setMainGameTab(curPlayer);
 						randomEvents();
 					}

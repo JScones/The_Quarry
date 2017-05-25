@@ -30,41 +30,36 @@ public class GuiMainGameLoop {
 
 	private ImageIcon sad = new ImageIcon("resources/sad.png");
 	
-	private JLabel dayLabel = new JLabel("Day");
-	
-	private JLabel mainGamePetStat1 = new JLabel();
-	private JLabel mainGamePetStat2 = new JLabel();
-	private JLabel mainGamePetStat3 = new JLabel();
-	private JLabel[] mainGamePetStats = {mainGamePetStat1, mainGamePetStat2, mainGamePetStat3};
+	private JLabel dayCountLabel = new JLabel("Day");
 	
 	private JLabel petStatus1 = new JLabel();
 	private JLabel petStatus2 = new JLabel();
 	private JLabel petStatus3 = new JLabel();
 	private JLabel[] petStatusLabels = {petStatus1, petStatus2, petStatus3};
 	
-	private JLabel nameLabel = new JLabel();
+	private JLabel curPlayerNameLabel = new JLabel();
 	
-	private JButton nextPet = new JButton("Next Pet");
+	private JButton nextPetButton = new JButton("Next Pet");
 	
-	private JButton playPet1 = new JButton("Play");
-	private JButton playPet2 = new JButton("Play");
-	private JButton playPet3 = new JButton("Play");
-	private JButton[] playPetButtons = {playPet1, playPet2, playPet3};
+	private JButton playButton1 = new JButton("Play");
+	private JButton playButton2 = new JButton("Play");
+	private JButton playButton3 = new JButton("Play");
+	private JButton[] playPetButtons = {playButton1, playButton2, playButton3};
 	
-	private JButton feedPet1 = new JButton("Feed");
-	private JButton feedPet2 = new JButton("Feed");
-	private JButton feedPet3 = new JButton("Feed");
-	private JButton[] feedPetButtons = {feedPet1, feedPet2, feedPet3};
+	private JButton feedButton1 = new JButton("Feed");
+	private JButton feedButton2 = new JButton("Feed");
+	private JButton feedButton3 = new JButton("Feed");
+	private JButton[] feedPetButtons = {feedButton1, feedButton2, feedButton3};
 	
-	private JButton toiletPet1 = new JButton("Toilet");
-	private JButton toiletPet2 = new JButton("Toilet");
-	private JButton toiletPet3 = new JButton("Toilet");
-	private JButton[] toiletPetButtons = {toiletPet1, toiletPet2, toiletPet3};
+	private JButton toiletButton1 = new JButton("Toilet");
+	private JButton toiletButton2 = new JButton("Toilet");
+	private JButton toiletButton3 = new JButton("Toilet");
+	private JButton[] toiletPetButtons = {toiletButton1, toiletButton2, toiletButton3};
 	
-	private JButton sleepPet1 = new JButton("Sleep");
-	private JButton sleepPet2 = new JButton("Sleep");
-	private JButton sleepPet3 = new JButton("Sleep");
-	private JButton[] sleepPetButtons = {sleepPet1, sleepPet2, sleepPet3};
+	private JButton sleepButton1 = new JButton("Sleep");
+	private JButton sleepButton2 = new JButton("Sleep");
+	private JButton sleepButton3 = new JButton("Sleep");
+	private JButton[] sleepPetButtons = {sleepButton1, sleepButton2, sleepButton3};
 	
 	private JProgressBar hungerBar1 = new JProgressBar();
 	private JProgressBar hungerBar2 = new JProgressBar();
@@ -147,18 +142,18 @@ public class GuiMainGameLoop {
 		JPanel mainGamePanel = new JPanel();
 		mainGamePanel.setLayout(Layout);
 		
-		nameLabel.setFont(allFont);
-		dayLabel.setFont(allFont);
+		curPlayerNameLabel.setFont(allFont);
+		dayCountLabel.setFont(allFont);
 		storeButton.setPreferredSize(buttonSize);
-		nextPet.setPreferredSize(buttonSize);
+		nextPetButton.setPreferredSize(buttonSize);
 		nextDay.setPreferredSize(buttonSize);
-		dayLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		dayCountLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		
-		mainGamePanel.add(nameLabel);
+		mainGamePanel.add(curPlayerNameLabel);
 		mainGamePanel.add(mainGameTabbedPane, "push, grow, wrap");
-		mainGamePanel.add(dayLabel, "grow, skip 1, split 4");
+		mainGamePanel.add(dayCountLabel, "grow, skip 1, split 4");
 		mainGamePanel.add(storeButton, "gaptop 100, gapbottom 100");
-		mainGamePanel.add(nextPet, "gaptop 100, gapbottom 100");
+		mainGamePanel.add(nextPetButton, "gaptop 100, gapbottom 100");
 		mainGamePanel.add(nextDay, "gaptop 100, gapbottom 100");
 		
 		return mainGamePanel;
@@ -212,8 +207,14 @@ public class GuiMainGameLoop {
 	}
 	
 	/**
-	 * Changes the place holder
-	 * @param player
+	 * Changes all the details of the <code>mainGameCard</code> to display the info 
+	 * of the given <code>Player</code>.
+	 * 
+	 * Changes the <code>TabbedPane</code> to have as many tabs as the player has pets.
+	 * If a pet is dead the display is changed to reflect this, displaying a dead message
+	 * and disabling the action buttons.
+	 * 
+	 * @param player The player the game view should be changed to reflect.
 	 */
 	public void setMainGameTab(Player player)
 	{
@@ -222,10 +223,10 @@ public class GuiMainGameLoop {
 		mainGameTabbedPane.addTab(null, null, petTab1, "Pet 1");
 		mainGameTabbedPane.addTab(null, null, petTab2, "Pet 2");
 		mainGameTabbedPane.addTab(null, null, petTab3, "Pet 3");
-		nameLabel.setText("Player: " + player.name);
-		nextPet.setActionCommand("donePet1");
-		nextPet.setText("Next Pet");
-		dayLabel.setText("<html><p>Day " + m_model.getCurDay() + " of " + m_model.getNumDays() + "</p><html>");
+		curPlayerNameLabel.setText("Player: " + player.name);
+		nextPetButton.setActionCommand("donePet1");
+		nextPetButton.setText("Next Pet");
+		dayCountLabel.setText("<html><p>Day " + m_model.getCurDay() + " of " + m_model.getNumDays() + "</p><html>");
 		enablePetActionButtons();
 		
 		if(numPets == 1)
@@ -236,7 +237,7 @@ public class GuiMainGameLoop {
 			mainGameTabbedPane.setIconAt(0, player.getPets().get(0).icon);
 			mainGameTabbedPane.removeTabAt(1);
 			mainGameTabbedPane.removeTabAt(1);
-			nextPet.setEnabled(false);
+			nextPetButton.setEnabled(false);
 			
 			if(petAlive1)
 			{
@@ -269,7 +270,7 @@ public class GuiMainGameLoop {
 			mainGameTabbedPane.removeTabAt(2);
 			
 			mainGameTabbedPane.setEnabledAt(1, false);
-			nextPet.setEnabled(true);
+			nextPetButton.setEnabled(true);
 			
 			if(petAlive1)
 			{
@@ -306,7 +307,7 @@ public class GuiMainGameLoop {
 			Boolean petAlive3 = player.getPets().get(0).checkAlive();
 			enablePetActionButtons(petAlive3, 2);
 			
-			nextPet.setEnabled(true);
+			nextPetButton.setEnabled(true);
 			
 			mainGameTabbedPane.setIconAt(0, player.getPets().get(0).icon);
 			mainGameTabbedPane.setIconAt(1, player.getPets().get(1).icon);
@@ -351,11 +352,22 @@ public class GuiMainGameLoop {
 		}
 	}
 	
-	public void updateDayCount()
+	public void updateDisplayedDayCount()
 	{
-		dayLabel.setText("<html><p>Day " + m_model.getCurDay() + " of " + m_model.getNumDays() + "</p><html>");
+		dayCountLabel.setText("<html><p>Day " + m_model.getCurDay() + " of " + m_model.getNumDays() + "</p><html>");
 	}
 	
+	/**
+	 * Switches the displayed tab to the tab number given and checks if the action
+	 * buttons should be enabled.
+	 * 
+	 * Also checks if the player has a pet after the given one, and enables/disables the
+	 * next pet button accordingly, changing its command to allow proper control from the
+	 * controller.
+	 * 
+	 * @param pet the <code>Pet</code> corresponding to the tab number given by <code>tab</code>.
+	 * @param tab the tab that the view should switch to.
+	 */
 	public void changePetTab(Pet pet, int tab)
 	{
 		enablePetActionButtons(pet.checkAlive(), tab);
@@ -369,12 +381,12 @@ public class GuiMainGameLoop {
 			
 			if(mainGameTabbedPane.getTabCount() == 2)
 			{
-				nextPet.setEnabled(false);
+				nextPetButton.setEnabled(false);
 			}
 			else
 			{
-				nextPet.setActionCommand("donePet2");
-				nextPet.setText("Next Pet");
+				nextPetButton.setActionCommand("donePet2");
+				nextPetButton.setText("Next Pet");
 			}
 		}
 		
@@ -386,10 +398,16 @@ public class GuiMainGameLoop {
 			mainGameTabbedPane.setEnabledAt(0, false);
 			mainGameTabbedPane.setEnabledAt(1, false);
 			
-			nextPet.setEnabled(false);
+			nextPetButton.setEnabled(false);
 		}
 	}
 	
+	/**
+	 * Enables or disables the actions buttons for the pet at given index <code>petNum</code>.
+	 * 
+	 * @param enable <code>true</code> to enable the buttons, <code>false</code> to disable.
+	 * @param petNum the index of the pet whose action buttons are affected.
+	 */
 	public void enablePetActionButtons(boolean enable, int petNum)
 	{
 		feedPetButtons[petNum].setEnabled(enable);
@@ -398,6 +416,9 @@ public class GuiMainGameLoop {
 		toiletPetButtons[petNum].setEnabled(enable);
 	}
 	
+	/**
+	 * enables all the action buttons for all pets.
+	 */
 	public void enablePetActionButtons()
 	{
 		for(int i = 0; i<3; i++)
@@ -464,6 +485,13 @@ public class GuiMainGameLoop {
 		return statBarHolder;
 	}
 	
+	/**
+	 * Updates the values of the stat bars displayed in the pet tab at <code>petNum</code>
+	 * with the stats of the <code>Pet</code> pet.
+	 * 
+	 * @param petNum an <code>Integer</code> for the index of the tab to update the stat bars on.
+	 * @param pet the <code>Pet</code> the stats are fetched from.
+	 */
 	public void updatePetBars(int petNum, Pet pet)
 	{
 		petStatusLabels[petNum].setText(getPetStatus(pet));
@@ -485,9 +513,15 @@ public class GuiMainGameLoop {
 		
 	}
 	
-	public void updatePetStats(int petNum, Player player)
+	/**
+	 * Update the <code>JLabel</code> containing the pets status (actions left, lives left, is sick)
+	 * to reflect the the players pet.
+	 * 
+	 * @param petNum the index of the pet.
+	 * @param player the current player whose pets are being displayed.
+	 */
+	public void updatePetStatus(int petNum, Player player)
 	{
-		mainGamePetStats[petNum].setText(player.getPets().get(petNum).getStatsString());
 		petStatusLabels[petNum].setText(getPetStatus(player.getPets().get(petNum)));
 	}
 	
@@ -519,7 +553,7 @@ public class GuiMainGameLoop {
 	
 	public void addButtonListener(ActionListener bal)
 	{
-		nextPet.addActionListener(bal);
+		nextPetButton.addActionListener(bal);
 	}
 	
 	private String getPetStatus(Pet pet)

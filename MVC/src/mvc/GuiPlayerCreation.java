@@ -18,8 +18,8 @@ import javax.swing.event.DocumentListener;
 import net.miginfocom.swing.MigLayout;
 
 /**
- * This class handles the creation of the GUI for the section of the game where players
- * enter their names and choose their pets.
+ * This class handles the creation of the GUI for the section of the game
+ * where players enter their names and choose their pets.
  * 
  * @author Josh & Jack
  *
@@ -151,7 +151,7 @@ public class GuiPlayerCreation {
 		JPanel petPanel = new JPanel();
 		petPanel.setLayout(Layout);
 		//petPanel.setLayout(new BoxLayout(petPanel, BoxLayout.Y_AXIS));
-		petPanel.setPreferredSize(new Dimension(300,270));
+		petPanel.setPreferredSize(new Dimension(300, 270));
 		
 		petStatLabel1.setFont(allFont);
 		petStatLabel2.setFont(allFont);
@@ -372,13 +372,15 @@ public class GuiPlayerCreation {
 	
 	public void allFieldsAccepted()
 	{
-		if(isPlayerNameAccepted && isOnePetVisible)
+		if (isPlayerNameAccepted && isOnePetVisible)
 		{
-			if(( (petPanel1.isVisible() && isPetName1Accepted) || !(petPanel1.isVisible()) ) && 
-					( (petPanel2.isVisible() && isPetName2Accepted) || !(petPanel2.isVisible()) ) &&
-					( (petPanel3.isVisible() && isPetName3Accepted) || !(petPanel3.isVisible()) )
+			if (((petPanel1.isVisible() && isPetName1Accepted) || !(petPanel1.isVisible()))
+					&& ((petPanel2.isVisible() && isPetName2Accepted) || !(petPanel2.isVisible()))
+					&& ((petPanel3.isVisible() && isPetName3Accepted) || !(petPanel3.isVisible()))
 					 )
+			{
 				next_player.setEnabled(true);
+			}
 			else
 			{
 				next_player.setEnabled(false);
