@@ -2,7 +2,11 @@ package mvc;
 
 import java.util.ArrayList;
 
-
+/**
+ * 
+ * @author screw
+ *
+ */
 public class Player {
 
 	public String name;
