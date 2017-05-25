@@ -22,7 +22,8 @@ public class Pet {
 	private String favToy;
 	private int livesLeft = 1;
 	private Boolean isAlive = true;
-	private Boolean hasDied = false;
+	private Boolean isSick = false;
+	private Boolean isMisbehaving = false;
 
 	
 	public Pet(String aSpecies, String aFavToy, int[] petStats, ImageIcon aIcon)
@@ -153,6 +154,11 @@ public class Pet {
 		
 	}
 	
+	public void increaseMood(int num)
+	{
+		mood += num;
+	}
+	
 	public void feed(Food food)
 	{
 		dayActions -= 1;
@@ -260,5 +266,30 @@ public class Pet {
 		}
 		
 		return isAlive;
+	}
+	
+	public boolean checkSick()
+	{
+		return isSick;
+	}
+	
+	public void becomesSick()
+	{
+		isSick = true;
+	}
+	
+	public void becomesNotSick()
+	{
+		isSick = false;
+	}
+	
+	public void misbehave()
+	{
+		isMisbehaving = true;
+	}
+	
+	public void notMisbehave()
+	{
+		isMisbehaving = false;
 	}
 }

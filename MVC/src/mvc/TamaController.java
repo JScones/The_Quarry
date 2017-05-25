@@ -3,7 +3,9 @@ package mvc;
 import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Random;
 
+import javax.swing.JOptionPane;
 import javax.swing.event.*;
 import javax.swing.text.BadLocationException;
 
@@ -193,8 +195,92 @@ public class TamaController {
 					m_view.setMainGameTab(curPlayer);
 					
 				}
+
+				randomEvents();
 			}
 		}	
+		
+	    private void randomEvents()
+	    {
+	    	Random rand = new Random();
+	    	int num = rand.nextInt(9);
+	    	num = 9;
+	    	if(num == 9)
+	    	{
+	    		int playerIndex;
+	    		if(m_model.curNumPlayers() == 1)
+	    		{
+	    			playerIndex = 0;
+	    		}
+	    		else
+	    		{
+	    			playerIndex = rand.nextInt(m_model.curNumPlayers() - 1);
+	    		}
+	    		//sick 
+	    		Player sickPlayer = m_model.getPlayers().get(playerIndex);
+	    		int sickPetIndex;
+	    		if(sickPlayer.getPets().size() == 1)
+	    		{
+	    			sickPetIndex = 0;
+	    		}
+	    		else
+	    		{
+	    			sickPetIndex = rand.nextInt(sickPlayer.getPets().size() - 1);
+	    		}
+	    		Pet sickPet = sickPlayer.getPets().get(sickPetIndex);
+	    		sickPet.becomesSick();
+				boolean cure = m_view.showPetSickDialog(sickPlayer, sickPet);
+				if(cure)
+				{
+					if(sickPlayer.getMoney() >= 10.0)
+					{
+						sickPlayer.setMoney(sickPlayer.getMoney() - 10.0);
+						sickPet.becomesNotSick();
+						sickPet.increaseMood(2);
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(m_view.frame, "You don't have enough money to buy medicine"); //fix
+					}
+				}
+	    		
+	    	}
+	    	
+	    	int behaveNum = rand.nextInt(9);
+	    	if(behaveNum == 9)
+	    	{
+	    		//misbehavin
+	    		int behavePlayerIndex;
+	    		int behavePetIndex;
+	    		if(m_model.curNumPlayers() == 1)
+	    		{
+	    			behavePlayerIndex = 0;
+	    		}
+	    		else
+	    		{
+	    			behavePlayerIndex = rand.nextInt(m_model.curNumPlayers() - 1);
+	    		}
+	    		Player behavePlayer = m_model.getPlayers().get(behavePlayerIndex);
+	    		if(behavePlayer.getPets().size() == 1)
+	    		{
+	    			behavePetIndex = 0;
+	    		}
+	    		else
+	    		{
+	    			behavePetIndex = rand.nextInt(behavePlayer.getPets().size() - 1);
+	    		}
+	    		Pet behavePet = behavePlayer.getPets().get(behavePetIndex);
+	    		behavePet.misbehave();
+	    		boolean punish = m_view.showPetMisbehavingDialog(behavePlayer, behavePet);
+	    		if(punish)
+	    		{
+	    			behavePet.notMisbehave();
+	    			// feel sad? check deliverables
+	    		}
+	    	}
+	    }
+	    
+	    
 	}
 	
 	class ComboBoxListener implements ItemListener
@@ -370,6 +456,8 @@ public class TamaController {
 				m_view.petNameTaken((curPetNames.get(2).equals(" ")), 2);
 			}
 	    }
+	    
+
 	    
 	}
 }

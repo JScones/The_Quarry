@@ -1051,5 +1051,31 @@ public class TamaView {
 			return false;
 		}
 	}
+	
+	public Boolean showPetSickDialog(Player sickPlayer, Pet sickPet)
+	{
+		int giveMedicine = (Integer)JOptionPane.showOptionDialog(frame, "Oh no, player " + sickPlayer.name + "'s pet " + sickPet.getName() + " got sick! \n" + "Do you want to give it medicine for $10?", "Uh oh", 0, 1, null, null, null);
+		if(giveMedicine == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public Boolean showPetMisbehavingDialog(Player behavePlayer, Pet behavePet)
+	{
+		int punish = (Integer)JOptionPane.showOptionDialog(frame, "Oh no, player " + behavePlayer.name + "'s pet " + behavePet.getName() + " is misbehaving! \n" + "Do you want to correct this behaviour?", "Uh oh", 0, 1, null, null, null);
+		if(punish == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 
 }
