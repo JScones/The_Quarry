@@ -32,11 +32,11 @@ public class Player {
 		money = amountNew;
 	}
 	
-//	public void useMoney(Double cost)
-//	{
-//		money -= cost;
-//	}
-	
+	/**
+	 * Returns a boolean of whether a player can purchase a toy
+	 * @param toy Toy attempting to be purchased.
+	 * @return whether the player can purchase the toy.
+	 */
 	public boolean canBuy(Toy toy)
 	{
 		if(toy.getPrice() <= money)
@@ -49,6 +49,11 @@ public class Player {
 		}
 	}
 	
+	/**
+	 * returns a boolean of whether a player can purchase a food item.
+	 * @param food Food attempting to be purchased
+	 * @return whether the player can afford the Food.
+	 */
 	public boolean canBuy(Food food)
 	{
 		if(food.getPrice() <= money)

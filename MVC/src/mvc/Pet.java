@@ -26,7 +26,13 @@ public class Pet {
 	private Boolean isSick = false;
 	private Boolean isMisbehaving = false;
 
-	
+	/**
+	 * Constructs the pet object
+	 * @param aSpecies chosen species of the pet.
+	 * @param aFavToy Favourite toy of the pet.
+	 * @param petStats Int array of pets starting stats
+	 * @param aIcon Image for the GUI representation of the pet.
+	 */
 	public Pet(String aSpecies, String aFavToy, int[] petStats, ImageIcon aIcon)
 	{
 		species = aSpecies;
@@ -120,6 +126,9 @@ public class Pet {
 		System.out.println();
 	}
 	
+	/**
+	 * decreases pets stats accordingly for a day end
+	 */
 	public void dayEnd()
 	{
 		if(isAlive == true)
@@ -136,11 +145,20 @@ public class Pet {
 		
 	}
 	
+	/**
+	 * 
+	 * @return average of stats to get an overall health value.
+	 */
 	public int getHealth()
 	{
 		return (hunger + energy + toilet + mood) / 4;
 	}
 	
+	/**
+	 * Pet plays with a toy, decreasing energy and increasing mood, more so if its the pets favourite toy.
+	 * @param toy Toy to be played with
+	 * @return whether the toy will be broken or not
+	 */
 	public boolean playAndBreak(Toy toy)
 	{
 		dayActions -= 1;
@@ -170,6 +188,10 @@ public class Pet {
 		mood += num;
 	}
 	
+	/**
+	 * consumes food which increases hunger and energy stat
+	 * @param food Food to be eaten by pet.
+	 */
 	public void feed(Food food)
 	{
 		dayActions -= 1;
@@ -180,6 +202,9 @@ public class Pet {
 		checkOverMax();
 	}
 	
+	/**
+	 * Sleep action restores the pets energy
+	 */
 	public void sleep()
 	{
 		dayActions -= 1;
@@ -188,6 +213,9 @@ public class Pet {
 		checkOverMax();
 	}
 	
+	/**
+	 * One of the days actions, adjusts the toilet and weight stats accordingly
+	 */
 	public void goToilet()
 	{
 		dayActions -= 1;
@@ -207,6 +235,10 @@ public class Pet {
 		return dayActions;
 	}
 	
+	/**
+	 * 
+	 * @return String representations of mood int, "Sad", "Average" "Happy".
+	 */
 	public String getMood()
 	{
 		if(mood < 3)
@@ -222,7 +254,7 @@ public class Pet {
 			return "Happy";
 		}
 	}
-	
+
 	private String[] getStatDescriptions()
 	{
 		String[] stats = {"appetite", "energy"};
@@ -256,6 +288,7 @@ public class Pet {
 		return stats;
 	}
 	
+
 	private void checkOverMax()
 	{
 		if(toilet > 10)

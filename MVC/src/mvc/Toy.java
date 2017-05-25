@@ -34,6 +34,11 @@ public class Toy {
 		return name;
 	}
 
+	/**
+	 * Does damage to a toy when its played with.
+	 * @param damage damage value done by pet
+	 * @return whether or not the toy will break
+	 */
 	public boolean playAndBreak(int damage)
 	{
 		durability -= damage;
