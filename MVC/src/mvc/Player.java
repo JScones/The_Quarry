@@ -98,6 +98,7 @@ public class Player {
 	{
 		toys.add(toy);
 	}
+	
 	public void addPet(Pet pet) //for testing
 	{
 		pets.add(pet);
@@ -127,6 +128,9 @@ public class Player {
 		}
 	}
 	
+	/**
+	 * Increases the players money by $50 and adds the days score
+	 */
 	public void dayOver()
 	{
 		money += 50;

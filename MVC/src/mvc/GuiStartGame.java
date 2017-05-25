@@ -83,7 +83,7 @@ public class GuiStartGame{
 	protected JPanel buildHelpPanel()
 	{
 		MigLayout helpLayout = new MigLayout(
-				"fill, insets 20", 
+				"fill, insets 80", 
 				"[]",
 				"[]");
 		

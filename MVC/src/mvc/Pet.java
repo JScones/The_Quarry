@@ -262,6 +262,10 @@ public class Pet {
 			energy = maxEnergy;
 	}
 	
+	/**
+	 * Checks all stats are above one, if not the pet is dead and all stats equal zero
+	 * @return whether the pet is alive or not
+	 */
 	public boolean checkAlive()
 	{
 		if(toilet < 1 || hunger < 1 || energy < 1)
@@ -307,6 +311,9 @@ public class Pet {
 		return isMisbehaving;
 	}
 	
+	/**
+	 * Revives a dead pet and sets its stats back to original values
+	 */
 	public void revive()
 	{
 		isAlive = true;

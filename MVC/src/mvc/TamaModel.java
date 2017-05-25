@@ -35,7 +35,8 @@ public class TamaModel{
 	
 	public String getHelpText()
 	{
-		String help = "<html>This is where the help text goes<BR></html>";
+		//String help = "<html>This is where the help text goes<BR></html>";
+		String help = new Help().helpText();
 		return help;
 	}
 	
