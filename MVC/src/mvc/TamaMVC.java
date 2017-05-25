@@ -1,7 +1,5 @@
 package mvc;
 
-import javax.swing.*;
-
 public class TamaMVC {
 	
 	public static void main(String[] args)
@@ -11,6 +9,5 @@ public class TamaMVC {
 		TamaController	controller = new TamaController(model, view);
 		
 		view.frame.setVisible(true);
-		Food foods = new Food();
 	}
 }

@@ -10,6 +10,7 @@ public class Player {
 	private ArrayList<Toy> toys = new ArrayList<>();
 	private ArrayList<Food> foods = new ArrayList<>();
 	private Double money = 50.0; //dollars
+	private int score = 0;
 	
 	public Player(String aName, ArrayList<Pet> newPets)
 	{
@@ -133,6 +134,7 @@ public class Player {
 		for(Pet pet : pets)
 		{
 			pet.dayEnd();
+			score += pet.getHealth() * 4;
 		}
 	}
 

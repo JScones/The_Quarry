@@ -28,9 +28,10 @@ public class TamaController {
 		m_view = view;
 		
 		view.addButtonListener(new ButtonListener());
-		view.addComboBoxListener(new ComboBoxListener(1), new ComboBoxListener(2), new ComboBoxListener(3));
-		view.addTextFieldListener(new NameTextFieldListener(), new PetNameTextFieldListener(0), new PetNameTextFieldListener(1), new PetNameTextFieldListener(2));
-		view.addMainGameLoopListener(new MainLoopButtonListener());
+		view.playerCreationGUI.addButtonListener(new ButtonListener());
+		view.playerCreationGUI.addComboBoxListener(new ComboBoxListener(1), new ComboBoxListener(2), new ComboBoxListener(3));
+		view.playerCreationGUI.addTextFieldListener(new NameTextFieldListener(), new PetNameTextFieldListener(0), new PetNameTextFieldListener(1), new PetNameTextFieldListener(2));
+		view.mainGameLoopGUI.addMainGameLoopListener(new MainLoopButtonListener());
 		
 		curPetNames.add(" ");
 		curPetNames.add(" ");
@@ -63,28 +64,28 @@ public class TamaController {
 			{
 				if(curView== "Setup")
 				{
-					m_model.setUp(m_view.getNumPlayers(), m_view.getNumDays());
+					m_model.setUp(m_view.viewSetup.getNumPlayers(), m_view.viewSetup.getNumDays());
 					m_view.changeView("Make Player");
 				}
 				else if(curView == "Make Player")
 				{
 					//System.out.println(m_view.getPetSpeciesSelections());
-					Player p = playerCreator.makePlayer(m_view.getPlayerName(), m_view.getPetSpeciesSelections(), m_view.getPetNames());
-					playerNames.add(m_view.getPlayerName());
-					for(int i = 0; i<m_view.getPetNames().size(); i++)
-						if(m_view.getPetNames().get(i).equals(" "))
+					Player p = playerCreator.makePlayer(m_view.playerCreationGUI.getPlayerName(), m_view.playerCreationGUI.getPetSpeciesSelections(), m_view.playerCreationGUI.getPetNames());
+					playerNames.add(m_view.playerCreationGUI.getPlayerName());
+					for(int i = 0; i<m_view.playerCreationGUI.getPetNames().size(); i++)
+						if(m_view.playerCreationGUI.getPetNames().get(i).equals(" "))
 						{
 							
 						}
 						else
-							petNames.add(m_view.getPetNames().get(i));
+							petNames.add(m_view.playerCreationGUI.getPetNames().get(i));
 					m_model.addPlayer(p);
 					if(!(m_model.enoughPlayers()))
-						m_view.nextPlayer(m_model.curNumPlayers() + 1);
+						m_view.playerCreationGUI.nextPlayer(m_model.curNumPlayers() + 1);
 					else
 					{
 						m_model.incrementDay();
-						m_view.setMainGameTab(m_model.getPlayers().get(0));
+						m_view.mainGameLoopGUI.setMainGameTab(m_model.getPlayers().get(0));
 						curPlayerNum = 0;
 						m_view.changeView("Main Game");
 					}
@@ -93,15 +94,15 @@ public class TamaController {
 			}	
 			else if(command == "Clear")
 			{
-				m_view.resetPetView();
+				m_view.playerCreationGUI.resetPetView();
 			}
 			else if(command.equals("donePet1"))
 			{
-				m_view.changePetTab(curPlayer.getPets().get(1), 1);
+				m_view.mainGameLoopGUI.changePetTab(curPlayer.getPets().get(1), 1);
 			}
 			else if(command.equals("donePet2"))
 			{
-				m_view.changePetTab(curPlayer.getPets().get(2), 2);
+				m_view.mainGameLoopGUI.changePetTab(curPlayer.getPets().get(2), 2);
 			}
 		}
 	}
@@ -152,12 +153,12 @@ public class TamaController {
 				
 				if(curPlayer.getPets().get(petNum).getActionsLeft() == 0)
 				{
-					m_view.enablePetActionButtons(false, petNum);
+					m_view.mainGameLoopGUI.enablePetActionButtons(false, petNum);
 				}
 				
 				checkPetDied(curPlayer, curPlayer.getPets().get(petNum));
 				
-				m_view.updatePetBars((petNum), curPlayer.getPets().get(petNum));
+				m_view.mainGameLoopGUI.updatePetBars((petNum), curPlayer.getPets().get(petNum));
 				
 			}
 			else if(commands[0].equals("Store"))
@@ -178,7 +179,7 @@ public class TamaController {
 				{
 					curPlayerNum ++;
 					curPlayer = m_model.getPlayers().get(curPlayerNum);
-					m_view.setMainGameTab(m_model.getPlayers().get(curPlayerNum));
+					m_view.mainGameLoopGUI.setMainGameTab(m_model.getPlayers().get(curPlayerNum));
 				}
 				else
 				{	
@@ -186,8 +187,8 @@ public class TamaController {
 					curPlayer = m_model.getPlayers().get(curPlayerNum);
 					m_view.dayOver();
 					m_model.incrementDay();
-					m_view.updateDayCount();
-					m_view.setMainGameTab(curPlayer);
+					m_view.mainGameLoopGUI.updateDayCount();
+					m_view.mainGameLoopGUI.setMainGameTab(curPlayer);
 				}
 
 				randomEvents();
@@ -288,16 +289,16 @@ public class TamaController {
 					}
 					else
 					{
-						m_view.enablePetActionButtons(false, player.getPets().indexOf(pet));
+						m_view.mainGameLoopGUI.enablePetActionButtons(false, player.getPets().indexOf(pet));
 					}
 				}
 				else
 				{
 					m_view.showPetDiedDialog(player, pet);
-					m_view.enablePetActionButtons(false, player.getPets().indexOf(pet));
+					m_view.mainGameLoopGUI.enablePetActionButtons(false, player.getPets().indexOf(pet));
 				}
 			}
-	    	m_view.updatePetBars(player.getPets().indexOf(pet), pet);
+	    	m_view.mainGameLoopGUI.updatePetBars(player.getPets().indexOf(pet), pet);
 	    }
 	}
 
@@ -315,14 +316,14 @@ public class TamaController {
 		       if (event.getStateChange() == ItemEvent.SELECTED) {
 		    	   String item = (String)event.getItem();
 		    	   lastPetSelected = item;
-		    	   m_view.updatePetPanel(lastPetSelected, boxNum);
+		    	   m_view.playerCreationGUI.updatePetPanel(lastPetSelected, boxNum);
 		    	   if(lastPetSelected.equals(" "))
 		    	   {
 		    		   curPetNames.set(boxNum - 1, " ");
 		    	   }
 		    	   lastPetSelected = " ";
 		       }
-		       m_view.allFieldsAccepted();
+		       m_view.playerCreationGUI.allFieldsAccepted();
 		    }  
 	}
 	
@@ -364,7 +365,7 @@ public class TamaController {
 	        }
 	        else
 	        {
-	        	m_view.playerNameTaken(true);
+	        	m_view.playerCreationGUI.playerNameTaken(true);
 	        }
 	    }
 
@@ -379,15 +380,15 @@ public class TamaController {
 	    	
 			if(playerNames.contains(curName))
 			{
-				m_view.playerNameTaken(true);
+				m_view.playerCreationGUI.playerNameTaken(true);
 			}
 			else if(!(allLetters))
 			{
-				m_view.playerNameTaken(true);
+				m_view.playerCreationGUI.playerNameTaken(true);
 			}
 			else
 			{
-				m_view.playerNameTaken(false);
+				m_view.playerCreationGUI.playerNameTaken(false);
 			}
 	    }
 	    
@@ -439,7 +440,7 @@ public class TamaController {
 	        }
 	        else
 	        {
-	        	m_view.petNameTaken(true, fieldNum);
+	        	m_view.playerCreationGUI.petNameTaken(true, fieldNum);
 	        }
 	    }
 
@@ -453,26 +454,26 @@ public class TamaController {
 	    	boolean allLetters = curName.chars().allMatch(Character::isLetter);
 	    	
 			if(petNames.contains(curName))
-				m_view.petNameTaken(true, fieldNum);
+				m_view.playerCreationGUI.petNameTaken(true, fieldNum);
 			else if(curPetNames.get((fieldNum + 1)%3).equals(curName))
 			{
-				m_view.petNameTaken(true, fieldNum);
-				m_view.petNameTaken(true, (fieldNum + 1)%3);
+				m_view.playerCreationGUI.petNameTaken(true, fieldNum);
+				m_view.playerCreationGUI.petNameTaken(true, (fieldNum + 1)%3);
 			}
 			else if(curPetNames.get((fieldNum + 2)%3).equals(curName))
 			{
-				m_view.petNameTaken(true, fieldNum);
-				m_view.petNameTaken(true, (fieldNum + 2)%3);
+				m_view.playerCreationGUI.petNameTaken(true, fieldNum);
+				m_view.playerCreationGUI.petNameTaken(true, (fieldNum + 2)%3);
 			}
 			else if(!(allLetters))
 			{
-				m_view.petNameTaken(true, fieldNum);
+				m_view.playerCreationGUI.petNameTaken(true, fieldNum);
 			}
 			else
 			{
-				m_view.petNameTaken((curPetNames.get(0).equals(" ")), 0);
-				m_view.petNameTaken((curPetNames.get(1).equals(" ")), 1);
-				m_view.petNameTaken((curPetNames.get(2).equals(" ")), 2);
+				m_view.playerCreationGUI.petNameTaken((curPetNames.get(0).equals(" ")), 0);
+				m_view.playerCreationGUI.petNameTaken((curPetNames.get(1).equals(" ")), 1);
+				m_view.playerCreationGUI.petNameTaken((curPetNames.get(2).equals(" ")), 2);
 			}
 	    }
 	    
