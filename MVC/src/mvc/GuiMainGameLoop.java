@@ -14,6 +14,12 @@ import javax.swing.SwingConstants;
 
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * This class handles the creation of the GUI for the main game, the section where the game is played.
+ * 
+ * @author Josh & Jack
+ *
+ */
 public class GuiMainGameLoop {
 	
 	private TamaModel m_model;
@@ -114,7 +120,24 @@ public class GuiMainGameLoop {
 		m_model = model;
 	}
 	
-	protected JPanel buildMainGameCard()
+	/**
+	 * Creates a <code>JPanel</code> and populates it with place holders for:
+	 * 		The players name.
+	 * 		A <code>TabbedPane</code> displaying the players pets and action buttons.
+	 * 		Buttons for accessing the store, going to the next pet and ending a turn.
+	 * 		The current day and number of days total.
+	 * 
+	 * If a players pet has used all its actions for that day or it is dead, the action 
+	 * buttons are disabled.
+	 * The Next Pet button is disabled when the player is viewing their last pet, and players 
+	 * cannot go back to a pet once they have clicked next pet, until their next turn.
+	 * 
+	 * The <code>TabbedPane</code> displays bars for a pets hunger, energy, toilet and health,
+	 * as well as the number of actions left, lives left and whether the pet is sick.
+	 * 
+	 * @return A <code>JPanel</code> with all the necessary components for playing the game.
+	 */
+	public JPanel buildMainGameCard()
 	{
 		MigLayout Layout = new MigLayout(
 				"flowy, fill, insets 20", 
@@ -188,6 +211,10 @@ public class GuiMainGameLoop {
 		return mainTabbedPane;
 	}
 	
+	/**
+	 * Changes the place holder
+	 * @param player
+	 */
 	public void setMainGameTab(Player player)
 	{
 		int numPets = player.getPets().size();
@@ -464,7 +491,7 @@ public class GuiMainGameLoop {
 		petStatusLabels[petNum].setText(getPetStatus(player.getPets().get(petNum)));
 	}
 	
-	protected void addMainGameLoopListener(ActionListener mglal)
+	public void addMainGameLoopListener(ActionListener mglal)
 	{
 		storeButton.addActionListener(mglal);
 		nextDay.addActionListener(mglal);
@@ -490,7 +517,7 @@ public class GuiMainGameLoop {
 		}
 	}
 	
-	protected void addButtonListener(ActionListener bal)
+	public void addButtonListener(ActionListener bal)
 	{
 		nextPet.addActionListener(bal);
 	}

@@ -17,6 +17,13 @@ import javax.swing.event.DocumentListener;
 
 import net.miginfocom.swing.MigLayout;
 
+/**
+ * This class handles the creation of the GUI for the section of the game where players
+ * enter their names and choose their pets.
+ * 
+ * @author Josh & Jack
+ *
+ */
 public class GuiPlayerCreation {
 	
 	private TamaModel m_model;
@@ -48,9 +55,9 @@ public class GuiPlayerCreation {
 	private JTextField petName2 = new JTextField();
 	private JTextField petName3 = new JTextField();
 	
-	private JPanel petPanel1 = petPanel(1);
-	private JPanel petPanel2 = petPanel(2);
-	private JPanel petPanel3 = petPanel(3);
+	private JPanel petPanel1 = createPetPanel(1);
+	private JPanel petPanel2 = createPetPanel(2);
+	private JPanel petPanel3 = createPetPanel(3);
 	
 	private JComboBox<String> petsCombo1 = new JComboBox<String>();
 	private JComboBox<String> petsCombo2 = new JComboBox<String>();
@@ -64,11 +71,25 @@ public class GuiPlayerCreation {
 	
 	public GuiPlayerCreation(TamaModel model)
 	{
+		//allows access to the number of players expected, and the default stats of all the pets
 		m_model = model;
 	}
 	
-	
-	protected JPanel buildPlayerCreatorPanel()
+	/**
+	 * Creates a <code>JPanel</code> and populates it with a field for name entry, 3 dropdown boxes
+	 * for selecting up to 3 pets, and a next button.
+	 * 
+	 * If a pet is selected in one of the boxes a pet Panel is shown, displaying the stats of
+	 * that species and a field for entering the name of the pet.
+	 * 
+	 * The next button remains disabled until the player has entered a valid name (a tick appears)
+	 * and has at least one pet with a valid name.
+	 * 
+	 * The clear button clears all text fields and resets all dropdown boxes to nothing.
+	 * 
+	 * @return A <code>JPanel</code> with all the necessary components for player creation.
+	 */
+	public JPanel buildPlayerCreatorPanel()
 	{
 		MigLayout Layout = new MigLayout(
 				"fill, insets 20, wrap 3", 
@@ -120,7 +141,7 @@ public class GuiPlayerCreation {
 		curBox.setPreferredSize(buttonSize);
 	}
 	
-	private JPanel petPanel(int count)
+	private JPanel createPetPanel(int count)
 	{
 		MigLayout Layout = new MigLayout(
 				"fill, insets 20, wrap 1", 
@@ -166,7 +187,16 @@ public class GuiPlayerCreation {
 		return petPanel;
 	}
 	
-	protected void updatePetPanel(String newPet, int labelNum)
+	/**
+	 * Displays a panel showing the stats of the species of pet given by <code>newPet</code>
+	 * underneath the correct <code>ComboBox</html>.
+	 * 
+	 * If nothing is selected <code>newPet</html> is " " (a space) and the panel is hidden.
+	 * 
+	 * @param newPet a String identifying the species of the pet selected in the <code>ComboBox</code>
+	 * @param labelNum an Int identifying which <code>ComboBox</code> the pet is selected in.
+	 */
+	public void updatePetPanel(String newPet, int labelNum)
 	{
 		if(labelNum == 1)
 		{
@@ -218,13 +248,22 @@ public class GuiPlayerCreation {
 		allFieldsAccepted();
 	}
 	
-	protected void nextPlayer(int num)
+	/**
+	 * Resets the entire view, ready for another player to enter their name and choose
+	 * their pets.
+	 * 
+	 * @param num the number of the current player entering their details.
+	 */
+	public void nextPlayer(int num)
 	{
 		resetPetView();
 		playerNum.setText("Player " + num + ", What is your name?");
 	}
 	
-	protected void resetPetView()
+	/**
+	 * Resets the player creation screen by clearing all text fields and reseting all comboBoxes.
+	 */
+	public void resetPetView()
 	{
 		petsCombo1.setSelectedItem(" ");
 		petsCombo2.setSelectedItem(" ");
@@ -254,7 +293,7 @@ public class GuiPlayerCreation {
 		allFieldsAccepted();
 	}
 	
-	protected ArrayList<String> getPetSpeciesSelections()
+	public ArrayList<String> getPetSpeciesSelections()
 	{
 		ArrayList<String> petSpecies = new ArrayList<String>();
 		petSpecies.add((String)petsCombo1.getSelectedItem());
@@ -264,7 +303,7 @@ public class GuiPlayerCreation {
 		return petSpecies;
 	}
 	
-	protected ArrayList<String> getPetNames()
+	public ArrayList<String> getPetNames()
 	{
 		ArrayList<String> petNames = new ArrayList<String>();
 		petNames.add(petName1.getText());
@@ -273,7 +312,7 @@ public class GuiPlayerCreation {
 		return petNames;
 	}
 
-	protected void playerNameTaken(Boolean isTaken)
+	public void playerNameTaken(Boolean isTaken)
 	{
 		if(isTaken)
 		{
@@ -289,7 +328,7 @@ public class GuiPlayerCreation {
 		allFieldsAccepted();
 	}
 	
-	protected void petNameTaken(Boolean isTaken, int fieldNum)
+	public void petNameTaken(Boolean isTaken, int fieldNum)
 	{
 		if(isTaken)
 		{
@@ -331,7 +370,7 @@ public class GuiPlayerCreation {
 		allFieldsAccepted();
 	}
 	
-	protected void allFieldsAccepted()
+	public void allFieldsAccepted()
 	{
 		if(isPlayerNameAccepted && isOnePetVisible)
 		{
@@ -351,12 +390,12 @@ public class GuiPlayerCreation {
 		}
 	}
 	
-	protected String getPlayerName()
+	public String getPlayerName()
 	{
 		return nameField.getText();
 	}
 	
-	protected void addButtonListener(ActionListener bal)
+	public void addButtonListener(ActionListener bal)
 	{
 		next_player.addActionListener(bal);
 		petsCombo1.addActionListener(bal);
@@ -365,14 +404,14 @@ public class GuiPlayerCreation {
 		clearSelections.addActionListener(bal);
 	}
 	
-	protected void addComboBoxListener(ItemListener cil1, ItemListener cil2, ItemListener cil3)
+	public void addComboBoxListener(ItemListener cil1, ItemListener cil2, ItemListener cil3)
 	{
 		petsCombo1.addItemListener(cil1);
 		petsCombo2.addItemListener(cil2);
 		petsCombo3.addItemListener(cil3);
 	}
 	
-	protected void addTextFieldListener(DocumentListener ndl, DocumentListener pndl1, DocumentListener pndl2, DocumentListener pndl3)
+	public void addTextFieldListener(DocumentListener ndl, DocumentListener pndl1, DocumentListener pndl2, DocumentListener pndl3)
 	{
 		nameField.getDocument().addDocumentListener(ndl);
 		petName1.getDocument().addDocumentListener(pndl1);
