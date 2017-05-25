@@ -164,7 +164,7 @@ public class TamaView {
 	
 	public Boolean showPetReviveDialog(Player player, Pet pet)
 	{
-		int revive = (Integer)JOptionPane.showOptionDialog(frame, "Oh no " + player.name + ", your pet " + pet.getName() + " died! \n" + "Do you want to revive it", "Uh oh", 0, 1, null, null, null);
+		int revive = (Integer)JOptionPane.showOptionDialog(frame, "<html><font size='5'>Oh no " + player.name + ", your pet " + pet.getName() + " died! <br>" + "Do you want to revive it</font></html>", "Uh oh", 0, 1, null, null, null);
 		if(revive == 0)
 		{
 			return true;
