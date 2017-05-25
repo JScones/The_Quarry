@@ -12,7 +12,7 @@ public class TamaView {
 	
 	public JFrame frame = new JFrame("Tamagotchi");
 	private JPanel cards;
-	protected GuiStartGame viewSetup;
+	protected GuiStartGame startGameGUI;
 	protected GuiPlayerCreation playerCreationGUI;
 	protected GuiMainGameLoop mainGameLoopGUI;
 	public GuiEndGame endGameGUI;
@@ -25,7 +25,7 @@ public class TamaView {
 	public TamaView(TamaModel model)
 	{
 		m_model = model;
-		viewSetup = new GuiStartGame(m_model);
+		startGameGUI = new GuiStartGame(m_model);
 		playerCreationGUI = new GuiPlayerCreation(m_model);
 		mainGameLoopGUI = new GuiMainGameLoop(m_model);
 		endGameGUI = new GuiEndGame(m_model);
@@ -38,13 +38,13 @@ public class TamaView {
 	private void initialise()
 	{
 		//Make Menu card
-		JPanel menuCard = viewSetup.buildMainMenuPanel();
+		JPanel menuCard = startGameGUI.buildMainMenuPanel();
 		
 		//Make Help menu card
-		JPanel helpCard = viewSetup.buildHelpPanel();
+		JPanel helpCard = startGameGUI.buildHelpPanel();
 		
 		//Make the number of players and days card
-		JPanel setupCard = viewSetup.buildSetupPanel();
+		JPanel setupCard = startGameGUI.buildSetupPanel();
 		
 		//Make the player creator card
 		JPanel playerCreatorCard = playerCreationGUI.buildPlayerCreatorPanel();
@@ -77,12 +77,6 @@ public class TamaView {
 	public void dayOver()
 	{
 		JOptionPane.showMessageDialog(frame, "Day " + m_model.getCurDay() + " over!");
-	}
-	
-	protected void addButtonListener(ActionListener bal)
-	{
-		viewSetup.addButtonListener(bal);
-		mainGameLoopGUI.addButtonListener(bal);
 	}
 	
 	protected void changeView(String view)

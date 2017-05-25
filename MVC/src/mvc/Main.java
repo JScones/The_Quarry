@@ -6,6 +6,7 @@ public class Main {
 	{
 		TamaModel 			 model = new TamaModel();
 		TamaView 			 view  = new TamaView(model);
+		@SuppressWarnings("unused")
 		TamaController	controller = new TamaController(model, view);
 		
 		view.frame.setVisible(true);

@@ -1,31 +1,19 @@
 package mvc;
 import java.util.*;
-import java.util.Scanner;
+
 
 
 /**
- * Not actually sure this should be and object but definitely needed to
- * be separated into a separate class, can you make a static class, idk...
- * 
- * Handles the creation of players by:
- * 		asking for the players name and checking for duplicates.
- * 		asking for the number of pets wanted.
- * 		creating the array list of the pets with correct attributes (no duplicate names etc).
- * 		can also display the stats of the potential pets before the player chooses.
+ * TODO Javadoc
  * 
  * @author Josh & Jack
  *
  */
-public class CreatePlayersNew {
+public class CreatePlayers {
 	
-	private Scanner in = new Scanner(System.in);
-	private ArrayList<String> playerNames = new ArrayList<>();
-	private ArrayList<String> petNames = new ArrayList<>();
-	private int numPlayers = 1;
-	private int maxPets = 3;
 	private String curPlayerName;
 	
-	public CreatePlayersNew()
+	public CreatePlayers()
 	{
 		
 	}

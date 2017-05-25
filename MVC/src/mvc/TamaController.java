@@ -14,7 +14,7 @@ public class TamaController {
 	private TamaModel m_model;
 	private TamaView m_view;
 	private String lastPetSelected = " ";
-	private CreatePlayersNew playerCreator = new CreatePlayersNew();
+	private CreatePlayers playerCreator = new CreatePlayers();
 	private ArrayList<String> playerNames = new ArrayList<>();
 	private ArrayList<String> petNames = new ArrayList<>();
 	private ArrayList<String> curPetNames = new ArrayList<>();
@@ -26,8 +26,8 @@ public class TamaController {
 		m_model = model;
 		m_view = view;
 		
-		view.addButtonListener(new ButtonListener());
-		view.playerCreationGUI.addButtonListener(new ButtonListener());
+		view.startGameGUI.addButtonListener(new StartGameButtonListener());
+		view.playerCreationGUI.addButtonListener(new PlayerCreationButtonListener());
 		view.playerCreationGUI.addComboBoxListener(new ComboBoxListener(1), new ComboBoxListener(2), new ComboBoxListener(3));
 		view.playerCreationGUI.addTextFieldListener(new NameTextFieldListener(), new PetNameTextFieldListener(0), new PetNameTextFieldListener(1), new PetNameTextFieldListener(2));
 		view.mainGameLoopGUI.addMainGameLoopListener(new MainLoopButtonListener());
@@ -38,21 +38,19 @@ public class TamaController {
 	}
 	
 	
-	class ButtonListener implements ActionListener 
+	class StartGameButtonListener implements ActionListener 
 	{
 		@Override
 		public void actionPerformed(ActionEvent e)
 		{
 			String command = e.getActionCommand();
-			String curView = m_view.getCurrentView();
-			//System.out.println(command);
+
 			if(command == "Start")
 			{
 				m_view.changeView("Setup");
 			}
 			else if(command == "Help")
 			{
-				//m_view.updateText();
 				m_view.changeView("Help");
 			}
 			else if(command == "Back")
@@ -61,36 +59,43 @@ public class TamaController {
 			}
 			else if(command == "Next")
 			{
-				if(curView== "Setup")
-				{
-					m_model.setUp(m_view.viewSetup.getNumPlayers(), m_view.viewSetup.getNumDays());
-					m_view.changeView("Make Player");
-				}
-				else if(curView == "Make Player")
-				{
-					//System.out.println(m_view.getPetSpeciesSelections());
-					Player p = playerCreator.makePlayer(m_view.playerCreationGUI.getPlayerName(), m_view.playerCreationGUI.getPetSpeciesSelections(), m_view.playerCreationGUI.getPetNames());
-					playerNames.add(m_view.playerCreationGUI.getPlayerName());
-					for(int i = 0; i<m_view.playerCreationGUI.getPetNames().size(); i++)
-						if(m_view.playerCreationGUI.getPetNames().get(i).equals(" "))
-						{
-							
-						}
-						else
-							petNames.add(m_view.playerCreationGUI.getPetNames().get(i));
-					m_model.addPlayer(p);
-					if(!(m_model.enoughPlayers()))
-						m_view.playerCreationGUI.nextPlayer(m_model.curNumPlayers() + 1);
-					else
-					{
-						m_model.incrementDay();
-						m_view.mainGameLoopGUI.setMainGameTab(m_model.getPlayers().get(0));
-						curPlayerNum = 0;
-						m_view.changeView("Main Game");
-					}
-					curPlayer = m_model.getPlayers().get(0);
-				}
+				m_model.setUp(m_view.startGameGUI.getNumPlayers(), m_view.startGameGUI.getNumDays());
+				m_view.changeView("Make Player");
 			}	
+			
+		}
+	}
+	
+	class PlayerCreationButtonListener implements ActionListener 
+	{
+		@Override
+		public void actionPerformed(ActionEvent e)
+		{
+			String command = e.getActionCommand();
+			
+			if(command == "Next")
+			{
+				Player p = playerCreator.makePlayer(m_view.playerCreationGUI.getPlayerName(), m_view.playerCreationGUI.getPetSpeciesSelections(), m_view.playerCreationGUI.getPetNames());
+				playerNames.add(m_view.playerCreationGUI.getPlayerName());
+				for(int i = 0; i<m_view.playerCreationGUI.getPetNames().size(); i++)
+					if(m_view.playerCreationGUI.getPetNames().get(i).equals(" "))
+					{
+						//Do nothing
+					}
+					else
+						petNames.add(m_view.playerCreationGUI.getPetNames().get(i));
+				m_model.addPlayer(p);
+				if(!(m_model.enoughPlayers()))
+					m_view.playerCreationGUI.nextPlayer(m_model.curNumPlayers() + 1);
+				else
+				{
+					m_model.incrementDay();
+					m_view.mainGameLoopGUI.setMainGameTab(m_model.getPlayers().get(0));
+					curPlayerNum = 0;
+					m_view.changeView("Main Game");
+				}
+				curPlayer = m_model.getPlayers().get(0);
+			}
 			else if(command == "Clear")
 			{
 				m_view.playerCreationGUI.resetPetView();
@@ -114,7 +119,7 @@ public class TamaController {
 			String command = e.getActionCommand();
 			String[] commands = command.split(" ");
 			curPlayer = m_model.getPlayers().get(curPlayerNum);
-			//System.out.println(command);
+			
 			if(commands.length == 2)
 			{
 				int petNum = Integer.parseInt(commands[1]);
@@ -162,8 +167,8 @@ public class TamaController {
 			}
 			else if(commands[0].equals("Store"))
 			{
-				//System.out.println(curPlayer);
 				m_view.disableGame();
+				@SuppressWarnings("unused")
 				ShopView shop = new ShopView(curPlayer, m_view);
 			}
 			else if(command.equals("End my day"))
@@ -238,7 +243,7 @@ public class TamaController {
 	    {
 	    	Random rand = new Random();
 	    	int num = rand.nextInt(9);
-	    	//System.out.println(num);
+	    	
 	    	if(num == 8)
 	    	{
 	    		int playerIndex;
@@ -282,7 +287,7 @@ public class TamaController {
 	    	}
 	    	
 	    	int behaveNum = rand.nextInt(9);
-	    	//System.out.println(behaveNum);
+	    	
 	    	if(behaveNum == 8)
 	    	{
 	    		int behavePlayerIndex;
@@ -344,7 +349,6 @@ public class TamaController {
 	    }
 	}
 
-	
 	class ComboBoxListener implements ItemListener
 	{
 		private int boxNum;

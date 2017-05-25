@@ -40,7 +40,7 @@ public class GuiEndGame {
 	private String buildScoreString()
 	{
 		String scores = "<html><p><font size='20'><center>";
-		scores += "Game Over! Well Done!<br /><br />";
+		scores += "Game Over!        Well Done!<br /><br />";
 		
 		for(Player player : m_model.getPlayers())
 		{
