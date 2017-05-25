@@ -12,8 +12,15 @@ Help section
 
 
 ACTIONS
-Play:
+Play: Let a pet play with toys you have bought from the store. This increases the pets mood, more so if its the pets favorite
+	toy. If the toy is not the pets favorite it will be rougher with the toy, causing it to break sooner.
 Feed: select food items you have bought from the store to give to your pet. This action helps restore the 'Hunger' bar of the
 	pet.
 Toilet: Relieves the pet and restores the 'Toilet' bar.
 Sleep: Restores the pets 'Energy' bar. This does not advance a day forward in the game.
+
+RANDOM EVENTS - After each day there is a chance any pet will get a random event.
+Misbehaving: If your pet begins to misbehave you have the option of correcting the behaviour with a punishment, the pet will
+	feel unhappy after this.
+Sick: If the pet becomes sick, you have the option to cure the pet for $10 and it will feel happier after this, if not the
+	pet will stay sick.
