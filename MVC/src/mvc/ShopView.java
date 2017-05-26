@@ -83,15 +83,7 @@ public class ShopView {
 	
 	String toyList = new String();
 	String foodList = new String();
-
-	/**
-	 * Launch the application.
-	 */
-
 	
-	/**
-	 * Create the application.
-	 */
 	public ShopView(Player aPlayer) {
 		player = aPlayer;
 		initialize();

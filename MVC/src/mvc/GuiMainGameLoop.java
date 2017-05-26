@@ -17,7 +17,7 @@ import net.miginfocom.swing.MigLayout;
 /**
  * This class handles the creation of the GUI for the main game, the section where the game is played.
  * 
- * @author Josh & Jack
+ * 
  *
  */
 public class GuiMainGameLoop {

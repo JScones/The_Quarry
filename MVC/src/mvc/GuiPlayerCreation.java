@@ -21,7 +21,7 @@ import net.miginfocom.swing.MigLayout;
  * This class handles the creation of the GUI for the section of the game
  * where players enter their names and choose their pets.
  * 
- * @author Josh & Jack
+ * 
  *
  */
 public class GuiPlayerCreation {
@@ -189,9 +189,9 @@ public class GuiPlayerCreation {
 	
 	/**
 	 * Displays a panel showing the stats of the species of pet given by <code>newPet</code>
-	 * underneath the correct <code>ComboBox</html>.
+	 * underneath the correct <code>ComboBox</code>.
 	 * 
-	 * If nothing is selected <code>newPet</html> is " " (a space) and the panel is hidden.
+	 * If nothing is selected <code>newPet</code> is " " (a space) and the panel is hidden.
 	 * 
 	 * @param newPet a String identifying the species of the pet selected in the <code>ComboBox</code>
 	 * @param labelNum an Int identifying which <code>ComboBox</code> the pet is selected in.

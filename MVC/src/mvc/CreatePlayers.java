@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * TODO Javadoc
  * 
- * @author Josh & Jack
+ * 
  *
  */
 public class CreatePlayers {
@@ -25,7 +25,11 @@ public class CreatePlayers {
 	 * This method has no console input or output itself, that is all handled by other private methods
 	 * for security and to keep the methods specific.
 	 * 
+	 * @param aName the name of the player to be created
+	 * @param petSpecies an <code>ArrayList</code> of the players chosen pet species
+	 * @param petNames an <code>ArrayList</code> of the players chosen pet names
 	 * @return 		The complete player object that has just been created
+	 * 
 	 */
 	public Player makePlayer(String aName, ArrayList<String> petSpecies, ArrayList<String> petNames)
 	{
