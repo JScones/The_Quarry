@@ -1,5 +1,10 @@
 package mvc;
 
+/**
+ * Creates the model, view and controller objects and displays the view.
+ * 
+ *
+ */
 public class Main {
 	
 	public static void main(String[] args)

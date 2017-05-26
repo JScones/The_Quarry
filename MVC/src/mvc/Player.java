@@ -3,8 +3,7 @@ package mvc;
 import java.util.ArrayList;
 
 /**
- * 
- * @author screw
+ * TODO Javadoc
  *
  */
 public class Player {

@@ -1,5 +1,10 @@
 package mvc;
 
+/**
+ * This class is the parent class of all the seperate foods.
+ * Contains self explanatory getters and setters.
+ *
+ */
 public class Food {
 
 	private String name;

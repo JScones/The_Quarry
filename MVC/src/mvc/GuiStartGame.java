@@ -17,7 +17,7 @@ import net.miginfocom.swing.MigLayout;
  * This class handles the GUI for the section of the game where the number of days and players are chosen for 
  * the game, as well as the help section.
  * 
- * @author Josh & Jack
+ * 
  *
  */
 public class GuiStartGame{
