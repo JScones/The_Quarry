@@ -89,8 +89,6 @@ public class CreatePlayers {
 		    	PetSnake snake = new PetSnake(thisPetName);
 		    	pets.add(snake);
 		    	break;
-		    	
-		    // MORE NEEDED HERE
 		    }
 		    
 	    }
