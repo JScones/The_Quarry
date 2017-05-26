@@ -34,7 +34,6 @@ public class PlayerTest {
 		daxx.addToy(ball);
 		
 		assertTrue(daxx.getToys().equals(toys));
-		System.out.println("aaaaaa\nddddddd");
 	}
 
 	@Test
@@ -48,20 +47,5 @@ public class PlayerTest {
 
 	}
 	
-	@Test
-	public void testBuyExceed()
-	{
-		double bal = daxx.getMoney();
-		ArrayList<Food> foods = daxx.getFood();
-		daxx.setMoney(1.0);
-
-		daxx.Buy(milk);
-
-		assertTrue(1.0 == daxx.getMoney());
-		daxx.setMoney(bal);
-		assertTrue(foods == daxx.getFood());
-		
-	}
-
 }
 	
