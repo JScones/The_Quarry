@@ -23,16 +23,13 @@ public class PetTest {
 	
 	@Test
 	public void testFeed() {
+		int hunger = Tigger.getStats()[0];
+		int value = Piggy.getValue();
 		Tigger.feed(Piggy);
-		assertEquals(Tigger.getStats()[0], 18);
+		
+		assertEquals(Tigger.getStats()[0], hunger + value);
 	}
-	
-	@Test
-	public void testSleep() {
-		int currEnergy = Tigger.getStats()[1];
-		Tigger.sleep();
-		assertEquals(currEnergy + 5, Tigger.getStats()[1]);
-	}
+
 	
 	@Test
 	public void testPlay() {
